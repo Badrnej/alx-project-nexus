@@ -11,6 +11,9 @@ import { WeatherCharts } from "@/components/weather-charts"
 import { FavoritesPanel } from "@/components/favorites-panel"
 import { SettingsPanel } from "@/components/settings-panel"
 import { ThemeToggle } from "@/components/theme-toggle"
+import HeroSection from "@/components/hero-section"
+import EnhancedStats from "@/components/enhanced-stats"
+import Footer from "@/components/footer"
 import { Cloud, Wind, Droplets, Thermometer, Eye, Gauge, MapPin, Star, StarOff, Settings } from "lucide-react"
 import { getTranslation, type Language } from "@/lib/translations"
 
@@ -98,6 +101,7 @@ export default function WeatherBoard() {
   const [showFavorites, setShowFavorites] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
   const [settings, setSettings] = useState<UserSettings>(defaultSettings)
+  const [expandedDetail, setExpandedDetail] = useState<string | null>(null)
 
   // Mock weather data for demonstration
   const mockWeatherData: WeatherData = {
@@ -377,6 +381,54 @@ export default function WeatherBoard() {
     localStorage.setItem("weather-settings", JSON.stringify(newSettings))
   }
 
+  const toggleDetailExpansion = (detailType: string) => {
+    setExpandedDetail(expandedDetail === detailType ? null : detailType)
+  }
+
+  const getDetailedInfo = (type: string, weather: WeatherData) => {
+    const details = {
+      temperature: {
+        title: "Informations sur la température",
+        content: [
+          `Température actuelle: ${weather.temperature}°${settings.temperatureUnit === "celsius" ? "C" : "F"}`,
+          `Ressenti: ${weather.feelsLike}°${settings.temperatureUnit === "celsius" ? "C" : "F"}`,
+          `La température peut varier selon l'altitude et la proximité de l'eau`,
+          `Conditions idéales: 18-24°C pour le confort humain`,
+        ]
+      },
+      humidity: {
+        title: "Informations sur l'humidité",
+        content: [
+          `Humidité relative: ${weather.humidity}%`,
+          `Taux d'humidité optimal: 40-60%`,
+          `Humidité élevée (>70%): sensation de lourdeur`,
+          `Humidité faible (<30%): air sec, inconfort`,
+          `Impact sur la perception de température`,
+        ]
+      },
+      wind: {
+        title: "Informations sur le vent",
+        content: [
+          `Vitesse du vent: ${weather.windSpeed} ${settings.windSpeedUnit === "kmh" ? "km/h" : "mph"}`,
+          `Force du vent: ${weather.windSpeed < 10 ? "Faible" : weather.windSpeed < 25 ? "Modéré" : weather.windSpeed < 50 ? "Fort" : "Très fort"}`,
+          `Le vent affecte la température ressentie`,
+          `Vent fort (>25 km/h): peut compliquer les activités extérieures`,
+        ]
+      },
+      pressure: {
+        title: "Informations sur la pression",
+        content: [
+          `Pression atmosphérique: ${weather.pressure} ${settings.pressureUnit === "hpa" ? "hPa" : "inHg"}`,
+          `Pression normale: ~1013 hPa`,
+          `Haute pression (>1020 hPa): temps stable, ciel dégagé`,
+          `Basse pression (<1000 hPa): temps instable, risque de précipitations`,
+          `Influence sur les conditions météorologiques`,
+        ]
+      }
+    }
+    return details[type as keyof typeof details] || null
+  }
+
   const t = getTranslation(settings.language)
 
   // Apply unit conversions to weather data
@@ -474,18 +526,45 @@ export default function WeatherBoard() {
       {/* Main Dashboard */}
       <main className="container mx-auto px-4 py-8">
         {displayWeather ? (
-          <div className="space-y-8">
-            {/* Current Weather Overview */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="space-y-12">
+            {/* Section Héros avec animations */}
+            <HeroSection currentWeather={displayWeather} t={t} />
+
+            {/* Statistiques améliorées avec animations */}
+            <div className="space-y-6">
+              <div className="text-center space-y-2 cascade-animation">
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-primary via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                  Conditions Actuelles
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Découvrez les détails météorologiques en temps réel avec des informations complètes et interactives
+                </p>
+              </div>
+              
+              <EnhancedStats 
+                weather={displayWeather}
+                settings={settings}
+                t={t}
+                expandedDetail={expandedDetail}
+                onToggleDetail={toggleDetailExpansion}
+                getDetailedInfo={getDetailedInfo}
+              />
+            </div>
+
+            {/* Vue d'ensemble météo traditionnelle */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 cascade-animation" style={{animationDelay: '0.6s'}}>
               <div className="lg:col-span-2">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-semibold text-foreground">Météo actuelle</h2>
+                    <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+                      <Cloud className="h-5 w-5 text-primary animate-soft-pulse" />
+                      Météo Détaillée
+                    </h2>
                     <Button
                       variant={isFavorite ? "default" : "outline"}
                       size="sm"
                       onClick={toggleFavorite}
-                      className="gap-2 transition-all duration-300 hover:scale-105"
+                      className="gap-2 transition-all duration-300 hover:scale-105 wave-effect"
                     >
                       {isFavorite ? <Star className="h-4 w-4 fill-current" /> : <StarOff className="h-4 w-4" />}
                       <span className="hidden sm:inline">
@@ -493,7 +572,9 @@ export default function WeatherBoard() {
                       </span>
                     </Button>
                   </div>
-                  <WeatherCard weather={displayWeather} settings={settings} t={t} />
+                  <div className="magic-glow">
+                    <WeatherCard weather={displayWeather} settings={settings} t={t} />
+                  </div>
                 </div>
               </div>
 
@@ -576,91 +657,57 @@ export default function WeatherBoard() {
               </div>
             </div>
 
-            {/* Quick Stats avec effets créatifs */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-200/20 hover:from-blue-500/20 hover:to-blue-600/10 transition-all duration-300 hover:scale-105 hover:shadow-xl group glass-shine">
-                <CardContent className="p-4 relative overflow-hidden">
-                  <div className="flex items-center gap-3 relative z-10">
-                    <div className="p-2 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors duration-300 group-hover:scale-110">
-                      <Thermometer className="h-5 w-5 text-blue-600 group-hover:animate-pulse" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">{t.stats.temperature}</p>
-                      <p className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
-                        {displayWeather.temperature}°{settings.temperatureUnit === "celsius" ? "C" : "F"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
-                </CardContent>
-              </Card>
+            {/* Graphiques et prévisions avec animations */}
+            {settings.showCharts && (
+              <div className="cascade-animation" style={{animationDelay: '0.8s'}}>
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                    Analyses Météorologiques
+                  </h3>
+                  <p className="text-muted-foreground">Évolution des conditions sur 24 heures</p>
+                </div>
+                <div className="magic-glow">
+                  <WeatherCharts hourlyData={displayHourlyData} settings={settings} t={t} />
+                </div>
+              </div>
+            )}
 
-              <Card className="bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 border-cyan-200/20 hover:from-cyan-500/20 hover:to-cyan-600/10 transition-all duration-300 hover:scale-105 hover:shadow-xl group glass-shine">
-                <CardContent className="p-4 relative overflow-hidden">
-                  <div className="flex items-center gap-3 relative z-10">
-                    <div className="p-2 bg-cyan-500/10 rounded-lg group-hover:bg-cyan-500/20 transition-colors duration-300 group-hover:scale-110">
-                      <Droplets className="h-5 w-5 text-cyan-600 group-hover:animate-bounce" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">{t.stats.humidity}</p>
-                      <p className="text-xl font-bold bg-gradient-to-r from-cyan-600 to-cyan-400 bg-clip-text text-transparent">{displayWeather.humidity}%</p>
-                    </div>
-                  </div>
-                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-cyan-400/20 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-gradient-to-br from-indigo-500/10 to-indigo-600/5 border-indigo-200/20 hover:from-indigo-500/20 hover:to-indigo-600/10 transition-all duration-300 hover:scale-105 hover:shadow-xl group glass-shine">
-                <CardContent className="p-4 relative overflow-hidden">
-                  <div className="flex items-center gap-3 relative z-10">
-                    <div className="p-2 bg-indigo-500/10 rounded-lg group-hover:bg-indigo-500/20 transition-colors duration-300 group-hover:scale-110">
-                      <Wind className="h-5 w-5 text-indigo-600 group-hover:animate-spin" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">{t.stats.wind}</p>
-                      <p className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text text-transparent">
-                        {displayWeather.windSpeed} {settings.windSpeedUnit === "kmh" ? "km/h" : "mph"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-indigo-400/20 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 border-purple-200/20 hover:from-purple-500/20 hover:to-purple-600/10 transition-all duration-300 hover:scale-105 hover:shadow-xl group glass-shine">
-                <CardContent className="p-4 relative overflow-hidden">
-                  <div className="flex items-center gap-3 relative z-10">
-                    <div className="p-2 bg-purple-500/10 rounded-lg group-hover:bg-purple-500/20 transition-colors duration-300 group-hover:scale-110">
-                      <Gauge className="h-5 w-5 text-purple-600 group-hover:animate-pulse" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">{t.stats.pressure}</p>
-                      <p className="text-xl font-bold bg-gradient-to-r from-purple-600 to-purple-400 bg-clip-text text-transparent">
-                        {displayWeather.pressure} {settings.pressureUnit === "hpa" ? "hPa" : "inHg"}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-purple-400/20 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {settings.showCharts && <WeatherCharts hourlyData={displayHourlyData} settings={settings} t={t} />}
-
-            {settings.showForecast && <WeatherForecast forecast={displayForecast} settings={settings} t={t} />}
+            {settings.showForecast && (
+              <div className="cascade-animation" style={{animationDelay: '1.0s'}}>
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-indigo-600 bg-clip-text text-transparent">
+                    Prévisions 5 Jours
+                  </h3>
+                  <p className="text-muted-foreground">Planifiez vos activités en toute confiance</p>
+                </div>
+                <div className="magic-glow">
+                  <WeatherForecast forecast={displayForecast} settings={settings} t={t} />
+                </div>
+              </div>
+            )}
           </div>
         ) : (
-          <div className="flex items-center justify-center min-h-[400px]">
-            <div className="text-center space-y-4">
-              <Cloud className="h-16 w-16 text-muted-foreground mx-auto" />
-              <div>
-                <h2 className="text-xl font-semibold text-foreground">{t.empty.title}</h2>
-                <p className="text-muted-foreground">{t.empty.description}</p>
+          <div className="flex items-center justify-center min-h-[400px] cascade-animation">
+            <div className="text-center space-y-6">
+              <div className="relative">
+                <Cloud className="h-24 w-24 text-muted-foreground mx-auto animate-elegant-bounce" />
+                <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl animate-pulse opacity-30" />
+              </div>
+              <div className="space-y-2">
+                <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                  {t.empty.title}
+                </h2>
+                <p className="text-muted-foreground max-w-md mx-auto leading-relaxed">
+                  {t.empty.description}
+                </p>
               </div>
             </div>
           </div>
         )}
       </main>
+
+      {/* Footer professionnel */}
+      <Footer />
     </div>
   )
 }
