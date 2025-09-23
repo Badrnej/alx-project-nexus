@@ -44,10 +44,51 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Coordinates not available from OpenWeather response' }, { status: 500 })
     }
 
-    // One Call for forecast (exclude minutely to reduce payload)
-    const resOne = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&appid=${apiKey}`)
-    if (!resOne.ok) throw new Error('OpenWeather onecall fetch failed')
-    const one = await resOne.json()
+    // Use standard forecast API (5 day / 3 hour forecast) - free tier
+    const resForecast = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`)
+    if (!resForecast.ok) throw new Error('OpenWeather forecast fetch failed')
+    const forecast = await resForecast.json()
+
+    // Process forecast data into hourly and daily
+    const hourlyData = (forecast.list || []).slice(0, 24).map((item: any) => ({
+      time: new Date(item.dt * 1000).toISOString(),
+      temperature: kelvinToCelsius(item.main?.temp),
+      humidity: item.main?.humidity,
+      windSpeed: Math.round(item.wind?.speed * 3.6),
+      pressure: item.main?.pressure,
+    }))
+
+    // Group forecast by day for daily data
+    const dailyMap = new Map()
+    forecast.list?.forEach((item: any) => {
+      const date = new Date(item.dt * 1000).toISOString().split('T')[0]
+      if (!dailyMap.has(date)) {
+        dailyMap.set(date, {
+          date,
+          temps: [],
+          conditions: [],
+          icons: [],
+          humidities: [],
+          windSpeeds: [],
+        })
+      }
+      const day = dailyMap.get(date)
+      day.temps.push(kelvinToCelsius(item.main?.temp))
+      day.conditions.push(item.weather?.[0]?.main)
+      day.icons.push(item.weather?.[0]?.icon)
+      day.humidities.push(item.main?.humidity)
+      day.windSpeeds.push(Math.round(item.wind?.speed * 3.6))
+    })
+
+    const dailyData = Array.from(dailyMap.values()).slice(0, 7).map((day: any) => ({
+      date: day.date,
+      maxTemp: Math.max(...day.temps),
+      minTemp: Math.min(...day.temps),
+      condition: day.conditions[0], // Use first condition of the day
+      icon: day.icons[0], // Use first icon of the day
+      humidity: Math.round(day.humidities.reduce((a: number, b: number) => a + b, 0) / day.humidities.length),
+      windSpeed: Math.round(day.windSpeeds.reduce((a: number, b: number) => a + b, 0) / day.windSpeeds.length),
+    }))
 
     const normalized = {
       location: currentData.name,
@@ -60,24 +101,10 @@ export async function GET(request: Request) {
       windSpeed: Math.round(currentData.wind?.speed * 3.6), // m/s to km/h
       pressure: currentData.main?.pressure,
       visibility: (currentData.visibility ?? null) !== null ? Math.round((currentData.visibility as number) / 1000) : null,
-      localTime: new Date((one.current?.dt ?? Date.now() / 1000) * 1000).toISOString(),
+      localTime: new Date().toISOString(),
       coordinates: { lat, lon },
-      hourly: (one.hourly || []).slice(0, 24).map((h: any) => ({
-        time: new Date(h.dt * 1000).toISOString(),
-        temperature: kelvinToCelsius(h.temp),
-        humidity: h.humidity,
-        windSpeed: Math.round(h.wind_speed * 3.6),
-        pressure: h.pressure,
-      })),
-      daily: (one.daily || []).slice(0, 7).map((d: any) => ({
-        date: new Date(d.dt * 1000).toISOString().split('T')[0],
-        maxTemp: kelvinToCelsius(d.temp?.max),
-        minTemp: kelvinToCelsius(d.temp?.min),
-        condition: d.weather?.[0]?.main,
-        icon: d.weather?.[0]?.icon,
-        humidity: d.humidity,
-        windSpeed: Math.round(d.wind_speed * 3.6),
-      })),
+      hourly: hourlyData,
+      daily: dailyData,
     }
 
     return NextResponse.json(normalized)
