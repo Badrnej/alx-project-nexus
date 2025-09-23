@@ -207,9 +207,9 @@ export default function WeatherBoard() {
 
   const convertPressure = (pressure: number, unit: "hpa" | "inHg") => {
     if (unit === "inHg") {
-      return (pressure * 0.02953).toFixed(2)
+      return parseFloat((pressure * 0.02953).toFixed(2))
     }
-    return pressure.toString()
+    return Math.round(pressure)
   }
 
   useEffect(() => {
@@ -268,65 +268,57 @@ export default function WeatherBoard() {
     setSearchHistory(newHistory)
     localStorage.setItem("weather-search-history", JSON.stringify(newHistory))
 
-    // Simulate API call delay
-    setTimeout(() => {
-      const cities = [
-        { name: "Paris", country: "France", coords: { lat: 48.8566, lon: 2.3522 } },
-        { name: "London", country: "United Kingdom", coords: { lat: 51.5074, lon: -0.1278 } },
-        { name: "New York", country: "United States", coords: { lat: 40.7128, lon: -74.006 } },
-        { name: "Tokyo", country: "Japan", coords: { lat: 35.6762, lon: 139.6503 } },
-        { name: "Sydney", country: "Australia", coords: { lat: -33.8688, lon: 151.2093 } },
-        { name: "Berlin", country: "Germany", coords: { lat: 52.52, lon: 13.405 } },
-        { name: "Madrid", country: "Spain", coords: { lat: 40.4168, lon: -3.7038 } },
-        { name: "Rome", country: "Italy", coords: { lat: 41.9028, lon: 12.4964 } },
-      ]
+    try {
+      const res = await fetch(`/api/weather?q=${encodeURIComponent(city)}`)
+      if (!res.ok) throw new Error('API request failed')
+      const data = await res.json()
 
-      const selectedCity = cities.find((c) => c.name.toLowerCase().includes(city.toLowerCase())) || {
-        name: city,
-        country: "Unknown",
-        coords: { lat: 0, lon: 0 },
-      }
-
-      const newTemp = Math.floor(Math.random() * 30) + 5
-      const newHumidity = Math.floor(Math.random() * 40) + 40
-      const newWind = Math.floor(Math.random() * 20) + 5
-      const newPressure = Math.floor(Math.random() * 50) + 990
-
+      // Map normalized API data into our state shape
       const newWeather: WeatherData = {
-        location: selectedCity.name,
-        country: selectedCity.country,
-        temperature: newTemp,
-        condition: ["Sunny", "Partly Cloudy", "Cloudy", "Rainy"][Math.floor(Math.random() * 4)],
-        humidity: newHumidity,
-        windSpeed: newWind,
-        pressure: newPressure,
-        visibility: Math.floor(Math.random() * 15) + 5,
-        feelsLike: newTemp + Math.floor(Math.random() * 6) - 3,
-        icon: "partly-cloudy",
-        localTime: new Date().toLocaleTimeString("fr-FR", {
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
-        coordinates: selectedCity.coords,
+        location: data.location || city,
+        country: data.country || 'Unknown',
+        temperature: data.temperature ?? mockWeatherData.temperature,
+        condition: data.condition || mockWeatherData.condition,
+        humidity: data.humidity ?? mockWeatherData.humidity,
+        windSpeed: data.windSpeed ?? mockWeatherData.windSpeed,
+        pressure: data.pressure ?? mockWeatherData.pressure,
+        visibility: data.visibility ?? mockWeatherData.visibility,
+        feelsLike: data.feelsLike ?? mockWeatherData.feelsLike,
+        icon: data.icon || mockWeatherData.icon,
+        localTime: new Date(data.localTime).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }),
+        coordinates: data.coordinates || mockWeatherData.coordinates,
       }
 
-      // Generate new forecast
-      const newForecast = mockForecast.map((day) => ({
-        ...day,
-        maxTemp: Math.floor(Math.random() * 15) + 15,
-        minTemp: Math.floor(Math.random() * 10) + 5,
-        humidity: Math.floor(Math.random() * 40) + 40,
-        windSpeed: Math.floor(Math.random() * 20) + 5,
+      const newForecast: ForecastDay[] = (data.daily || mockForecast).slice(0, 5).map((d: any, idx: number) => ({
+        date: d.date || mockForecast[idx].date,
+        maxTemp: d.maxTemp ?? mockForecast[idx].maxTemp,
+        minTemp: d.minTemp ?? mockForecast[idx].minTemp,
+        condition: d.condition || mockForecast[idx].condition,
+        icon: d.icon || mockForecast[idx].icon,
+        humidity: d.humidity ?? mockForecast[idx].humidity,
+        windSpeed: d.windSpeed ?? mockForecast[idx].windSpeed,
       }))
 
-      // Generate new hourly data
-      const newHourlyData = generateHourlyData(newTemp, newHumidity, newWind, newPressure)
+      const newHourlyData: HourlyData[] = (data.hourly || []).slice(0, 24).map((h: any) => ({
+        time: new Date(h.time).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }),
+        temperature: h.temperature,
+        humidity: h.humidity,
+        windSpeed: h.windSpeed,
+        pressure: h.pressure,
+      }))
 
       setCurrentWeather(newWeather)
       setForecast(newForecast)
-      setHourlyData(newHourlyData)
+      setHourlyData(newHourlyData.length ? newHourlyData : generateHourlyData(newWeather.temperature, newWeather.humidity, newWeather.windSpeed, newWeather.pressure))
+    } catch (err) {
+      // Fallback to mock behavior on error
+      console.error('Weather API error:', err)
+      setCurrentWeather(mockWeatherData)
+      setForecast(mockForecast)
+      setHourlyData(generateHourlyData(mockWeatherData.temperature, mockWeatherData.humidity, mockWeatherData.windSpeed, mockWeatherData.pressure))
+    } finally {
       setLoading(false)
-    }, 1000)
+    }
   }
 
   const toggleTheme = () => {
@@ -334,7 +326,7 @@ export default function WeatherBoard() {
     setIsDark(newTheme)
     document.documentElement.classList.toggle("dark", newTheme)
     // Update settings to manual theme control
-    const newSettings = { ...settings, theme: newTheme ? "dark" : ("light" as const) }
+    const newSettings = { ...settings, theme: newTheme ? ("dark" as const) : ("light" as const) }
     setSettings(newSettings)
     localStorage.setItem("weather-settings", JSON.stringify(newSettings))
   }
@@ -409,7 +401,7 @@ export default function WeatherBoard() {
     ...hour,
     temperature: convertTemperature(hour.temperature, settings.temperatureUnit),
     windSpeed: convertWindSpeed(hour.windSpeed, settings.windSpeedUnit),
-    pressure: Number.parseFloat(convertPressure(hour.pressure, settings.pressureUnit)),
+    pressure: convertPressure(hour.pressure, settings.pressureUnit),
   }))
 
   return (
