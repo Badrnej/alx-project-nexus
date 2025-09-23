@@ -405,15 +405,19 @@ export default function WeatherBoard() {
   }))
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50/50 to-indigo-50 dark:from-slate-900 dark:via-indigo-950/50 dark:to-slate-800 transition-all duration-500 animate-gradient-xy">
+      <div className="background-particles"></div>
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50 glass-shine">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <Cloud className="h-8 w-8 text-primary" />
-                <h1 className="text-2xl font-bold text-foreground">{t.appTitle}</h1>
+              <div className="flex items-center gap-2 group">
+                <div className="relative">
+                  <Cloud className="h-8 w-8 text-primary transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 drop-shadow-lg" />
+                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-sm scale-150 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-primary via-purple-600 to-indigo-600 bg-clip-text text-transparent hover:from-indigo-600 hover:to-purple-600 transition-all duration-300 neon-hover">{t.appTitle}</h1>
               </div>
               <Badge variant="secondary" className="text-xs">
                 {t.version}
@@ -425,15 +429,20 @@ export default function WeatherBoard() {
                 variant="outline"
                 size="icon"
                 onClick={() => setShowFavorites(!showFavorites)}
-                className="relative"
+                className="relative transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-primary/10 border-primary/20"
               >
-                <Star className="h-4 w-4" />
+                <Star className="h-4 w-4 transition-transform duration-300 hover:rotate-12" />
                 {favorites.length > 0 && (
                   <Badge className="absolute -top-2 -right-2 h-5 w-5 p-0 text-xs">{favorites.length}</Badge>
                 )}
               </Button>
-              <Button variant="outline" size="icon" onClick={() => setShowSettings(!showSettings)}>
-                <Settings className="h-4 w-4" />
+              <Button 
+                variant="outline" 
+                size="icon" 
+                onClick={() => setShowSettings(!showSettings)}
+                className="transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-primary/10 border-primary/20"
+              >
+                <Settings className="h-4 w-4 transition-transform duration-300 hover:rotate-90" />
               </Button>
               <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
             </div>
@@ -469,17 +478,22 @@ export default function WeatherBoard() {
             {/* Current Weather Overview */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2">
-                <div className="relative">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-lg font-semibold text-foreground">Météo actuelle</h2>
+                    <Button
+                      variant={isFavorite ? "default" : "outline"}
+                      size="sm"
+                      onClick={toggleFavorite}
+                      className="gap-2 transition-all duration-300 hover:scale-105"
+                    >
+                      {isFavorite ? <Star className="h-4 w-4 fill-current" /> : <StarOff className="h-4 w-4" />}
+                      <span className="hidden sm:inline">
+                        {isFavorite ? t.favorites.favorite : t.favorites.add}
+                      </span>
+                    </Button>
+                  </div>
                   <WeatherCard weather={displayWeather} settings={settings} t={t} />
-                  <Button
-                    variant={isFavorite ? "default" : "outline"}
-                    size="sm"
-                    onClick={toggleFavorite}
-                    className="absolute top-4 right-4 gap-2"
-                  >
-                    {isFavorite ? <Star className="h-4 w-4 fill-current" /> : <StarOff className="h-4 w-4" />}
-                    {isFavorite ? t.favorites.favorite : t.favorites.add}
-                  </Button>
                 </div>
               </div>
 
@@ -562,67 +576,71 @@ export default function WeatherBoard() {
               </div>
             </div>
 
-            {/* Quick Stats */}
+            {/* Quick Stats avec effets créatifs */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-200/20">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-blue-500/10 rounded-lg">
-                      <Thermometer className="h-5 w-5 text-blue-600" />
+              <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-200/20 hover:from-blue-500/20 hover:to-blue-600/10 transition-all duration-300 hover:scale-105 hover:shadow-xl group glass-shine">
+                <CardContent className="p-4 relative overflow-hidden">
+                  <div className="flex items-center gap-3 relative z-10">
+                    <div className="p-2 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors duration-300 group-hover:scale-110">
+                      <Thermometer className="h-5 w-5 text-blue-600 group-hover:animate-pulse" />
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">{t.stats.temperature}</p>
-                      <p className="text-xl font-bold text-blue-600">
+                      <p className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
                         {displayWeather.temperature}°{settings.temperatureUnit === "celsius" ? "C" : "F"}
                       </p>
                     </div>
                   </div>
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 border-cyan-200/20">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-cyan-500/10 rounded-lg">
-                      <Droplets className="h-5 w-5 text-cyan-600" />
+              <Card className="bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 border-cyan-200/20 hover:from-cyan-500/20 hover:to-cyan-600/10 transition-all duration-300 hover:scale-105 hover:shadow-xl group glass-shine">
+                <CardContent className="p-4 relative overflow-hidden">
+                  <div className="flex items-center gap-3 relative z-10">
+                    <div className="p-2 bg-cyan-500/10 rounded-lg group-hover:bg-cyan-500/20 transition-colors duration-300 group-hover:scale-110">
+                      <Droplets className="h-5 w-5 text-cyan-600 group-hover:animate-bounce" />
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">{t.stats.humidity}</p>
-                      <p className="text-xl font-bold text-cyan-600">{displayWeather.humidity}%</p>
+                      <p className="text-xl font-bold bg-gradient-to-r from-cyan-600 to-cyan-400 bg-clip-text text-transparent">{displayWeather.humidity}%</p>
                     </div>
                   </div>
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-cyan-400/20 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-indigo-500/10 to-indigo-600/5 border-indigo-200/20">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-indigo-500/10 rounded-lg">
-                      <Wind className="h-5 w-5 text-indigo-600" />
+              <Card className="bg-gradient-to-br from-indigo-500/10 to-indigo-600/5 border-indigo-200/20 hover:from-indigo-500/20 hover:to-indigo-600/10 transition-all duration-300 hover:scale-105 hover:shadow-xl group glass-shine">
+                <CardContent className="p-4 relative overflow-hidden">
+                  <div className="flex items-center gap-3 relative z-10">
+                    <div className="p-2 bg-indigo-500/10 rounded-lg group-hover:bg-indigo-500/20 transition-colors duration-300 group-hover:scale-110">
+                      <Wind className="h-5 w-5 text-indigo-600 group-hover:animate-spin" />
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">{t.stats.wind}</p>
-                      <p className="text-xl font-bold text-indigo-600">
+                      <p className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text text-transparent">
                         {displayWeather.windSpeed} {settings.windSpeedUnit === "kmh" ? "km/h" : "mph"}
                       </p>
                     </div>
                   </div>
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-indigo-400/20 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 border-purple-200/20">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2 bg-purple-500/10 rounded-lg">
-                      <Gauge className="h-5 w-5 text-purple-600" />
+              <Card className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 border-purple-200/20 hover:from-purple-500/20 hover:to-purple-600/10 transition-all duration-300 hover:scale-105 hover:shadow-xl group glass-shine">
+                <CardContent className="p-4 relative overflow-hidden">
+                  <div className="flex items-center gap-3 relative z-10">
+                    <div className="p-2 bg-purple-500/10 rounded-lg group-hover:bg-purple-500/20 transition-colors duration-300 group-hover:scale-110">
+                      <Gauge className="h-5 w-5 text-purple-600 group-hover:animate-pulse" />
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">{t.stats.pressure}</p>
-                      <p className="text-xl font-bold text-purple-600">
+                      <p className="text-xl font-bold bg-gradient-to-r from-purple-600 to-purple-400 bg-clip-text text-transparent">
                         {displayWeather.pressure} {settings.pressureUnit === "hpa" ? "hPa" : "inHg"}
                       </p>
                     </div>
                   </div>
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-purple-400/20 to-transparent rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
                 </CardContent>
               </Card>
             </div>

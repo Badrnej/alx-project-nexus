@@ -353,4 +353,93 @@
   .weather-animation-leave {
     animation: card-entrance 0.3s ease-in reverse;
   }
+  
+  /* Particules flottantes en arrière-plan */
+  .background-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .background-particles::before,
+  .background-particles::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: floating-particles 8s linear infinite;
+  }
+  
+  .background-particles::before {
+    top: 20%;
+    left: 10%;
+    animation-delay: -2s;
+  }
+  
+  .background-particles::after {
+    top: 80%;
+    right: 15%;
+    animation-delay: -5s;
+    width: 6px;
+    height: 6px;
+  }
+  
+  /* Effet de survol néon pour les titres */
+  .neon-hover {
+    transition: text-shadow 0.3s ease;
+  }
+  
+  .neon-hover:hover {
+    text-shadow: 
+      0 0 5px rgba(96, 165, 250, 0.5),
+      0 0 10px rgba(96, 165, 250, 0.3),
+      0 0 15px rgba(96, 165, 250, 0.2);
+  }
+  
+  /* Cartes avec effets de brillance */
+  .glass-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .glass-shine::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    transition: transform 0.6s ease;
+  }
+  
+  .glass-shine:hover::before {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+  
+  /* Animation de gradient pour l'arrière-plan */
+  .animate-gradient-xy {
+    background-size: 400% 400%;
+    animation: gradient-shift 8s ease infinite;
+  }
+  
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
 }
