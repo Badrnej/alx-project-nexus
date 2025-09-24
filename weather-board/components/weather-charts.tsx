@@ -94,8 +94,8 @@ export function WeatherCharts({ hourlyData, settings, t, onChartClick }: Weather
           onClick={() => onChartClick?.("temperature")}
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-xl">
-              <TrendingUp className="h-5 w-5 text-blue-600" />
+            <div className="p-2 bg-gradient-to-br from-blue-200/20 to-blue-300/10 dark:from-blue-200/20 dark:to-blue-200/10 rounded-xl">
+              <TrendingUp className="h-5 w-5 text-blue-600 dark:text-blue-200" />
             </div>
             <h3 className="text-lg font-semibold text-foreground">
               {t.charts.temperatureEvolution} ({tempUnit})
@@ -106,14 +106,15 @@ export function WeatherCharts({ hourlyData, settings, t, onChartClick }: Weather
             <AreaChart data={hourlyData}>
               <defs>
                 <linearGradient id="temperatureGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="rgb(59, 130, 246)" stopOpacity={0.4} />
-                  <stop offset="95%" stopColor="rgb(59, 130, 246)" stopOpacity={0.05} />
+                  <stop offset="5%" stopColor="rgb(59, 130, 246)" className="dark:stop-color-blue-200" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="rgb(59, 130, 246)" className="dark:stop-color-blue-200" stopOpacity={0.05} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
               <XAxis
                 dataKey="time"
                 stroke="hsl(var(--muted-foreground))"
+                className="dark:[&>*]:fill-blue-200"
                 fontSize={12}
                 interval="preserveStartEnd"
                 axisLine={false}
@@ -121,6 +122,7 @@ export function WeatherCharts({ hourlyData, settings, t, onChartClick }: Weather
               />
               <YAxis
                 stroke="hsl(var(--muted-foreground))"
+                className="dark:[&>*]:fill-blue-200"
                 fontSize={12}
                 domain={["dataMin - 2", "dataMax + 2"]}
                 axisLine={false}
@@ -156,6 +158,7 @@ export function WeatherCharts({ hourlyData, settings, t, onChartClick }: Weather
               <XAxis
                 dataKey="time"
                 stroke="hsl(var(--muted-foreground))"
+                className="dark:[&>*]:fill-blue-200"
                 fontSize={12}
                 interval="preserveStartEnd"
                 axisLine={false}
@@ -163,6 +166,7 @@ export function WeatherCharts({ hourlyData, settings, t, onChartClick }: Weather
               />
               <YAxis
                 stroke="hsl(var(--muted-foreground))"
+                className="dark:[&>*]:fill-blue-200"
                 fontSize={12}
                 domain={[0, 100]}
                 axisLine={false}
@@ -201,12 +205,19 @@ export function WeatherCharts({ hourlyData, settings, t, onChartClick }: Weather
               <XAxis
                 dataKey="time"
                 stroke="hsl(var(--muted-foreground))"
+                className="dark:[&>*]:fill-blue-200"
                 fontSize={12}
                 interval="preserveStartEnd"
                 axisLine={false}
                 tickLine={false}
               />
-              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} />
+              <YAxis 
+                stroke="hsl(var(--muted-foreground))" 
+                className="dark:[&>*]:fill-blue-200"
+                fontSize={12} 
+                axisLine={false} 
+                tickLine={false} 
+              />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="windSpeed" fill="rgb(99, 102, 241)" radius={[4, 4, 0, 0]} name={t.stats.wind} />
             </BarChart>
@@ -238,6 +249,7 @@ export function WeatherCharts({ hourlyData, settings, t, onChartClick }: Weather
               <XAxis
                 dataKey="time"
                 stroke="hsl(var(--muted-foreground))"
+                className="dark:[&>*]:fill-blue-200"
                 fontSize={12}
                 interval="preserveStartEnd"
                 axisLine={false}
@@ -245,6 +257,7 @@ export function WeatherCharts({ hourlyData, settings, t, onChartClick }: Weather
               />
               <YAxis
                 stroke="hsl(var(--muted-foreground))"
+                className="dark:[&>*]:fill-blue-200"
                 fontSize={12}
                 domain={["dataMin - 5", "dataMax + 5"]}
                 axisLine={false}

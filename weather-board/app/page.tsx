@@ -286,7 +286,7 @@ export default function WeatherBoard() {
   return (
     <div className="min-h-screen weather-gradient">
       {/* Header */}
-      <header className="glass-strong sticky top-0 z-50 border-b border-border/30">
+      <header className="glass-strong border-b border-border/30 fixed-header">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
@@ -417,7 +417,7 @@ export default function WeatherBoard() {
       )}
 
       {/* Main Dashboard */}
-      <main className="container mx-auto px-4 py-4 sm:py-8">
+      <main className="container mx-auto px-4 py-4 sm:py-8 header-offset">{/* Content offset to compensate for fixed header */}
         {displayWeather ? (
           <div className="space-y-6 sm:space-y-8">
             {currentView === "dashboard" && (

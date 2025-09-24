@@ -21,8 +21,8 @@ export function LiquidButton({
         {
           'bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white hover:from-blue-500/30 hover:to-purple-500/30 shadow-lg hover:shadow-xl': variant === 'default',
           'bg-gradient-to-r from-white/10 to-white/5 text-white/90 hover:from-white/20 hover:to-white/10': variant === 'secondary',
-          'border border-white/20 bg-transparent text-white/90 hover:bg-white/10': variant === 'outline',
-          'hover:bg-white/10 text-white/80 hover:text-white': variant === 'ghost',
+          'border border-white/20 bg-transparent text-black dark:text-white/90 hover:bg-white/10': variant === 'outline',
+          'hover:bg-white/10 text-black dark:text-white/80 hover:text-white': variant === 'ghost',
         },
         {
           'h-9 px-3 text-xs': size === 'sm',

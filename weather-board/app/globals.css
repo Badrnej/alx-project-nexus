@@ -525,3 +525,36 @@
     }
   }
 }
+
+/* Custom styles for dark mode chart text elements */
+.dark .recharts-text,
+.dark .recharts-cartesian-axis-tick-value,
+.dark tspan {
+  fill: rgb(191 219 254) !important; /* blue-200 */
+}
+
+.dark .recharts-tooltip-wrapper {
+  color: rgb(191 219 254) !important;
+}
+
+/* Fixed header styles */
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Header height compensation for main content */
+.header-offset {
+  padding-top: 6rem; /* 96px - height of the header on mobile */
+}
+
+@media (min-width: 640px) {
+  .header-offset {
+    padding-top: 7rem; /* 112px - height of the header on desktop */
+  }
+}
