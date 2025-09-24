@@ -75,12 +75,11 @@ pnpm build
 ## 🔧 Configuration
 
 ### Variables d'Environnement
-Créez `.env.local` :
-```env
-NEXT_PUBLIC_OPENWEATHER_API_KEY=841770cc35abfe66fd4ff255afd8328c
-NEXT_PUBLIC_OPENWEATHER_BASE_URL=https://api.openweathermap.org/data/2.5
-NEXT_PUBLIC_OPENWEATHER_GEO_URL=https://api.openweathermap.org/geo/1.0
-```
+1. Copiez le fichier `.env.example` vers `.env.local` :
+   ```bash
+   cp .env.example .env.local
+   ```
+2. Remplacez `your_openweather_api_key_here` par votre vraie clé API OpenWeather
 
 ## 📁 Structure du Projet
 
