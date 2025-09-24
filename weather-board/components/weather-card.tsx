@@ -136,17 +136,17 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
       {/* Header */}
       <div className="flex items-center justify-between mb-6 sm:mb-8 relative z-10">
         <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
-          <div className="p-2 sm:p-3 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10">
-            <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-blue-300" />
+          <div className="p-2 sm:p-3 rounded-2xl bg-gradient-to-br darck:from-blue-500/20 dark:to-purple-500/20 backdrop-blur-sm border dark:border-white/10">
+            <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-black dark:text-blue-300" />
           </div>
           <div className="min-w-0 flex-1">
-            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent truncate">
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-black via-blue-100 to-gray-300 bg-clip-text text-transparent truncate dark:from-blue-200 dark:via-blue-100 dark:to-gray-300">
               {weather.location}
             </h2>
-            <p className="text-sm sm:text-base text-blue-200/80 truncate">{weather.country}</p>
+            <p className="text-sm sm:text-base text-black dark:text-blue-200 truncate">{weather.country}</p>
           </div>
         </div>
-        <Badge variant="outline" className="glass text-xs backdrop-blur-md border-white/20 text-white/90 shrink-0">
+        <Badge variant="outline" className="glass text-xs backdrop-blur-md border-white/20 text-black/90 dark:text-white/90 shrink-0">
           <Clock className="h-3 w-3 mr-1" />
           {t.details.live}
         </Badge>
@@ -156,16 +156,17 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
       <div className="flex items-center justify-between mb-8 sm:mb-10 relative z-10">
         <div className="space-y-3 sm:space-y-5 flex-1">
           <div className="flex items-baseline gap-2 sm:gap-3">
-            <span className="text-6xl sm:text-8xl font-extralight bg-gradient-to-br from-white via-blue-100 to-blue-200 bg-clip-text text-transparent tracking-tight drop-shadow-lg">
-              {weather.temperature}
-            </span>
-            <span className="text-3xl sm:text-4xl text-white/70 font-light">{tempUnit}</span>
+              <span
+                  className="text-6xl sm:text-8xl font-extralight bg-gradient-to-br from-black via-blue-100 to-black bg-clip-text text-transparent tracking-tight drop-shadow-lg dark:from-white dark:via-blue-100 dark:to-blue-200">
+                  {weather.temperature}
+              </span>
+            <span className="text-3xl sm:text-4xl text-gray-500/70 dark:text-blue-200/70 font-light">{tempUnit}</span>
           </div>
           <div className="space-y-2 sm:space-y-3">
-            <p className="text-xl sm:text-2xl font-semibold text-white/90 drop-shadow-md">
+            <p className="text-xl sm:text-2xl font-semibold text-gray-500/70 dark:text-blue-200/70 drop-shadow-md">
               {t.conditions[weather.condition.toLowerCase() as keyof typeof t.conditions] || weather.condition}
             </p>
-            <p className="text-sm sm:text-base text-white/70 backdrop-blur-sm bg-white/5 px-3 py-1 rounded-full border border-white/10 inline-block">
+            <p className="text-sm sm:text-base text-blck/70 dark:text-blue-200/70 backdrop-blur-sm bg-white/5 px-3 py-1 rounded-full border border-white/10 inline-block">
               {t.details.feelsLike} {weather.feelsLike}{tempUnit}
             </p>
           </div>
@@ -231,10 +232,11 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
       {/* Daily Forecast Section */}
       <div className="mt-8 relative z-10">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10">
-            <Calendar className="h-5 w-5 text-blue-300" />
+          <div className="p-2 rounded-xl dark:bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10">
+            <Calendar className="h-5 w-5 text-black dark:text-blue-300" />
           </div>
-          <h3 className="text-lg font-bold bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
+          <h3
+            className={"text-lg font-bold " + "bg-gradient-to-r " + "from-black via-blue-300 to-gray-500 " + "dark:from-white dark:via-blue-100 dark:to-purple-200 " + "bg-clip-text text-transparent"}>
             Prévisions 5 jours
           </h3>
         </div>
@@ -264,10 +266,10 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
       {/* Hourly Forecast Section */}
       <div className="mt-6 relative z-10">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm border border-white/10">
-            <Clock className="h-5 w-5 text-purple-300" />
+          <div className="p-2 rounded-xl dark:bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm border border-white/10">
+            <Clock className="h-5 w-5 text-black dark:text-purple-300" />
           </div>
-          <h3 className="text-lg font-bold bg-gradient-to-r from-white via-purple-100 to-pink-200 bg-clip-text text-transparent">
+          <h3 className={"text-lg font-bold " + "bg-gradient-to-r " + "from-black via-blue-300 to-gray-500 " + "dark:from-white dark:via-blue-100 dark:to-purple-200 " + "bg-clip-text text-transparent"}>
             Prévisions horaires
           </h3>
         </div>

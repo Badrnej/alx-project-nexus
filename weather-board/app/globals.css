@@ -4,43 +4,43 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated to glassmorphism theme with sophisticated color palette */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  /* Updated to glassmorphism theme with sky blue color palette */
+  --background: oklch(0.98 0.02 220);
+  --foreground: oklch(0.2 0.05 220);
+  --card: oklch(0.99 0.01 220);
+  --card-foreground: oklch(0.2 0.05 220);
+  --popover: oklch(0.99 0.01 220);
+  --popover-foreground: oklch(0.2 0.05 220);
+  --primary: oklch(0.55 0.15 220);
+  --primary-foreground: oklch(0.98 0.02 220);
+  --secondary: oklch(0.95 0.02 220);
+  --secondary-foreground: oklch(0.3 0.05 220);
+  --muted: oklch(0.96 0.02 220);
+  --muted-foreground: oklch(0.5 0.03 220);
+  --accent: oklch(0.94 0.03 220);
+  --accent-foreground: oklch(0.3 0.05 220);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --destructive-foreground: oklch(0.98 0.02 220);
+  --border: oklch(0.9 0.02 220);
+  --input: oklch(0.92 0.02 220);
+  --ring: oklch(0.6 0.1 220);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
-  --glass-bg: oklch(1 0 0 / 0.1);
-  --glass-border: oklch(1 0 0 / 0.2);
-  --glass-shadow: oklch(0 0 0 / 0.1);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --glass-bg: oklch(1 0 0 / 0.15);
+  --glass-border: oklch(0.9 0.05 220 / 0.3);
+  --glass-shadow: oklch(0.5 0.1 220 / 0.1);
+  --sidebar: oklch(0.97 0.02 220);
+  --sidebar-foreground: oklch(0.2 0.05 220);
+  --sidebar-primary: oklch(0.55 0.15 220);
+  --sidebar-primary-foreground: oklch(0.98 0.02 220);
+  --sidebar-accent: oklch(0.95 0.02 220);
+  --sidebar-accent-foreground: oklch(0.3 0.05 220);
+  --sidebar-border: oklch(0.9 0.02 220);
+  --sidebar-ring: oklch(0.6 0.1 220);
 }
 
 .dark {
@@ -104,9 +104,10 @@
   position: relative;
   background: linear-gradient(
     135deg,
-    #667eea 0%,
-    #764ba2 50%,
-    #ff9a9e 100%
+    #87ceeb 0%,
+    #b3d9ff 35%,
+    #e6f3ff 70%,
+    #f0f8ff 100%
   );
   min-height: 100vh;
   min-height: 100dvh;
@@ -121,9 +122,9 @@
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 154, 158, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(120, 75, 162, 0.2) 0%, transparent 50%);
+    radial-gradient(circle at 20% 80%, rgba(135, 206, 235, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(173, 216, 230, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(176, 224, 230, 0.15) 0%, transparent 50%);
   animation: floatingOrbs 20s ease-in-out infinite;
 }
 
@@ -216,6 +217,24 @@
   box-shadow: 
     0 12px 40px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Weather forecast text colors - Light mode adjustments */
+/* Override white text colors in glass containers for light mode */
+:not(.dark) .glass .text-white\/70 {
+  color: rgb(51 65 85) !important; /* slate-700 - for dates */
+}
+
+:not(.dark) .glass .text-white {
+  color: rgb(15 23 42) !important; /* slate-900 - for main temperature */
+}
+
+:not(.dark) .glass .text-white\/60 {
+  color: rgb(71 85 105) !important; /* slate-600 - for secondary temperature */
+}
+
+:not(.dark) .glass .text-white\/50 {
+  color: rgb(100 116 139) !important; /* slate-500 - for weather descriptions */
 }
 
 /* Enhanced weather cards with liquid glass effects */
