@@ -29,6 +29,13 @@ export interface Translations {
     altitude: string
     localTime: string
     live: string
+    additionalDetails: string
+    uvIndex: string
+    airQuality: string
+    sunrise: string
+    sunset: string
+    moonPhase: string
+    weatherDescription: string
   }
 
   // Stats
@@ -42,8 +49,22 @@ export interface Translations {
   // Forecast
   forecast: {
     title: string
+    hourly: string
+    daily: string
     today: string
     tomorrow: string
+    thisWeek: string
+    nextWeek: string
+    min: string
+    max: string
+    precipitation: string
+    wind: string
+    humidity: string
+    fiveDayTitle: string
+    hourlyTitle: string
+    evolution24h: string
+    realTime: string
+    forecasts7Days: string
     monday: string
     tuesday: string
     wednesday: string
@@ -110,6 +131,27 @@ export interface Translations {
     description: string
   }
 
+  // Analysis
+  analysis: {
+    detailedTemperature: string
+    detailedHumidity: string
+    detailedWind: string
+    detailedPressure: string
+    completeEvolution: string
+    temperatureConditions: string
+    windConditions: string
+    pressureConditions: string
+    current: string
+    maximum: string
+    minimum: string
+    average: string
+    peakOfDay: string
+    lowestOfDay: string
+    dailyAmplitude: string
+    variation: string
+    backToDashboard: string
+  }
+
   // Common
   common: {
     close: string
@@ -153,6 +195,13 @@ export const translations: Record<Language, Translations> = {
       altitude: "Altitude",
       localTime: "Heure locale",
       live: "En direct",
+      additionalDetails: "Détails Supplémentaires",
+      uvIndex: "Indice UV",
+      airQuality: "Qualité de l'Air",
+      sunrise: "Lever",
+      sunset: "Coucher",
+      moonPhase: "Phase Lunaire",
+      weatherDescription: "ciel dégagé",
     },
 
     stats: {
@@ -163,9 +212,23 @@ export const translations: Record<Language, Translations> = {
     },
 
     forecast: {
-      title: "Prévisions sur 5 jours",
+      title: "Prévisions 5 jours",
+      hourly: "Prévisions horaires",
+      daily: "Prévisions quotidiennes",
       today: "Aujourd'hui",
       tomorrow: "Demain",
+      thisWeek: "Cette semaine",
+      nextWeek: "Semaine prochaine",
+      min: "Min",
+      max: "Max",
+      precipitation: "Précipitations",
+      wind: "Vent",
+      humidity: "Humidité",
+      fiveDayTitle: "Prévisions 5 jours",
+      hourlyTitle: "Prévisions horaires",
+      evolution24h: "Évolution sur 24 Heures",
+      realTime: "Temps réel",
+      forecasts7Days: "Prévisions sur 7 Jours",
       monday: "Lundi",
       tuesday: "Mardi",
       wednesday: "Mercredi",
@@ -223,6 +286,26 @@ export const translations: Record<Language, Translations> = {
       },
     },
 
+    analysis: {
+      detailedTemperature: "Analyse Détaillée de la Température",
+      detailedHumidity: "Analyse Détaillée de l'Humidité",
+      detailedWind: "Analyse Détaillée du Vent",
+      detailedPressure: "Analyse Détaillée de la Pression",
+      completeEvolution: "Évolution complète et statistiques avancées",
+      temperatureConditions: "Taux d'humidité et conditions atmosphériques",
+      windConditions: "Vitesse, direction et conditions éoliennes",
+      pressureConditions: "Pression atmosphérique et tendances météorologiques",
+      current: "Actuelle",
+      maximum: "Maximum",
+      minimum: "Minimum",
+      average: "Moyenne",
+      peakOfDay: "Pic de la journée",
+      lowestOfDay: "Plus bas de la journée",
+      dailyAmplitude: "Amplitude",
+      variation: "Variation",
+      backToDashboard: "← Retour au Tableau de Bord",
+    },
+
     empty: {
       title: "Recherchez une ville",
       description: "Entrez le nom d'une ville pour voir la météo",
@@ -266,8 +349,15 @@ export const translations: Record<Language, Translations> = {
       latitude: "Latitude",
       longitude: "Longitude",
       altitude: "Altitude",
-      localTime: "Local time",
+      localTime: "Local Time",
       live: "Live",
+      additionalDetails: "Additional Details",
+      uvIndex: "UV Index",
+      airQuality: "Air Quality",
+      sunrise: "Sunrise",
+      sunset: "Sunset",
+      moonPhase: "Moon Phase",
+      weatherDescription: "Clear sky",
     },
 
     stats: {
@@ -279,8 +369,22 @@ export const translations: Record<Language, Translations> = {
 
     forecast: {
       title: "5-Day Forecast",
+      hourly: "Hourly Forecast",
+      daily: "Daily Forecast",
       today: "Today",
       tomorrow: "Tomorrow",
+      thisWeek: "This Week",
+      nextWeek: "Next Week",
+      min: "Min",
+      max: "Max",
+      precipitation: "Precipitation",
+      wind: "Wind",
+      humidity: "Humidity",
+      fiveDayTitle: "5-Day Forecast",
+      hourlyTitle: "Hourly Forecast",
+      evolution24h: "24-Hour Evolution",
+      realTime: "Real Time",
+      forecasts7Days: "7-Day Forecast",
       monday: "Monday",
       tuesday: "Tuesday",
       wednesday: "Wednesday",
@@ -338,6 +442,26 @@ export const translations: Record<Language, Translations> = {
       },
     },
 
+    analysis: {
+      detailedTemperature: "Detailed Temperature Analysis",
+      detailedHumidity: "Detailed Humidity Analysis",
+      detailedWind: "Detailed Wind Analysis",
+      detailedPressure: "Detailed Pressure Analysis",
+      completeEvolution: "Complete evolution and advanced statistics",
+      temperatureConditions: "Humidity rate and atmospheric conditions",
+      windConditions: "Speed, direction and wind conditions",
+      pressureConditions: "Atmospheric pressure and meteorological trends",
+      current: "Current",
+      maximum: "Maximum",
+      minimum: "Minimum",
+      average: "Average",
+      peakOfDay: "Peak of the day",
+      lowestOfDay: "Lowest of the day",
+      dailyAmplitude: "Amplitude",
+      variation: "Variation",
+      backToDashboard: "← Back to Dashboard",
+    },
+
     empty: {
       title: "Search for a city",
       description: "Enter a city name to see the weather",
@@ -383,6 +507,13 @@ export const translations: Record<Language, Translations> = {
       altitude: "الارتفاع",
       localTime: "الوقت المحلي",
       live: "مباشر",
+      additionalDetails: "تفاصيل إضافية",
+      uvIndex: "مؤشر الأشعة فوق البنفسجية",
+      airQuality: "جودة الهواء",
+      sunrise: "شروق الشمس",
+      sunset: "غروب الشمس",
+      moonPhase: "مرحلة القمر",
+      weatherDescription: "سماء صافية",
     },
 
     stats: {
@@ -394,8 +525,22 @@ export const translations: Record<Language, Translations> = {
 
     forecast: {
       title: "توقعات 5 أيام",
+      hourly: "التوقعات الساعية",
+      daily: "التوقعات اليومية",
       today: "اليوم",
       tomorrow: "غداً",
+      thisWeek: "هذا الأسبوع",
+      nextWeek: "الأسبوع القادم",
+      min: "أدنى",
+      max: "أقصى",
+      precipitation: "الأمطار",
+      wind: "الرياح",
+      humidity: "الرطوبة",
+      fiveDayTitle: "توقعات 5 أيام",
+      hourlyTitle: "التوقعات الساعية",
+      evolution24h: "التطور على مدى 24 ساعة",
+      realTime: "الوقت الفعلي",
+      forecasts7Days: "توقعات 7 أيام",
       monday: "الاثنين",
       tuesday: "الثلاثاء",
       wednesday: "الأربعاء",
@@ -451,6 +596,26 @@ export const translations: Record<Language, Translations> = {
         "30min": "30 دقيقة",
         "1hour": "ساعة واحدة",
       },
+    },
+
+    analysis: {
+      detailedTemperature: "تحليل مفصل لدرجة الحرارة",
+      detailedHumidity: "تحليل مفصل للرطوبة",
+      detailedWind: "تحليل مفصل للرياح",
+      detailedPressure: "تحليل مفصل للضغط",
+      completeEvolution: "التطور الكامل والإحصائيات المتقدمة",
+      temperatureConditions: "معدل الرطوبة والظروف الجوية",
+      windConditions: "السرعة والاتجاه وظروف الرياح",
+      pressureConditions: "الضغط الجوي والاتجاهات الجوية",
+      current: "الحالية",
+      maximum: "أقصى",
+      minimum: "أدنى",
+      average: "متوسط",
+      peakOfDay: "ذروة اليوم",
+      lowestOfDay: "أدنى نقطة في اليوم",
+      dailyAmplitude: "النطاق",
+      variation: "التباين",
+      backToDashboard: "← العودة إلى لوحة التحكم",
     },
 
     empty: {
