@@ -5,8 +5,7 @@ import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Search, Loader2, Clock, X } from "lucide-react"
+import { Search, Loader2, Clock, X, MapPin } from "lucide-react"
 import type { Translations } from "@/lib/translations"
 
 interface WeatherSearchProps {
@@ -103,9 +102,8 @@ export function WeatherSearch({ onSearch, loading = false, searchHistory = [], t
 
   return (
     <div ref={containerRef} className="relative">
-      <form onSubmit={handleSubmit} className="flex items-center gap-2">
+      <form onSubmit={handleSubmit} className="flex items-center gap-3">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             ref={inputRef}
             type="text"
@@ -113,7 +111,7 @@ export function WeatherSearch({ onSearch, loading = false, searchHistory = [], t
             value={query}
             onChange={handleInputChange}
             onFocus={handleFocus}
-            className="pl-10 pr-10 w-64"
+            className="pl-4 pr-10 w-72 glass-strong border-border/50 focus:border-primary/50 transition-all duration-300"
             disabled={loading}
           />
           {query && (
@@ -122,39 +120,55 @@ export function WeatherSearch({ onSearch, loading = false, searchHistory = [], t
               variant="ghost"
               size="sm"
               onClick={clearQuery}
-              className="absolute right-1 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 hover:bg-transparent"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 glass hover:glass-strong transition-all duration-300"
             >
               <X className="h-3 w-3" />
             </Button>
           )}
         </div>
-        <Button type="submit" disabled={loading || !query.trim()}>
+        <Button
+          type="submit"
+          disabled={loading || !query.trim()}
+          className="glass-strong hover:scale-105 transition-all duration-300"
+        >
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
         </Button>
       </form>
 
-      {/* Suggestions Dropdown */}
+      {/* Enhanced Suggestions Dropdown */}
       {showSuggestions && suggestions.length > 0 && (
-        <Card className="absolute top-full left-0 right-0 mt-1 z-50 bg-card/95 backdrop-blur-sm border-border/50">
-          <CardContent className="p-2">
-            <div className="space-y-1">
+        <div className="absolute top-full left-0 right-0 mt-2 z-50">
+          <div className="glass-strong rounded-2xl p-4 shadow-2xl border border-border/50">
+            <div className="space-y-2">
+              {searchHistory.length > 0 && suggestions.some((city) => searchHistory.includes(city)) && (
+                <div className="pb-2 mb-2 border-b border-border/30">
+                  <p className="text-xs text-muted-foreground font-medium mb-2">Recherches récentes</p>
+                </div>
+              )}
               {suggestions.map((city, index) => (
                 <button
                   key={index}
                   onClick={() => handleSuggestionClick(city)}
-                  className="w-full text-left px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors flex items-center gap-2"
+                  className="w-full text-left p-3 glass rounded-xl hover:glass-strong transition-all duration-300 flex items-center gap-3 group"
                 >
-                  {searchHistory.includes(city) ? (
-                    <Clock className="h-3 w-3 text-muted-foreground" />
-                  ) : (
-                    <Search className="h-3 w-3 text-muted-foreground" />
-                  )}
-                  <span className="text-sm">{city}</span>
+                  <div className="p-1 glass rounded-lg group-hover:scale-110 transition-transform duration-300">
+                    {searchHistory.includes(city) ? (
+                      <Clock className="h-4 w-4 text-blue-500" />
+                    ) : (
+                      <MapPin className="h-4 w-4 text-green-500" />
+                    )}
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium text-foreground">{city}</span>
+                    <p className="text-xs text-muted-foreground">
+                      {searchHistory.includes(city) ? "Recherche récente" : "Ville populaire"}
+                    </p>
+                  </div>
                 </button>
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       )}
     </div>
   )

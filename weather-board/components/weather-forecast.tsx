@@ -1,5 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Cloud, Sun, CloudRain, Wind, Droplets } from "lucide-react"
+import { Cloud, Sun, CloudRain, Wind, Droplets, Calendar } from "lucide-react"
 import type { Translations } from "@/lib/translations"
 
 interface ForecastDay {
@@ -35,15 +34,15 @@ export function WeatherForecast({ forecast, settings, t }: WeatherForecastProps)
     switch (condition.toLowerCase()) {
       case "sunny":
       case "clear":
-        return <Sun className="h-8 w-8 text-yellow-500" />
+        return <Sun className="h-8 w-8 text-yellow-400" />
       case "partly cloudy":
       case "cloudy":
-        return <Cloud className="h-8 w-8 text-blue-500" />
+        return <Cloud className="h-8 w-8 text-blue-400" />
       case "rainy":
       case "rain":
-        return <CloudRain className="h-8 w-8 text-blue-600" />
+        return <CloudRain className="h-8 w-8 text-blue-500" />
       default:
-        return <Cloud className="h-8 w-8 text-blue-500" />
+        return <Cloud className="h-8 w-8 text-blue-400" />
     }
   }
 
@@ -51,55 +50,58 @@ export function WeatherForecast({ forecast, settings, t }: WeatherForecastProps)
   const windUnit = settings?.windSpeedUnit === "mph" ? "mph" : "km/h"
 
   return (
-    <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-      <CardHeader>
-        <CardTitle className="text-xl font-bold">{t.forecast.title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          {forecast.map((day, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg p-4 border border-primary/10 hover:border-primary/20 transition-colors"
-            >
-              <div className="text-center space-y-3">
-                <h3 className="font-semibold text-foreground">{day.date}</h3>
+    <div className="glass rounded-2xl p-6 space-y-6">
+      <div className="flex items-center gap-3">
+        <div className="p-2 glass rounded-xl">
+          <Calendar className="h-5 w-5 text-primary" />
+        </div>
+        <h3 className="text-xl font-semibold">{t.forecast.title}</h3>
+      </div>
 
-                <div className="flex justify-center">{getWeatherIcon(day.condition)}</div>
-
-                <div className="space-y-1">
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="text-lg font-bold text-foreground">
-                      {day.maxTemp}
-                      {tempUnit}
-                    </span>
-                    <span className="text-sm text-muted-foreground">
-                      {day.minTemp}
-                      {tempUnit}
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
+      <div className="space-y-3">
+        {forecast.map((day, index) => (
+          <div
+            key={index}
+            className="glass rounded-xl p-4 hover:glass-strong transition-all duration-300"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3 flex-1">
+                <div className="p-2 glass rounded-lg">
+                  {getWeatherIcon(day.condition)}
+                </div>
+                <div>
+                  <p className="font-medium">{day.date}</p>
+                  <p className="text-sm text-muted-foreground">
                     {t.conditions[day.condition.toLowerCase() as keyof typeof t.conditions] || day.condition}
                   </p>
                 </div>
+              </div>
 
-                <div className="space-y-2 pt-2 border-t border-border/50">
-                  <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
-                    <Droplets className="h-3 w-3" />
-                    <span>{day.humidity}%</span>
+              <div className="flex items-center gap-4 text-right">
+                <div>
+                  <span className="text-lg font-bold">
+                    {day.maxTemp}{tempUnit}
+                  </span>
+                  <span className="text-sm text-muted-foreground ml-2">
+                    {day.minTemp}{tempUnit}
+                  </span>
+                </div>
+                
+                <div className="flex flex-col gap-1">
+                  <div className="flex items-center gap-1">
+                    <Droplets className="h-3 w-3 text-blue-500" />
+                    <span className="text-xs">{day.humidity}%</span>
                   </div>
-                  <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
-                    <Wind className="h-3 w-3" />
-                    <span>
-                      {day.windSpeed} {windUnit}
-                    </span>
+                  <div className="flex items-center gap-1">
+                    <Wind className="h-3 w-3 text-blue-500" />
+                    <span className="text-xs">{day.windSpeed} {windUnit}</span>
                   </div>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
