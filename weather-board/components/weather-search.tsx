@@ -142,7 +142,7 @@ export function WeatherSearch({ onSearch, loading = false, searchHistory = [], t
             <div className="space-y-2">
               {searchHistory.length > 0 && suggestions.some((city) => searchHistory.includes(city)) && (
                 <div className="pb-2 mb-2 border-b border-border/30">
-                  <p className="text-xs text-muted-foreground font-medium mb-2">Recherches récentes</p>
+                  <p className="text-xs text-muted-foreground font-medium mb-2">{t.common.recentSearches}</p>
                 </div>
               )}
               {suggestions.map((city, index) => (

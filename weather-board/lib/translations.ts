@@ -26,6 +26,7 @@ export interface Translations {
     location: string
     latitude: string
     longitude: string
+    altitude: string
     localTime: string
     live: string
   }
@@ -114,6 +115,14 @@ export interface Translations {
     close: string
     search: string
     loading: string
+    backToDashboard: string
+    recentSearches: string
+  }
+
+  // Messages
+  messages: {
+    geolocationFailed: string
+    initializationError: string
   }
 }
 
@@ -141,6 +150,7 @@ export const translations: Record<Language, Translations> = {
       location: "Localisation",
       latitude: "Latitude",
       longitude: "Longitude",
+      altitude: "Altitude",
       localTime: "Heure locale",
       live: "En direct",
     },
@@ -222,6 +232,13 @@ export const translations: Record<Language, Translations> = {
       close: "Fermer",
       search: "Rechercher",
       loading: "Chargement...",
+      backToDashboard: "Retour au Tableau de Bord",
+      recentSearches: "Recherches récentes",
+    },
+
+    messages: {
+      geolocationFailed: "Géolocalisation échouée, utilisation de Paris par défaut",
+      initializationError: "Erreur lors de l'initialisation",
     },
   },
 
@@ -248,6 +265,7 @@ export const translations: Record<Language, Translations> = {
       location: "Location",
       latitude: "Latitude",
       longitude: "Longitude",
+      altitude: "Altitude",
       localTime: "Local time",
       live: "Live",
     },
@@ -329,6 +347,13 @@ export const translations: Record<Language, Translations> = {
       close: "Close",
       search: "Search",
       loading: "Loading...",
+      backToDashboard: "Back to Dashboard",
+      recentSearches: "Recent searches",
+    },
+
+    messages: {
+      geolocationFailed: "Geolocation failed, using Paris as default",
+      initializationError: "Error during initialization",
     },
   },
 
@@ -355,6 +380,7 @@ export const translations: Record<Language, Translations> = {
       location: "الموقع",
       latitude: "خط العرض",
       longitude: "خط الطول",
+      altitude: "الارتفاع",
       localTime: "الوقت المحلي",
       live: "مباشر",
     },
@@ -436,6 +462,13 @@ export const translations: Record<Language, Translations> = {
       close: "إغلاق",
       search: "بحث",
       loading: "جاري التحميل...",
+      backToDashboard: "العودة إلى لوحة القيادة",
+      recentSearches: "البحوث الأخيرة",
+    },
+
+    messages: {
+      geolocationFailed: "فشل تحديد الموقع، استخدام باريس كافتراضي",
+      initializationError: "خطأ أثناء التهيئة",
     },
   },
 }

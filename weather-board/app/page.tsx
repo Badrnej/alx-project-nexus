@@ -90,14 +90,14 @@ export default function WeatherBoard() {
         setHourlyData(data.forecast.hourly)
       } catch (geoError) {
         // If geolocation fails, default to Paris
-        console.log("Géolocalisation échouée, utilisation de Paris par défaut")
+        console.log(t.messages.geolocationFailed)
         const data = await getWeatherByCity("Paris")
         setCurrentWeather(data.current)
         setForecast(data.forecast.daily)
         setHourlyData(data.forecast.hourly)
       }
     } catch (error) {
-      console.error("Erreur lors de l'initialisation:", error)
+      console.error(t.messages.initializationError, error)
     } finally {
       setLoading(false)
     }
@@ -306,7 +306,7 @@ export default function WeatherBoard() {
                   onClick={handleBackToDashboard}
                   className="glass hover:glass-strong transition-all duration-300 ml-2 sm:ml-4 bg-transparent hidden sm:inline-flex"
                 >
-                  ← Retour au Tableau de Bord
+                  ← {t.common.backToDashboard}
                 </Button>
               )}
             </div>
@@ -609,7 +609,7 @@ export default function WeatherBoard() {
                           </span>
                         </div>
                         <div className="flex items-center justify-between pt-2 border-t border-border/30">
-                          <span className="text-xs sm:text-sm text-muted-foreground">Altitude</span>
+                          <span className="text-xs sm:text-sm text-muted-foreground">{t.details.altitude}</span>
                           <span className="font-medium text-foreground text-sm sm:text-base">35 m</span>
                         </div>
                       </div>
