@@ -218,79 +218,83 @@ export function WeatherCard({ weather, settings, t, forecast, isFavorite, onTogg
       </div>
 
       {/* Daily Forecast Section */}
-      <div className="mt-8 relative z-10">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-xl dark:bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10">
-            <Calendar className="h-5 w-5 text-black dark:text-blue-300" />
-          </div>
-          <h3
-            className="text-lg font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 dark:from-white dark:via-blue-100 dark:to-purple-200 bg-clip-text text-transparent">
-            {t.forecast.fiveDayTitle}
-          </h3>
-        </div>
-        <div className="glass rounded-xl p-4 bg-gradient-to-r from-white/5 to-transparent">
-          {forecast?.daily && forecast.daily.length > 0 ? (
-            <div className="grid grid-cols-5 gap-3">
-              {forecast.daily.map((day, index) => (
-                <div key={index} className="text-center space-y-2">
-                  <p className="text-xs text-white/70 font-medium">{day.date}</p>
-                  <div className="flex justify-center">
-                    {getWeatherIcon(day.condition, "small")}
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm font-bold text-white">{day.maxTemp}°</p>
-                    <p className="text-xs text-white/60">{day.minTemp}°</p>
-                  </div>
-                  <p className="text-xs text-white/50 leading-tight truncate">
-                    {t.conditions[day.condition.toLowerCase() as keyof typeof t.conditions] || day.condition}
-                  </p>
-                </div>
-              ))}
+      {settings?.showForecast !== false && (
+        <div className="mt-8 relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded-xl dark:bg-gradient-to-br from-blue-500/20 to-purple-500/20 backdrop-blur-sm border border-white/10">
+              <Calendar className="h-5 w-5 text-black dark:text-blue-300" />
             </div>
-          ) : (
-            <p className="text-sm text-white/70 text-center">{t.forecast.loading}</p>
-          )}
+            <h3
+              className="text-lg font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 dark:from-white dark:via-blue-100 dark:to-purple-200 bg-clip-text text-transparent">
+              {t.forecast.fiveDayTitle}
+            </h3>
+          </div>
+          <div className="glass rounded-xl p-4 bg-gradient-to-r from-white/5 to-transparent">
+            {forecast?.daily && forecast.daily.length > 0 ? (
+              <div className="grid grid-cols-5 gap-3">
+                {forecast.daily.map((day, index) => (
+                  <div key={index} className="text-center space-y-2">
+                    <p className="text-xs text-white/70 font-medium">{day.date}</p>
+                    <div className="flex justify-center">
+                      {getWeatherIcon(day.condition, "small")}
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-sm font-bold text-white">{day.maxTemp}°</p>
+                      <p className="text-xs text-white/60">{day.minTemp}°</p>
+                    </div>
+                    <p className="text-xs text-white/50 leading-tight truncate">
+                      {t.conditions[day.condition.toLowerCase() as keyof typeof t.conditions] || day.condition}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-white/70 text-center">{t.forecast.loading}</p>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Hourly Forecast Section */}
-      <div className="mt-6 relative z-10">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 rounded-xl dark:bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm border border-white/10">
-            <Clock className="h-5 w-5 text-black dark:text-purple-300" />
-          </div>
-          <h3 className="text-lg font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 dark:from-white dark:via-blue-100 dark:to-purple-200 bg-clip-text text-transparent">
-            {t.forecast.hourlyTitle}
-          </h3>
-        </div>
-        <div className="glass rounded-xl p-4 bg-gradient-to-r from-white/5 to-transparent">
-          {forecast?.hourly && forecast.hourly.length > 0 ? (
-            <div className="flex gap-4 overflow-x-auto pb-2">
-              {forecast.hourly.map((hour, index) => (
-                <div key={index} className="flex-shrink-0 text-center space-y-2 min-w-[80px]">
-                  <p className="text-xs text-white/70 font-medium">{hour.time}</p>
-                  <div className="flex justify-center">
-                    {getWeatherIcon(hour.condition, "small")}
-                  </div>
-                  <p className="text-sm font-bold text-white">{hour.temperature}°</p>
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-center gap-1">
-                      <Droplets className="h-3 w-3 text-blue-300" />
-                      <span className="text-xs text-white/60">{hour.humidity}%</span>
-                    </div>
-                    <div className="flex items-center justify-center gap-1">
-                      <Wind className="h-3 w-3 text-green-300" />
-                      <span className="text-xs text-white/60">{hour.windSpeed}km/h</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+      {settings?.showForecast !== false && (
+        <div className="mt-6 relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 rounded-xl dark:bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm border border-white/10">
+              <Clock className="h-5 w-5 text-black dark:text-purple-300" />
             </div>
-          ) : (
-            <p className="text-sm text-white/70 text-center">{t.forecast.loading}</p>
-          )}
+            <h3 className="text-lg font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 dark:from-white dark:via-blue-100 dark:to-purple-200 bg-clip-text text-transparent">
+              {t.forecast.hourlyTitle}
+            </h3>
+          </div>
+          <div className="glass rounded-xl p-4 bg-gradient-to-r from-white/5 to-transparent">
+            {forecast?.hourly && forecast.hourly.length > 0 ? (
+              <div className="flex gap-4 overflow-x-auto pb-2">
+                {forecast.hourly.map((hour, index) => (
+                  <div key={index} className="flex-shrink-0 text-center space-y-2 min-w-[80px]">
+                    <p className="text-xs text-white/70 font-medium">{hour.time}</p>
+                    <div className="flex justify-center">
+                      {getWeatherIcon(hour.condition, "small")}
+                    </div>
+                    <p className="text-sm font-bold text-white">{hour.temperature}°</p>
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-center gap-1">
+                        <Droplets className="h-3 w-3 text-blue-300" />
+                        <span className="text-xs text-white/60">{hour.humidity}%</span>
+                      </div>
+                      <div className="flex items-center justify-center gap-1">
+                        <Wind className="h-3 w-3 text-green-300" />
+                        <span className="text-xs text-white/60">{hour.windSpeed}km/h</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-white/70 text-center">{t.forecast.loading}</p>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
