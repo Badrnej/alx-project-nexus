@@ -138,7 +138,7 @@ export function WeatherSearch({ onSearch, loading = false, searchHistory = [], t
       {/* Enhanced Suggestions Dropdown */}
       {showSuggestions && suggestions.length > 0 && (
         <div className="absolute top-full left-0 right-0 mt-2 z-50">
-          <div className="glass-strong rounded-2xl p-4 shadow-2xl border border-border/50">
+          <div className="backdrop-blur-lg bg-background/45 dark:bg-slate-800/60 rounded-2xl p-4 shadow-2xl border border-border/30 dark:border-slate-600/50">
             <div className="space-y-2">
               {searchHistory.length > 0 && suggestions.some((city) => searchHistory.includes(city)) && (
                 <div className="pb-2 mb-2 border-b border-border/30">
