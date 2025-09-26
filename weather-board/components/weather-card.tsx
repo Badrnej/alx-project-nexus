@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { 
   Cloud, 
   Sun, 
@@ -17,7 +18,9 @@ import {
   Sunset,
   MapPin,
   Calendar,
-  Clock
+  Clock,
+  Star,
+  StarOff
 } from "lucide-react"
 import { WeatherIcon } from "./weather-icons"
 import type { Translations } from "@/lib/translations"
@@ -70,9 +73,11 @@ interface WeatherCardPropsNew {
     daily: ForecastDay[]
     hourly: HourlyData[]
   }
+  isFavorite?: boolean
+  onToggleFavorite?: () => void
 }
 
-export function WeatherCard({ weather, settings, t, forecast }: WeatherCardPropsNew) {
+export function WeatherCard({ weather, settings, t, forecast, isFavorite, onToggleFavorite }: WeatherCardPropsNew) {
   const getWeatherIcon = (condition: string, size: "large" | "small" = "large") => {
     const iconSize = size === "large" ? 80 : 32;
     
@@ -111,16 +116,28 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
             <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-black dark:text-blue-300" />
           </div>
           <div className="min-w-0 flex-1">
-            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-black via-blue-100 to-gray-300 bg-clip-text text-transparent truncate dark:from-blue-200 dark:via-blue-100 dark:to-gray-300">
+            <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 dark:from-blue-200 dark:via-blue-100 dark:to-gray-300 bg-clip-text text-transparent truncate">
               {weather.location}
             </h2>
             <p className="text-sm sm:text-base text-black dark:text-blue-200 truncate">{weather.country}</p>
           </div>
         </div>
         <Badge variant="outline" className="glass text-xs backdrop-blur-md border-white/20 text-black/90 dark:text-white/90 shrink-0">
-          <Clock className="h-3 w-3 mr-1" />
+          <Clock className="h-3 w-3 mr-1 rtl:mr-0 rtl:ml-1" />
           {t.details.live}
         </Badge>
+        {onToggleFavorite && (
+          <Button
+            variant={isFavorite ? "default" : "outline"}
+            size="sm"
+            onClick={onToggleFavorite}
+            className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 rounded-md px-3 has-[>svg]:px-2.5 gap-2 glass hover:glass-strong transition-all duration-300 ml-3 rtl:ml-0 rtl:mr-3"
+            data-slot="button"
+          >
+            {isFavorite ? <Star className="h-4 w-4 fill-current" /> : <StarOff className="h-4 w-4" />}
+            <span className="hidden sm:inline">{isFavorite ? t.favorites.favorite : t.favorites.add}</span>
+          </Button>
+        )}
       </div>
 
       {/* Main Weather Display */}
@@ -128,7 +145,7 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
         <div className="space-y-3 sm:space-y-5 flex-1">
           <div className="flex items-baseline gap-2 sm:gap-3">
               <span
-                  className="text-6xl sm:text-8xl font-extralight bg-gradient-to-br from-black via-blue-100 to-black bg-clip-text text-transparent tracking-tight drop-shadow-lg dark:from-white dark:via-blue-100 dark:to-blue-200">
+                  className="text-6xl sm:text-8xl font-extralight bg-gradient-to-br from-gray-900 via-gray-600 to-gray-800 dark:from-white dark:via-blue-100 dark:to-blue-200 bg-clip-text text-transparent tracking-tight drop-shadow-lg">
                   {weather.temperature}
               </span>
             <span className="text-3xl sm:text-4xl text-gray-500/70 dark:text-blue-200/70 font-light">{tempUnit}</span>
@@ -156,7 +173,7 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
           <div className="flex items-center justify-center mb-1 sm:mb-2">
             <Eye className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500" />
           </div>
-          <p className="text-xs text-muted-foreground mb-1">Visibilité</p>
+          <p className="text-xs text-muted-foreground mb-1">{t.details.visibility}</p>
           <p className="text-sm sm:text-lg font-semibold text-foreground">{weather.visibility} km</p>
         </div>
 
@@ -164,7 +181,7 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
           <div className="flex items-center justify-center mb-1 sm:mb-2">
             <Wind className="h-4 w-4 sm:h-5 sm:w-5 text-indigo-500" />
           </div>
-          <p className="text-xs text-muted-foreground mb-1">Vent</p>
+          <p className="text-xs text-muted-foreground mb-1">{t.details.wind}</p>
           <p className="text-sm sm:text-lg font-semibold text-foreground">
             {weather.windSpeed} {settings?.windSpeedUnit === "mph" ? "mph" : "km/h"}
           </p>
@@ -174,7 +191,7 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
           <div className="flex items-center justify-center mb-1 sm:mb-2">
             <Sunrise className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500" />
           </div>
-          <p className="text-xs text-muted-foreground mb-1">Lever</p>
+          <p className="text-xs text-muted-foreground mb-1">{t.details.sunrise}</p>
           <p className="text-sm sm:text-lg font-semibold text-foreground">06:42</p>
         </div>
 
@@ -182,7 +199,7 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
           <div className="flex items-center justify-center mb-1 sm:mb-2">
             <Sunset className="h-4 w-4 sm:h-5 sm:w-5 text-orange-500" />
           </div>
-          <p className="text-xs text-muted-foreground mb-1">Coucher</p>
+          <p className="text-xs text-muted-foreground mb-1">{t.details.sunset}</p>
           <p className="text-sm sm:text-lg font-semibold text-foreground">20:15</p>
         </div>
       </div>
@@ -207,8 +224,8 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
             <Calendar className="h-5 w-5 text-black dark:text-blue-300" />
           </div>
           <h3
-            className={"text-lg font-bold " + "bg-gradient-to-r " + "from-black via-blue-300 to-gray-500 " + "dark:from-white dark:via-blue-100 dark:to-purple-200 " + "bg-clip-text text-transparent"}>
-            Prévisions 5 jours
+            className="text-lg font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 dark:from-white dark:via-blue-100 dark:to-purple-200 bg-clip-text text-transparent">
+            {t.forecast.fiveDayTitle}
           </h3>
         </div>
         <div className="glass rounded-xl p-4 bg-gradient-to-r from-white/5 to-transparent">
@@ -224,12 +241,14 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
                     <p className="text-sm font-bold text-white">{day.maxTemp}°</p>
                     <p className="text-xs text-white/60">{day.minTemp}°</p>
                   </div>
-                  <p className="text-xs text-white/50 leading-tight truncate">{day.condition}</p>
+                  <p className="text-xs text-white/50 leading-tight truncate">
+                    {t.conditions[day.condition.toLowerCase() as keyof typeof t.conditions] || day.condition}
+                  </p>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-sm text-white/70 text-center">Chargement des prévisions...</p>
+            <p className="text-sm text-white/70 text-center">{t.forecast.loading}</p>
           )}
         </div>
       </div>
@@ -240,8 +259,8 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
           <div className="p-2 rounded-xl dark:bg-gradient-to-br from-purple-500/20 to-pink-500/20 backdrop-blur-sm border border-white/10">
             <Clock className="h-5 w-5 text-black dark:text-purple-300" />
           </div>
-          <h3 className={"text-lg font-bold " + "bg-gradient-to-r " + "from-black via-blue-300 to-gray-500 " + "dark:from-white dark:via-blue-100 dark:to-purple-200 " + "bg-clip-text text-transparent"}>
-            Prévisions horaires
+          <h3 className="text-lg font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600 dark:from-white dark:via-blue-100 dark:to-purple-200 bg-clip-text text-transparent">
+            {t.forecast.hourlyTitle}
           </h3>
         </div>
         <div className="glass rounded-xl p-4 bg-gradient-to-r from-white/5 to-transparent">
@@ -268,7 +287,7 @@ export function WeatherCard({ weather, settings, t, forecast }: WeatherCardProps
               ))}
             </div>
           ) : (
-            <p className="text-sm text-white/70 text-center">Chargement des prévisions...</p>
+            <p className="text-sm text-white/70 text-center">{t.forecast.loading}</p>
           )}
         </div>
       </div>

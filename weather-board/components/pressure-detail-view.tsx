@@ -78,21 +78,21 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
   })
 
   const getPressureLevel = (pressure: number) => {
-    if (pressure < 1000) return { level: "Basse", color: "text-red-500", bg: "bg-red-500/20", weather: "Instable" }
+    if (pressure < 1000) return { level: t.analysis.veryLow, color: "text-red-500", bg: "bg-red-500/20", weather: t.analysis.unstable }
     if (pressure < 1013)
-      return { level: "Faible", color: "text-orange-500", bg: "bg-orange-500/20", weather: "Variable" }
-    if (pressure < 1025) return { level: "Normale", color: "text-green-500", bg: "bg-green-500/20", weather: "Stable" }
-    return { level: "Élevée", color: "text-blue-500", bg: "bg-blue-500/20", weather: "Très Stable" }
+      return { level: t.analysis.low, color: "text-orange-500", bg: "bg-orange-500/20", weather: t.analysis.variable }
+    if (pressure < 1025) return { level: t.analysis.normal, color: "text-green-500", bg: "bg-green-500/20", weather: t.analysis.stable }
+    return { level: t.analysis.high, color: "text-blue-500", bg: "bg-blue-500/20", weather: t.analysis.veryStrong }
   }
 
   const currentLevel = getPressureLevel(Number(currentWeather.pressure))
 
   const getTrendDirection = (trend: number) => {
-    if (trend > 2) return { direction: "Hausse Rapide", color: "text-green-500", icon: "↗️" }
-    if (trend > 0.5) return { direction: "Hausse", color: "text-blue-500", icon: "↑" }
-    if (trend < -2) return { direction: "Chute Rapide", color: "text-red-500", icon: "↘️" }
-    if (trend < -0.5) return { direction: "Baisse", color: "text-orange-500", icon: "↓" }
-    return { direction: "Stable", color: "text-gray-500", icon: "→" }
+    if (trend > 2) return { direction: t.analysis.rapidRise, color: "text-green-500", icon: "↗️" }
+    if (trend > 0.5) return { direction: t.analysis.rise, color: "text-blue-500", icon: "↑" }
+    if (trend < -2) return { direction: t.analysis.rapidFall, color: "text-red-500", icon: "↘️" }
+    if (trend < -0.5) return { direction: t.analysis.fall, color: "text-orange-500", icon: "↓" }
+    return { direction: t.analysis.stableValue, color: "text-gray-500", icon: "→" }
   }
 
   const trendInfo = getTrendDirection(pressureTrend)
@@ -101,7 +101,7 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
     if (active && payload && payload.length) {
       return (
         <div className="glass-strong rounded-xl p-4 shadow-2xl border border-border/50">
-          <p className="text-sm font-semibold text-foreground mb-2">{`Heure: ${label}`}</p>
+          <p className="text-sm font-semibold text-foreground mb-2">{`${t.charts.time}: ${label}`}</p>
           {payload.map((entry: any, index: number) => (
             <p key={index} className="text-sm font-medium" style={{ color: entry.color }}>
               {`${entry.name}: ${entry.value} ${pressureUnit}`}
@@ -121,8 +121,8 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
           <Gauge className="h-8 w-8 text-purple-500" />
         </div>
         <div>
-          <h1 className="text-4xl font-bold text-foreground">Analyse Détaillée de la Pression</h1>
-          <p className="text-muted-foreground">Pression atmosphérique et tendances météorologiques</p>
+          <h1 className="text-4xl font-bold text-foreground">{t.analysis.detailedPressure}</h1>
+          <p className="text-muted-foreground">{t.analysis.pressureConditions}</p>
         </div>
         <Badge variant="outline" className="glass text-sm ml-auto">
           {currentWeather.location}
@@ -136,7 +136,7 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
             <div className="p-2 bg-purple-500/20 rounded-xl">
               <Gauge className="h-5 w-5 text-purple-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Actuelle</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.current}</span>
           </div>
           <div className="text-3xl font-bold text-purple-500">
             {currentWeather.pressure} {pressureUnit}
@@ -149,12 +149,12 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
             <div className="p-2 bg-blue-500/20 rounded-xl">
               <TrendingUp className="h-5 w-5 text-blue-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Maximum</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.maximum}</span>
           </div>
           <div className="text-3xl font-bold text-blue-500">
             {Math.round(maxPressure)} {pressureUnit}
           </div>
-          <p className="text-xs text-muted-foreground mt-1">Pic de la journée</p>
+          <p className="text-xs text-muted-foreground mt-1">{t.analysis.peakOfDay}</p>
         </div>
 
         <div className="glass-strong rounded-2xl p-6">
@@ -162,12 +162,12 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
             <div className="p-2 bg-red-500/20 rounded-xl">
               <TrendingDown className="h-5 w-5 text-red-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Minimum</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.minimum}</span>
           </div>
           <div className="text-3xl font-bold text-red-500">
             {Math.round(minPressure)} {pressureUnit}
           </div>
-          <p className="text-xs text-muted-foreground mt-1">Plus bas de la journée</p>
+          <p className="text-xs text-muted-foreground mt-1">{t.analysis.lowestOfDay}</p>
         </div>
 
         <div className="glass-strong rounded-2xl p-6">
@@ -175,7 +175,7 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
             <div className="p-2 bg-green-500/20 rounded-xl">
               <Activity className="h-5 w-5 text-green-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Tendance</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.trend}</span>
           </div>
           <div className={`text-2xl font-bold ${trendInfo.color} flex items-center gap-2`}>
             <span>{trendInfo.icon}</span>
@@ -188,9 +188,9 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
       {/* Detailed Pressure Chart */}
       <div className="glass-strong rounded-2xl p-8">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-foreground">Évolution sur 24 Heures</h2>
+          <h2 className="text-2xl font-bold text-foreground">{t.forecast.evolution24h}</h2>
           <Badge variant="outline" className="glass">
-            Temps réel
+            {t.forecast.realTime}
           </Badge>
         </div>
         <ResponsiveContainer width="100%" height={400}>
@@ -224,7 +224,7 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
               stroke="rgb(147, 51, 234)"
               strokeWidth={4}
               fill="url(#pressureDetailGradient)"
-              name="Pression"
+              name={t.details.pressure}
             />
             <Line
               type="monotone"
@@ -240,7 +240,7 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
 
       {/* Extended Forecast */}
       <div className="glass-strong rounded-2xl p-8">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Prévisions de Pression sur 7 Jours</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-6">{t.analysis.pressureForecast7Days}</h2>
         <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           {extendedForecast.map((day, index) => (
             <div key={index} className="glass rounded-xl p-4 text-center">
@@ -255,7 +255,7 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
                 </div>
               </div>
               <div className="mt-3 text-xs text-muted-foreground">
-                Moy. {day.avgPressure} {pressureUnit}
+                {t.analysis.dayAverage} {day.avgPressure} {pressureUnit}
               </div>
             </div>
           ))}
@@ -267,31 +267,31 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
         <div className="glass-strong rounded-2xl p-6">
           <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
             <CloudRain className="h-5 w-5 text-blue-500" />
-            Analyse Barométrique
+            {t.analysis.barometricAnalysis}
           </h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Niveau de Mer</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.seaLevel}</span>
               <span className="font-bold text-blue-500">
                 {Math.round(Number(currentWeather.pressure) + 35)} {pressureUnit}
               </span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Stabilité Météo</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.weatherStability}</span>
               <span className={`font-bold ${currentLevel.color}`}>{currentLevel.weather}</span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Risque d'Orage</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.stormRisk}</span>
               <span className="font-bold text-yellow-500">
                 {Number(currentWeather.pressure) < 1005
-                  ? "Élevé"
+                  ? t.analysis.high
                   : Number(currentWeather.pressure) < 1015
-                    ? "Modéré"
-                    : "Faible"}
+                    ? t.analysis.moderate
+                    : t.analysis.low}
               </span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Variation 6h</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.hourlyVariation}</span>
               <span className={`font-bold ${trendInfo.color}`}>
                 {pressureTrend > 0 ? "+" : ""}
                 {pressureTrend.toFixed(1)} {pressureUnit}
@@ -303,33 +303,33 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
         <div className="glass-strong rounded-2xl p-6">
           <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
             <Sun className="h-5 w-5 text-yellow-500" />
-            Prévisions Météo
+            {t.analysis.recommendations}
           </h3>
           <div className="space-y-3">
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Évolution Probable</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.probableEvolution}</div>
               <div className="text-sm text-muted-foreground">
                 {pressureTrend > 1
-                  ? "Amélioration du temps, ciel qui se dégage"
+                  ? t.analysis.improvingWeather
                   : pressureTrend < -1
-                    ? "Dégradation possible, risque de précipitations"
-                    : "Temps stable, peu de changements attendus"}
+                    ? t.analysis.deterioratingWeather
+                    : t.analysis.stableWeather}
               </div>
             </div>
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Activités Sensibles</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.sensitiveActivities}</div>
               <div className="text-sm text-muted-foreground">
                 {Number(currentWeather.pressure) < 1010
-                  ? "Évitez les activités en altitude"
-                  : "Conditions favorables aux activités extérieures"}
+                  ? t.analysis.avoidHighAltitude
+                  : t.analysis.favorableOutdoor}
               </div>
             </div>
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Santé</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.health}</div>
               <div className="text-sm text-muted-foreground">
                 {Number(currentWeather.pressure) < 1005
-                  ? "Possible gêne pour les personnes sensibles"
-                  : "Conditions atmosphériques confortables"}
+                  ? t.analysis.discomfortSensitive
+                  : t.analysis.comfortableConditions}
               </div>
             </div>
           </div>

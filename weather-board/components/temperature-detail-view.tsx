@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, ComposedChart } from "recharts"
 import { TrendingUp, Thermometer, TrendingDown, Activity, Sun, Snowflake } from "lucide-react"
 import type { Translations } from "@/lib/translations"
+import { translations } from "@/lib/translations"
 
 interface HourlyData {
   time: string
@@ -60,13 +61,18 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
   const tempRange = maxTemp - minTemp
 
   // Generate extended forecast data (7 days)
+  // Déterminer la locale en fonction de la langue actuelle
+  let locale = "fr-FR" // Par défaut
+  if (t === translations.en) locale = "en-US"
+  else if (t === translations.ar) locale = "ar-SA"
+  
   const extendedForecast = Array.from({ length: 7 }, (_, i) => {
     const date = new Date()
     date.setDate(date.getDate() + i)
     const baseTemp = currentWeather.temperature + (Math.random() - 0.5) * 10
     return {
-      day: date.toLocaleDateString("fr-FR", { weekday: "short" }),
-      date: date.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" }),
+      day: date.toLocaleDateString(locale, { weekday: "short" }),
+      date: date.toLocaleDateString(locale, { day: "2-digit", month: "2-digit" }),
       maxTemp: Math.round(baseTemp + Math.random() * 5),
       minTemp: Math.round(baseTemp - Math.random() * 5),
       avgTemp: Math.round(baseTemp),
@@ -77,7 +83,7 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
     if (active && payload && payload.length) {
       return (
         <div className="glass-strong rounded-xl p-4 shadow-2xl border border-border/50">
-          <p className="text-sm font-semibold text-foreground mb-2">{`Heure: ${label}`}</p>
+          <p className="text-sm font-semibold text-foreground mb-2">{`${t.charts.time}: ${label}`}</p>
           {payload.map((entry: any, index: number) => (
             <p key={index} className="text-sm font-medium" style={{ color: entry.color }}>
               {`${entry.name}: ${entry.value}${tempUnit}`}
@@ -97,8 +103,8 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
           <TrendingUp className="h-8 w-8 text-blue-500" />
         </div>
         <div>
-          <h1 className="text-4xl font-bold text-foreground">Analyse Détaillée de la Température</h1>
-          <p className="text-muted-foreground">Évolution complète et statistiques avancées</p>
+          <h1 className="text-4xl font-bold text-foreground">{t.analysis.detailedTemperature}</h1>
+          <p className="text-muted-foreground">{t.analysis.completeEvolution}</p>
         </div>
         <Badge variant="outline" className="glass text-sm ml-auto">
           {currentWeather.location}
@@ -112,14 +118,14 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
             <div className="p-2 bg-blue-500/20 rounded-xl">
               <Thermometer className="h-5 w-5 text-blue-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Actuelle</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.current}</span>
           </div>
           <div className="text-3xl font-bold text-blue-500">
             {currentWeather.temperature}
             {tempUnit}
           </div>
           <p className="text-xs text-muted-foreground mt-1">
-            Ressenti {currentWeather.feelsLike}
+            {t.details.feelsLike} {currentWeather.feelsLike}
             {tempUnit}
           </p>
         </div>
@@ -129,13 +135,13 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
             <div className="p-2 bg-red-500/20 rounded-xl">
               <TrendingUp className="h-5 w-5 text-red-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Maximum</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.maximum}</span>
           </div>
           <div className="text-3xl font-bold text-red-500">
             {Math.round(maxTemp)}
             {tempUnit}
           </div>
-          <p className="text-xs text-muted-foreground mt-1">Pic de la journée</p>
+          <p className="text-xs text-muted-foreground mt-1">{t.analysis.peakOfDay}</p>
         </div>
 
         <div className="glass-strong rounded-2xl p-6">
@@ -143,13 +149,13 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
             <div className="p-2 bg-cyan-500/20 rounded-xl">
               <TrendingDown className="h-5 w-5 text-cyan-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Minimum</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.minimum}</span>
           </div>
           <div className="text-3xl font-bold text-cyan-500">
             {Math.round(minTemp)}
             {tempUnit}
           </div>
-          <p className="text-xs text-muted-foreground mt-1">Plus bas de la journée</p>
+          <p className="text-xs text-muted-foreground mt-1">{t.analysis.lowestOfDay}</p>
         </div>
 
         <div className="glass-strong rounded-2xl p-6">
@@ -157,14 +163,14 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
             <div className="p-2 bg-purple-500/20 rounded-xl">
               <Activity className="h-5 w-5 text-purple-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Moyenne</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.average}</span>
           </div>
           <div className="text-3xl font-bold text-purple-500">
             {Math.round(avgTemp)}
             {tempUnit}
           </div>
           <p className="text-xs text-muted-foreground mt-1">
-            Amplitude {Math.round(tempRange)}
+            {t.analysis.dailyAmplitude} {Math.round(tempRange)}
             {tempUnit}
           </p>
         </div>
@@ -173,9 +179,9 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
       {/* Detailed Temperature Chart */}
       <div className="glass-strong rounded-2xl p-8">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-foreground">Évolution sur 24 Heures</h2>
+          <h2 className="text-2xl font-bold text-foreground">{t.forecast.evolution24h}</h2>
           <Badge variant="outline" className="glass">
-            Temps réel
+            {t.forecast.realTime}
           </Badge>
         </div>
         <ResponsiveContainer width="100%" height={400}>
@@ -209,7 +215,7 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
               stroke="rgb(59, 130, 246)"
               strokeWidth={4}
               fill="url(#temperatureDetailGradient)"
-              name="Température"
+              name={t.stats.temperature}
             />
             <Line
               type="monotone"
@@ -225,7 +231,7 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
 
       {/* Extended Forecast */}
       <div className="glass-strong rounded-2xl p-8">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Prévisions sur 7 Jours</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-6">{t.forecast.forecasts7Days}</h2>
         <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           {extendedForecast.map((day, index) => (
             <div key={index} className="glass rounded-xl p-4 text-center">
@@ -242,7 +248,7 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
                 </div>
               </div>
               <div className="mt-3 text-xs text-muted-foreground">
-                Moy. {day.avgTemp}
+                {t.analysis.dayAverage} {day.avgTemp}
                 {tempUnit}
               </div>
             </div>
@@ -255,27 +261,27 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
         <div className="glass-strong rounded-2xl p-6">
           <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
             <Sun className="h-5 w-5 text-yellow-500" />
-            Analyse Thermique
+            {t.analysis.thermalAnalysis}
           </h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Indice de Chaleur</span>
-              <span className="font-bold text-orange-500">Modéré</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.heatIndex}</span>
+              <span className="font-bold text-orange-500">{t.analysis.moderate}</span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Confort Thermique</span>
-              <span className="font-bold text-green-500">Agréable</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.thermalComfort}</span>
+              <span className="font-bold text-green-500">{t.analysis.pleasant}</span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Variation Journalière</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.dailyVariation}</span>
               <span className="font-bold text-blue-500">
                 {Math.round(tempRange)}
                 {tempUnit}
               </span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Tendance</span>
-              <span className="font-bold text-purple-500">Stable</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.trend}</span>
+              <span className="font-bold text-purple-500">{t.analysis.stable}</span>
             </div>
           </div>
         </div>
@@ -283,22 +289,22 @@ export function TemperatureDetailView({ hourlyData, currentWeather, settings, t 
         <div className="glass-strong rounded-2xl p-6">
           <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
             <Snowflake className="h-5 w-5 text-cyan-500" />
-            Recommandations
+            {t.analysis.recommendations}
           </h3>
           <div className="space-y-3">
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Vêtements</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.clothing}</div>
               <div className="text-sm text-muted-foreground">
-                Vêtements légers recommandés, possibilité de superposer
+                {t.analysis.lightClothing}
               </div>
             </div>
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Activités</div>
-              <div className="text-sm text-muted-foreground">Conditions idéales pour les activités extérieures</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.activities}</div>
+              <div className="text-sm text-muted-foreground">{t.analysis.idealConditions}</div>
             </div>
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Hydratation</div>
-              <div className="text-sm text-muted-foreground">Maintenir une hydratation normale</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.hydration}</div>
+              <div className="text-sm text-muted-foreground">{t.analysis.keepNormalHydration}</div>
             </div>
           </div>
         </div>

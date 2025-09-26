@@ -101,11 +101,11 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
   })
 
   const getWindLevel = (speed: number) => {
-    if (speed < 5) return { level: "Calme", color: "text-green-500", bg: "bg-green-500/20" }
-    if (speed < 15) return { level: "Léger", color: "text-blue-500", bg: "bg-blue-500/20" }
-    if (speed < 30) return { level: "Modéré", color: "text-yellow-500", bg: "bg-yellow-500/20" }
-    if (speed < 50) return { level: "Fort", color: "text-orange-500", bg: "bg-orange-500/20" }
-    return { level: "Très Fort", color: "text-red-500", bg: "bg-red-500/20" }
+    if (speed < 5) return { level: t.analysis.calm, color: "text-green-500", bg: "bg-green-500/20" }
+    if (speed < 15) return { level: t.analysis.light, color: "text-blue-500", bg: "bg-blue-500/20" }
+    if (speed < 30) return { level: t.analysis.moderate, color: "text-yellow-500", bg: "bg-yellow-500/20" }
+    if (speed < 50) return { level: t.analysis.strong, color: "text-orange-500", bg: "bg-orange-500/20" }
+    return { level: t.analysis.veryStrong, color: "text-red-500", bg: "bg-red-500/20" }
   }
 
   const currentLevel = getWindLevel(currentWeather.windSpeed)
@@ -114,7 +114,7 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
     if (active && payload && payload.length) {
       return (
         <div className="glass-strong rounded-xl p-4 shadow-2xl border border-border/50">
-          <p className="text-sm font-semibold text-foreground mb-2">{`Heure: ${label}`}</p>
+          <p className="text-sm font-semibold text-foreground mb-2">{`${t.charts.time}: ${label}`}</p>
           {payload.map((entry: any, index: number) => (
             <p key={index} className="text-sm font-medium" style={{ color: entry.color }}>
               {`${entry.name}: ${entry.value} ${windUnit}`}
@@ -134,8 +134,8 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
           <Wind className="h-8 w-8 text-indigo-500" />
         </div>
         <div>
-          <h1 className="text-4xl font-bold text-foreground">Analyse Détaillée du Vent</h1>
-          <p className="text-muted-foreground">Vitesse, direction et conditions éoliennes</p>
+          <h1 className="text-4xl font-bold text-foreground">{t.analysis.detailedWind}</h1>
+          <p className="text-muted-foreground">{t.analysis.windConditions}</p>
         </div>
         <Badge variant="outline" className="glass text-sm ml-auto">
           {currentWeather.location}
@@ -149,7 +149,7 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
             <div className="p-2 bg-indigo-500/20 rounded-xl">
               <Wind className="h-5 w-5 text-indigo-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Actuelle</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.current}</span>
           </div>
           <div className="text-3xl font-bold text-indigo-500">
             {currentWeather.windSpeed} {windUnit}
@@ -162,12 +162,12 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
             <div className="p-2 bg-red-500/20 rounded-xl">
               <TrendingUp className="h-5 w-5 text-red-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Maximum</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.maximum}</span>
           </div>
           <div className="text-3xl font-bold text-red-500">
             {Math.round(maxWind)} {windUnit}
           </div>
-          <p className="text-xs text-muted-foreground mt-1">Rafale maximale</p>
+          <p className="text-xs text-muted-foreground mt-1">{t.analysis.peakOfDay}</p>
         </div>
 
         <div className="glass-strong rounded-2xl p-6">
@@ -175,12 +175,12 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
             <div className="p-2 bg-green-500/20 rounded-xl">
               <TrendingDown className="h-5 w-5 text-green-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Minimum</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.minimum}</span>
           </div>
           <div className="text-3xl font-bold text-green-500">
             {Math.round(minWind)} {windUnit}
           </div>
-          <p className="text-xs text-muted-foreground mt-1">Plus calme</p>
+          <p className="text-xs text-muted-foreground mt-1">{t.analysis.lowestOfDay}</p>
         </div>
 
         <div className="glass-strong rounded-2xl p-6">
@@ -188,13 +188,13 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
             <div className="p-2 bg-purple-500/20 rounded-xl">
               <Activity className="h-5 w-5 text-purple-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Moyenne</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.average}</span>
           </div>
           <div className="text-3xl font-bold text-purple-500">
             {Math.round(avgWind)} {windUnit}
           </div>
           <p className="text-xs text-muted-foreground mt-1">
-            Variation {Math.round(windRange)} {windUnit}
+            {t.analysis.variation} {Math.round(windRange)} {windUnit}
           </p>
         </div>
       </div>
@@ -204,9 +204,9 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
         {/* Wind Speed Evolution */}
         <div className="glass-strong rounded-2xl p-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-foreground">Évolution sur 24 Heures</h2>
+            <h2 className="text-2xl font-bold text-foreground">{t.forecast.evolution24h}</h2>
             <Badge variant="outline" className="glass">
-              Temps réel
+              {t.forecast.realTime}
             </Badge>
           </div>
           <ResponsiveContainer width="100%" height={350}>
@@ -228,7 +228,7 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
               />
               <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="windSpeed" fill="url(#windDetailGradient)" radius={[4, 4, 0, 0]} name="Vitesse du Vent" />
+              <Bar dataKey="windSpeed" fill="url(#windDetailGradient)" radius={[4, 4, 0, 0]} name={t.charts.windSpeed} />
               <Line
                 type="monotone"
                 dataKey="windSpeed"
@@ -244,9 +244,9 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
         {/* Wind Direction Radar */}
         <div className="glass-strong rounded-2xl p-8">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-foreground">Rose des Vents</h2>
+            <h2 className="text-2xl font-bold text-foreground">{t.analysis.dominantDirection}</h2>
             <Badge variant="outline" className="glass">
-              Direction
+              {t.forecast.realTime}
             </Badge>
           </div>
           <ResponsiveContainer width="100%" height={350}>
@@ -273,7 +273,7 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
 
       {/* Extended Forecast */}
       <div className="glass-strong rounded-2xl p-8">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Prévisions de Vent sur 7 Jours</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-6">{t.analysis.windForecast7Days}</h2>
         <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           {extendedForecast.map((day, index) => (
             <div key={index} className="glass rounded-xl p-4 text-center">
@@ -301,41 +301,41 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
         <div className="glass-strong rounded-2xl p-6">
           <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
             <Zap className="h-5 w-5 text-yellow-500" />
-            Analyse Éolienne
+            {t.analysis.windAnalysis}
           </h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Échelle de Beaufort</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.beaufortScale}</span>
               <span className="font-bold text-blue-500">
                 {currentWeather.windSpeed < 2
-                  ? "0 - Calme"
+                  ? t.analysis.beaufortLevel0
                   : currentWeather.windSpeed < 6
-                    ? "1 - Très légère brise"
+                    ? t.analysis.beaufortLevel1
                     : currentWeather.windSpeed < 12
-                      ? "2 - Légère brise"
+                      ? t.analysis.beaufortLevel2
                       : currentWeather.windSpeed < 20
-                        ? "3 - Petite brise"
+                        ? t.analysis.beaufortLevel3
                         : currentWeather.windSpeed < 29
-                          ? "4 - Jolie brise"
+                          ? t.analysis.beaufortLevel4
                           : currentWeather.windSpeed < 39
-                            ? "5 - Bonne brise"
-                            : "6+ - Vent frais"}
+                            ? t.analysis.beaufortLevel5
+                            : t.analysis.beaufortLevel6Plus}
               </span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Refroidissement Éolien</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.windChill}</span>
               <span className="font-bold text-cyan-500">
                 {Math.round(currentWeather.feelsLike - currentWeather.windSpeed * 0.5)}°
               </span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Direction Dominante</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.dominantDirection}</span>
               <span className="font-bold text-purple-500">Sud-Ouest</span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Stabilité</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.stability}</span>
               <span className="font-bold text-green-500">
-                {windRange < 5 ? "Stable" : windRange < 15 ? "Variable" : "Instable"}
+                {windRange < 5 ? t.analysis.stable : windRange < 15 ? t.analysis.variable : t.analysis.unstable}
               </span>
             </div>
           </div>
@@ -344,33 +344,33 @@ export function WindDetailView({ hourlyData, currentWeather, settings, t }: Wind
         <div className="glass-strong rounded-2xl p-6">
           <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
             <Navigation className="h-5 w-5 text-indigo-500" />
-            Recommandations
+            {t.analysis.recommendations}
           </h3>
           <div className="space-y-3">
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Activités Nautiques</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.nauticalActivities}</div>
               <div className="text-sm text-muted-foreground">
                 {currentWeather.windSpeed < 10
-                  ? "Conditions idéales pour la voile légère"
+                  ? t.analysis.idealLightSailing
                   : currentWeather.windSpeed < 25
-                    ? "Bonnes conditions pour la voile"
-                    : "Conditions difficiles - prudence requise"}
+                    ? t.analysis.goodSailingConditions
+                    : t.analysis.difficultConditions}
               </div>
             </div>
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Vol & Parapente</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.flightActivities}</div>
               <div className="text-sm text-muted-foreground">
                 {currentWeather.windSpeed < 15
-                  ? "Conditions favorables au vol libre"
-                  : "Vents trop forts pour les activités aériennes"}
+                  ? t.analysis.favorableForFlight
+                  : t.analysis.tooWindyForFlight}
               </div>
             </div>
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Confort Extérieur</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.outdoorComfort}</div>
               <div className="text-sm text-muted-foreground">
                 {currentWeather.windSpeed < 20
-                  ? "Agréable pour les activités extérieures"
-                  : "Vent fort - habillez-vous chaudement"}
+                  ? t.analysis.pleasantForOutdoor
+                  : t.analysis.strongWind}
               </div>
             </div>
           </div>

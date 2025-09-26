@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, ComposedChart } from "recharts"
 import { Droplets, TrendingUp, TrendingDown, Activity, CloudRain, Sun } from "lucide-react"
 import type { Translations } from "@/lib/translations"
+import { translations } from "@/lib/translations"
 
 interface HourlyData {
   time: string
@@ -58,13 +59,18 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
   const humidityRange = maxHumidity - minHumidity
 
   // Generate extended forecast data (7 days)
+  // Déterminer la locale en fonction de la langue actuelle
+  let locale = "fr-FR" // Par défaut
+  if (t === translations.en) locale = "en-US"
+  else if (t === translations.ar) locale = "ar-SA"
+  
   const extendedForecast = Array.from({ length: 7 }, (_, i) => {
     const date = new Date()
     date.setDate(date.getDate() + i)
     const baseHumidity = currentWeather.humidity + (Math.random() - 0.5) * 20
     return {
-      day: date.toLocaleDateString("fr-FR", { weekday: "short" }),
-      date: date.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit" }),
+      day: date.toLocaleDateString(locale, { weekday: "short" }),
+      date: date.toLocaleDateString(locale, { day: "2-digit", month: "2-digit" }),
       maxHumidity: Math.min(100, Math.round(baseHumidity + Math.random() * 15)),
       minHumidity: Math.max(0, Math.round(baseHumidity - Math.random() * 15)),
       avgHumidity: Math.round(baseHumidity),
@@ -72,10 +78,11 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
   })
 
   const getHumidityLevel = (humidity: number) => {
-    if (humidity < 30) return { level: "Faible", color: "text-orange-500", bg: "bg-orange-500/20" }
-    if (humidity < 60) return { level: "Modérée", color: "text-green-500", bg: "bg-green-500/20" }
-    if (humidity < 80) return { level: "Élevée", color: "text-blue-500", bg: "bg-blue-500/20" }
-    return { level: "Très Élevée", color: "text-purple-500", bg: "bg-purple-500/20" }
+    // Utilisation des clés de traduction pour les niveaux d'humidité
+    if (humidity < 30) return { level: t.analysis.low, color: "text-orange-500", bg: "bg-orange-500/20" }
+    if (humidity < 60) return { level: t.analysis.moderate, color: "text-green-500", bg: "bg-green-500/20" }
+    if (humidity < 80) return { level: t.analysis.high, color: "text-blue-500", bg: "bg-blue-500/20" }
+    return { level: t.analysis.veryHigh, color: "text-purple-500", bg: "bg-purple-500/20" }
   }
 
   const currentLevel = getHumidityLevel(currentWeather.humidity)
@@ -84,7 +91,7 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
     if (active && payload && payload.length) {
       return (
         <div className="glass-strong rounded-xl p-4 shadow-2xl border border-border/50">
-          <p className="text-sm font-semibold text-foreground mb-2">{`Heure: ${label}`}</p>
+          <p className="text-sm font-semibold text-foreground mb-2">{`${t.charts.time}: ${label}`}</p>
           {payload.map((entry: any, index: number) => (
             <p key={index} className="text-sm font-medium" style={{ color: entry.color }}>
               {`${entry.name}: ${entry.value}%`}
@@ -104,8 +111,8 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
           <Droplets className="h-8 w-8 text-cyan-500" />
         </div>
         <div>
-          <h1 className="text-4xl font-bold text-foreground">Analyse Détaillée de l'Humidité</h1>
-          <p className="text-muted-foreground">Taux d'humidité et conditions atmosphériques</p>
+          <h1 className="text-4xl font-bold text-foreground">{t.analysis.detailedHumidity}</h1>
+          <p className="text-muted-foreground">{t.analysis.temperatureConditions}</p>
         </div>
         <Badge variant="outline" className="glass text-sm ml-auto">
           {currentWeather.location}
@@ -119,7 +126,7 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
             <div className="p-2 bg-cyan-500/20 rounded-xl">
               <Droplets className="h-5 w-5 text-cyan-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Actuelle</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.current}</span>
           </div>
           <div className="text-3xl font-bold text-cyan-500">{currentWeather.humidity}%</div>
           <p className={`text-xs mt-1 ${currentLevel.color}`}>{currentLevel.level}</p>
@@ -130,10 +137,10 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
             <div className="p-2 bg-blue-500/20 rounded-xl">
               <TrendingUp className="h-5 w-5 text-blue-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Maximum</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.maximum}</span>
           </div>
           <div className="text-3xl font-bold text-blue-500">{Math.round(maxHumidity)}%</div>
-          <p className="text-xs text-muted-foreground mt-1">Pic de la journée</p>
+          <p className="text-xs text-muted-foreground mt-1">{t.analysis.peakOfDay}</p>
         </div>
 
         <div className="glass-strong rounded-2xl p-6">
@@ -141,10 +148,10 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
             <div className="p-2 bg-orange-500/20 rounded-xl">
               <TrendingDown className="h-5 w-5 text-orange-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Minimum</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.minimum}</span>
           </div>
           <div className="text-3xl font-bold text-orange-500">{Math.round(minHumidity)}%</div>
-          <p className="text-xs text-muted-foreground mt-1">Plus bas de la journée</p>
+          <p className="text-xs text-muted-foreground mt-1">{t.analysis.lowestOfDay}</p>
         </div>
 
         <div className="glass-strong rounded-2xl p-6">
@@ -152,19 +159,19 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
             <div className="p-2 bg-purple-500/20 rounded-xl">
               <Activity className="h-5 w-5 text-purple-500" />
             </div>
-            <span className="text-sm text-muted-foreground">Moyenne</span>
+            <span className="text-sm text-muted-foreground">{t.analysis.average}</span>
           </div>
           <div className="text-3xl font-bold text-purple-500">{Math.round(avgHumidity)}%</div>
-          <p className="text-xs text-muted-foreground mt-1">Variation {Math.round(humidityRange)}%</p>
+          <p className="text-xs text-muted-foreground mt-1">{t.analysis.variation} {Math.round(humidityRange)}%</p>
         </div>
       </div>
 
       {/* Detailed Humidity Chart */}
       <div className="glass-strong rounded-2xl p-8">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-foreground">Évolution sur 24 Heures</h2>
+          <h2 className="text-2xl font-bold text-foreground">{t.forecast.evolution24h}</h2>
           <Badge variant="outline" className="glass">
-            Temps réel
+            {t.forecast.realTime}
           </Badge>
         </div>
         <ResponsiveContainer width="100%" height={400}>
@@ -198,7 +205,7 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
               stroke="rgb(6, 182, 212)"
               strokeWidth={4}
               fill="url(#humidityDetailGradient)"
-              name="Humidité"
+              name={t.details.humidity}
             />
             <Line
               type="monotone"
@@ -214,7 +221,7 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
 
       {/* Extended Forecast */}
       <div className="glass-strong rounded-2xl p-8">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Prévisions d'Humidité sur 7 Jours</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-6">{`${t.forecast.humidity} - ${t.forecast.forecasts7Days}`}</h2>
         <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           {extendedForecast.map((day, index) => (
             <div key={index} className="glass rounded-xl p-4 text-center">
@@ -224,7 +231,7 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
                 <div className="text-lg font-bold text-blue-500">{day.maxHumidity}%</div>
                 <div className="text-sm text-orange-500">{day.minHumidity}%</div>
               </div>
-              <div className="mt-3 text-xs text-muted-foreground">Moy. {day.avgHumidity}%</div>
+              <div className="mt-3 text-xs text-muted-foreground">{t.analysis.average} {day.avgHumidity}%</div>
             </div>
           ))}
         </div>
@@ -235,29 +242,37 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
         <div className="glass-strong rounded-2xl p-6">
           <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
             <CloudRain className="h-5 w-5 text-blue-500" />
-            Analyse de l'Humidité
+            {t.analysis.humidityAnalysis}
           </h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Point de Rosée</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.dewPoint}</span>
               <span className="font-bold text-blue-500">
                 {Math.round(currentWeather.temperature - (100 - currentWeather.humidity) / 5)}°
               </span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Confort Hygrométrique</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.hygrometricComfort}</span>
               <span className={`font-bold ${currentLevel.color}`}>{currentLevel.level}</span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Risque de Condensation</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.condensationRisk}</span>
               <span className="font-bold text-yellow-500">
-                {currentWeather.humidity > 80 ? "Élevé" : currentWeather.humidity > 60 ? "Modéré" : "Faible"}
+                {currentWeather.humidity > 80 
+                  ? t.analysis.high 
+                  : currentWeather.humidity > 60 
+                    ? t.analysis.moderate 
+                    : t.analysis.low}
               </span>
             </div>
             <div className="flex items-center justify-between p-3 glass rounded-xl">
-              <span className="text-sm text-muted-foreground">Évaporation</span>
+              <span className="text-sm text-muted-foreground">{t.analysis.evaporation}</span>
               <span className="font-bold text-green-500">
-                {currentWeather.humidity < 40 ? "Rapide" : currentWeather.humidity < 70 ? "Normale" : "Lente"}
+                {currentWeather.humidity < 40 
+                  ? t.analysis.fast 
+                  : currentWeather.humidity < 70 
+                    ? t.analysis.normal 
+                    : t.analysis.slow}
               </span>
             </div>
           </div>
@@ -266,35 +281,35 @@ export function HumidityDetailView({ hourlyData, currentWeather, settings, t }: 
         <div className="glass-strong rounded-2xl p-6">
           <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
             <Sun className="h-5 w-5 text-yellow-500" />
-            Recommandations
+            {t.analysis.recommendations}
           </h3>
           <div className="space-y-3">
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Santé & Confort</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.healthAndComfort}</div>
               <div className="text-sm text-muted-foreground">
                 {currentWeather.humidity < 30
-                  ? "Air sec - hydratez-vous et utilisez un humidificateur"
+                  ? t.analysis.dryAir
                   : currentWeather.humidity > 70
-                    ? "Air humide - aérez régulièrement"
-                    : "Conditions d'humidité idéales"}
+                    ? t.analysis.humidAir
+                    : t.analysis.idealHumidity}
               </div>
             </div>
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Activités</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.activities}</div>
               <div className="text-sm text-muted-foreground">
                 {currentWeather.humidity > 80
-                  ? "Évitez les activités intenses à l'extérieur"
-                  : "Conditions favorables aux activités extérieures"}
+                  ? t.analysis.avoidOutdoor
+                  : t.analysis.favorableOutdoor}
               </div>
             </div>
             <div className="p-3 glass rounded-xl">
-              <div className="font-medium text-foreground mb-1">Maison</div>
+              <div className="font-medium text-foreground mb-1">{t.analysis.home}</div>
               <div className="text-sm text-muted-foreground">
                 {currentWeather.humidity > 70
-                  ? "Utilisez un déshumidificateur si nécessaire"
+                  ? t.analysis.useDehumidifier
                   : currentWeather.humidity < 40
-                    ? "Considérez un humidificateur"
-                    : "Taux d'humidité optimal pour l'habitat"}
+                    ? t.analysis.useHumidifier
+                    : t.analysis.optimalHumidity}
               </div>
             </div>
           </div>

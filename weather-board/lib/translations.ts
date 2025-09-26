@@ -72,6 +72,7 @@ export interface Translations {
     friday: string
     saturday: string
     sunday: string
+    loading: string
   }
 
   // Charts
@@ -149,7 +150,97 @@ export interface Translations {
     lowestOfDay: string
     dailyAmplitude: string
     variation: string
+    humidityAnalysis: string
+    dewPoint: string
+    hygrometricComfort: string
+    condensationRisk: string
+    evaporation: string
+    recommendations: string
+    healthAndComfort: string
+    activities: string
+    home: string
+    low: string
+    moderate: string
+    high: string
+    veryHigh: string
+    fast: string
+    normal: string
+    slow: string
+    dryAir: string
+    humidAir: string
+    idealHumidity: string
+    avoidOutdoor: string
+    favorableOutdoor: string
+    useDehumidifier: string
+    useHumidifier: string
+    optimalHumidity: string
     backToDashboard: string
+    // Wind-specific keys
+    windAnalysis: string
+    // Pressure-specific keys
+    pressureAnalysis: string
+    barometricAnalysis: string
+    seaLevel: string
+    weatherStability: string
+    stormRisk: string
+    hourlyVariation: string
+    probableEvolution: string
+    sensitiveActivities: string
+    health: string
+    pressureForecast7Days: string
+    dayAverage: string
+    improvingWeather: string
+    deterioratingWeather: string
+    stableWeather: string
+    avoidHighAltitude: string
+    discomfortSensitive: string
+    comfortableConditions: string
+    trend: string
+      rapidRise: string
+      rise: string
+      rapidFall: string
+      fall: string
+      stableValue: string
+      beaufortScale: string
+      windChill: string
+      dominantDirection: string
+      stability: string
+      stable: string
+      variable: string
+      unstable: string
+      calm: string
+      // Temperature-specific keys
+      thermalAnalysis: string
+      thermalComfort: string
+      dailyVariation: string
+      clothing: string
+      hydration: string
+      pleasant: string
+      keepNormalHydration: string
+      lightClothing: string
+      heatIndex: string
+      idealConditions: string
+    light: string
+    strong: string
+    veryStrong: string
+    nauticalActivities: string
+    flightActivities: string
+    outdoorComfort: string
+    idealLightSailing: string
+    goodSailingConditions: string
+    difficultConditions: string
+    favorableForFlight: string
+    tooWindyForFlight: string
+    pleasantForOutdoor: string
+    strongWind: string
+    windForecast7Days: string
+    beaufortLevel0: string
+    beaufortLevel1: string
+    beaufortLevel2: string
+    beaufortLevel3: string
+    beaufortLevel4: string
+    beaufortLevel5: string
+    beaufortLevel6Plus: string
   }
 
   // Common
@@ -236,6 +327,7 @@ export const translations: Record<Language, Translations> = {
       friday: "Vendredi",
       saturday: "Samedi",
       sunday: "Dimanche",
+      loading: "Chargement des prévisions...",
     },
 
     charts: {
@@ -303,7 +395,97 @@ export const translations: Record<Language, Translations> = {
       lowestOfDay: "Plus bas de la journée",
       dailyAmplitude: "Amplitude",
       variation: "Variation",
+      humidityAnalysis: "Analyse de l'Humidité",
+      dewPoint: "Point de Rosée",
+      hygrometricComfort: "Confort Hygrométrique",
+      condensationRisk: "Risque de Condensation",
+      evaporation: "Évaporation",
+      recommendations: "Recommandations",
+      healthAndComfort: "Santé & Confort",
+      activities: "Activités",
+      home: "Maison",
+      low: "Faible",
+      moderate: "Modérée",
+      high: "Élevée",
+      veryHigh: "Très Élevée",
+      fast: "Rapide",
+      normal: "Normale",
+      slow: "Lente",
+      dryAir: "Air sec - hydratez-vous et utilisez un humidificateur",
+      humidAir: "Air humide - aérez régulièrement",
+      idealHumidity: "Conditions d'humidité idéales",
+      avoidOutdoor: "Évitez les activités intenses à l'extérieur",
+      favorableOutdoor: "Conditions favorables aux activités extérieures",
+      useDehumidifier: "Utilisez un déshumidificateur si nécessaire",
+      useHumidifier: "Considérez un humidificateur",
+      optimalHumidity: "Taux d'humidité optimal pour l'habitat",
       backToDashboard: "← Retour au Tableau de Bord",
+      // Wind-specific keys
+      windAnalysis: "Analyse Éolienne",
+      beaufortScale: "Échelle de Beaufort",
+      windChill: "Refroidissement Éolien",
+      dominantDirection: "Direction Dominante",
+      stability: "Stabilité",
+      stable: "Stable",
+      variable: "Variable",
+      unstable: "Instable",
+      calm: "Calme",
+      light: "Léger",
+      strong: "Fort",
+      veryStrong: "Très Fort",
+      nauticalActivities: "Activités Nautiques",
+      flightActivities: "Vol & Parapente",
+      outdoorComfort: "Confort Extérieur",
+      idealLightSailing: "Conditions idéales pour la voile légère",
+      goodSailingConditions: "Bonnes conditions pour la voile",
+      difficultConditions: "Conditions difficiles - prudence requise",
+      favorableForFlight: "Conditions favorables au vol libre",
+      tooWindyForFlight: "Vents trop forts pour les activités aériennes",
+      pleasantForOutdoor: "Agréable pour les activités extérieures",
+      strongWind: "Vent fort - habillez-vous chaudement",
+      windForecast7Days: "Prévisions de Vent sur 7 Jours",
+      beaufortLevel0: "0 - Calme",
+      beaufortLevel1: "1 - Très légère brise",
+      beaufortLevel2: "2 - Légère brise",
+      beaufortLevel3: "3 - Petite brise",
+      beaufortLevel4: "4 - Jolie brise",
+      beaufortLevel5: "5 - Bonne brise",
+      beaufortLevel6Plus: "6+ - Vent frais",
+      // Pressure-specific keys
+      pressureAnalysis: "Analyse de la Pression",
+      barometricAnalysis: "Analyse Barométrique",
+      seaLevel: "Niveau de Mer",
+      weatherStability: "Stabilité Météo",
+      stormRisk: "Risque d'Orage",
+      hourlyVariation: "Variation 6h",
+      probableEvolution: "Évolution Probable",
+      sensitiveActivities: "Activités Sensibles",
+      health: "Santé",
+      pressureForecast7Days: "Prévisions de Pression sur 7 Jours",
+      dayAverage: "Moy.",
+      improvingWeather: "Amélioration du temps, ciel qui se dégage",
+      deterioratingWeather: "Dégradation possible, risque de précipitations",
+      stableWeather: "Temps stable, peu de changements attendus",
+      avoidHighAltitude: "Évitez les activités en altitude",
+      discomfortSensitive: "Possible gêne pour les personnes sensibles",
+      comfortableConditions: "Conditions atmosphériques confortables",
+      trend: "Tendance",
+      rapidRise: "Hausse Rapide",
+      rise: "Hausse",
+      rapidFall: "Chute Rapide",
+      fall: "Baisse",
+      stableValue: "Stable",
+      // Temperature-specific keys
+      thermalAnalysis: "Analyse Thermique",
+      thermalComfort: "Confort Thermique",
+      dailyVariation: "Variation Journalière",
+      clothing: "Vêtements",
+      hydration: "Hydratation",
+      pleasant: "Agréable",
+      keepNormalHydration: "Maintenir une hydratation normale",
+      lightClothing: "Vêtements légers recommandés, possibilité de superposer",
+      heatIndex: "Indice de Chaleur",
+      idealConditions: "Conditions idéales pour activités en extérieur",
     },
 
     empty: {
@@ -392,6 +574,7 @@ export const translations: Record<Language, Translations> = {
       friday: "Friday",
       saturday: "Saturday",
       sunday: "Sunday",
+      loading: "Loading forecasts...",
     },
 
     charts: {
@@ -459,7 +642,97 @@ export const translations: Record<Language, Translations> = {
       lowestOfDay: "Lowest of the day",
       dailyAmplitude: "Amplitude",
       variation: "Variation",
+      humidityAnalysis: "Humidity Analysis",
+      dewPoint: "Dew Point",
+      hygrometricComfort: "Hygrometric Comfort",
+      condensationRisk: "Condensation Risk",
+      evaporation: "Evaporation",
+      recommendations: "Recommendations",
+      healthAndComfort: "Health & Comfort",
+      activities: "Activities",
+      home: "Home",
+      low: "Low",
+      moderate: "Moderate",
+      high: "High",
+      veryHigh: "Very High",
+      fast: "Fast",
+      normal: "Normal",
+      slow: "Slow",
+      dryAir: "Dry air - stay hydrated and use a humidifier",
+      humidAir: "Humid air - ventilate regularly",
+      idealHumidity: "Ideal humidity conditions",
+      avoidOutdoor: "Avoid intense outdoor activities",
+      favorableOutdoor: "Favorable conditions for outdoor activities",
+      useDehumidifier: "Use a dehumidifier if necessary",
+      useHumidifier: "Consider using a humidifier",
+      optimalHumidity: "Optimal humidity level for homes",
       backToDashboard: "← Back to Dashboard",
+      // Wind-specific keys
+      windAnalysis: "Wind Analysis",
+      beaufortScale: "Beaufort Scale",
+      windChill: "Wind Chill",
+      dominantDirection: "Dominant Direction",
+      stability: "Stability",
+      stable: "Stable",
+      variable: "Variable",
+      unstable: "Unstable",
+      calm: "Calm",
+      light: "Light",
+      strong: "Strong",
+      veryStrong: "Very Strong",
+      nauticalActivities: "Nautical Activities",
+      flightActivities: "Flight & Paragliding",
+      outdoorComfort: "Outdoor Comfort",
+      idealLightSailing: "Ideal conditions for light sailing",
+      goodSailingConditions: "Good sailing conditions",
+      difficultConditions: "Difficult conditions - caution required",
+      favorableForFlight: "Favorable conditions for free flight",
+      tooWindyForFlight: "Too windy for aerial activities",
+      pleasantForOutdoor: "Pleasant for outdoor activities",
+      strongWind: "Strong wind - dress warmly",
+      windForecast7Days: "7-Day Wind Forecast",
+      beaufortLevel0: "0 - Calm",
+      beaufortLevel1: "1 - Light air",
+      beaufortLevel2: "2 - Light breeze",
+      beaufortLevel3: "3 - Gentle breeze",
+      beaufortLevel4: "4 - Moderate breeze",
+      beaufortLevel5: "5 - Fresh breeze",
+      beaufortLevel6Plus: "6+ - Strong breeze",
+      // Pressure-specific keys
+      pressureAnalysis: "Pressure Analysis",
+      barometricAnalysis: "Barometric Analysis",
+      seaLevel: "Sea Level",
+      weatherStability: "Weather Stability",
+      stormRisk: "Storm Risk",
+      hourlyVariation: "6h Variation",
+      probableEvolution: "Probable Evolution",
+      sensitiveActivities: "Sensitive Activities",
+      health: "Health",
+      pressureForecast7Days: "7-Day Pressure Forecast",
+      dayAverage: "Avg.",
+      improvingWeather: "Improving weather, clearing skies",
+      deterioratingWeather: "Possible deterioration, risk of precipitation",
+      stableWeather: "Stable weather, few changes expected",
+      avoidHighAltitude: "Avoid high-altitude activities",
+      discomfortSensitive: "Possible discomfort for sensitive people",
+      comfortableConditions: "Comfortable atmospheric conditions",
+      trend: "Trend",
+      rapidRise: "Rapid Rise",
+      rise: "Rising",
+      rapidFall: "Rapid Fall",
+      fall: "Falling",
+      stableValue: "Stable",
+      // Temperature-specific keys
+      thermalAnalysis: "Thermal Analysis",
+      thermalComfort: "Thermal Comfort",
+      dailyVariation: "Daily Variation",
+      clothing: "Clothing",
+      hydration: "Hydration",
+      pleasant: "Pleasant",
+      keepNormalHydration: "Maintain normal hydration",
+      lightClothing: "Light clothing recommended, layering possible",
+      heatIndex: "Heat Index",
+      idealConditions: "Ideal conditions for outdoor activities",
     },
 
     empty: {
@@ -548,6 +821,7 @@ export const translations: Record<Language, Translations> = {
       friday: "الجمعة",
       saturday: "السبت",
       sunday: "الأحد",
+      loading: "جاري تحميل التوقعات...",
     },
 
     charts: {
@@ -615,7 +889,97 @@ export const translations: Record<Language, Translations> = {
       lowestOfDay: "أدنى نقطة في اليوم",
       dailyAmplitude: "النطاق",
       variation: "التباين",
+      humidityAnalysis: "تحليل الرطوبة",
+      dewPoint: "نقطة الندى",
+      hygrometricComfort: "الراحة الهيدروميترية",
+      condensationRisk: "خطر التكثيف",
+      evaporation: "التبخر",
+      recommendations: "توصيات",
+      healthAndComfort: "الصحة والراحة",
+      activities: "الأنشطة",
+      home: "المنزل",
+      low: "منخفض",
+      moderate: "معتدل",
+      high: "مرتفع",
+      veryHigh: "مرتفع جداً",
+      fast: "سريع",
+      normal: "عادي",
+      slow: "بطيء",
+      dryAir: "هواء جاف - حافظ على رطوبة جسمك واستخدم مرطب الهواء",
+      humidAir: "هواء رطب - قم بالتهوية بانتظام",
+      idealHumidity: "ظروف رطوبة مثالية",
+      avoidOutdoor: "تجنب الأنشطة الخارجية المكثفة",
+      favorableOutdoor: "ظروف مواتية للأنشطة الخارجية",
+      useDehumidifier: "استخدم مزيل الرطوبة إذا لزم الأمر",
+      useHumidifier: "فكر في استخدام مرطب الهواء",
+      optimalHumidity: "مستوى رطوبة مثالي للمنازل",
       backToDashboard: "← العودة إلى لوحة التحكم",
+      // Wind-specific keys
+      windAnalysis: "تحليل الرياح",
+      beaufortScale: "مقياس بوفورت",
+      windChill: "برودة الرياح",
+      dominantDirection: "الاتجاه السائد",
+      stability: "الاستقرار",
+      stable: "مستقر",
+      variable: "متغير",
+      unstable: "غير مستقر",
+      calm: "هادئ",
+      light: "خفيف",
+      strong: "قوي",
+      veryStrong: "قوي جداً",
+      nauticalActivities: "الأنشطة البحرية",
+      flightActivities: "الطيران والمظلات",
+      outdoorComfort: "الراحة الخارجية",
+      idealLightSailing: "ظروف مثالية للإبحار الخفيف",
+      goodSailingConditions: "ظروف جيدة للإبحار",
+      difficultConditions: "ظروف صعبة - يلزم الحذر",
+      favorableForFlight: "ظروف مواتية للطيران الحر",
+      tooWindyForFlight: "رياح قوية جداً للأنشطة الجوية",
+      pleasantForOutdoor: "مناسب للأنشطة الخارجية",
+      strongWind: "رياح قوية - البس ملابس دافئة",
+      windForecast7Days: "توقعات الرياح لمدة 7 أيام",
+      beaufortLevel0: "0 - هادئ",
+      beaufortLevel1: "1 - نسيم خفيف جداً",
+      beaufortLevel2: "2 - نسيم خفيف",
+      beaufortLevel3: "3 - نسيم لطيف",
+      beaufortLevel4: "4 - نسيم معتدل",
+      beaufortLevel5: "5 - نسيم نشط",
+      beaufortLevel6Plus: "6+ - رياح قوية",
+      // Pressure-specific keys
+      pressureAnalysis: "تحليل الضغط",
+      barometricAnalysis: "تحليل البارومتر",
+      seaLevel: "مستوى البحر",
+      weatherStability: "استقرار الطقس",
+      stormRisk: "خطر العواصف",
+      hourlyVariation: "التغير خلال 6 ساعات",
+      probableEvolution: "التطور المحتمل",
+      sensitiveActivities: "الأنشطة الحساسة",
+      health: "الصحة",
+      pressureForecast7Days: "توقعات الضغط لمدة 7 أيام",
+      dayAverage: "المتوسط",
+      improvingWeather: "تحسن الطقس، صفاء السماء",
+      deterioratingWeather: "تدهور محتمل، احتمال هطول أمطار",
+      stableWeather: "طقس مستقر، تغييرات قليلة متوقعة",
+      avoidHighAltitude: "تجنب أنشطة المرتفعات",
+      discomfortSensitive: "إزعاج محتمل للأشخاص الحساسين",
+      comfortableConditions: "ظروف جوية مريحة",
+      trend: "الاتجاه",
+      rapidRise: "ارتفاع سريع",
+      rise: "ارتفاع",
+      rapidFall: "انخفاض سريع",
+      fall: "انخفاض",
+      stableValue: "مستقر",
+      // Temperature-specific keys
+      thermalAnalysis: "التحليل الحراري",
+      thermalComfort: "الراحة الحرارية",
+      dailyVariation: "التغير اليومي",
+      clothing: "الملابس",
+      hydration: "الترطيب",
+      pleasant: "لطيف",
+      keepNormalHydration: "حافظ على مستوى ترطيب طبيعي",
+      lightClothing: "ينصح بملابس خفيفة، مع إمكانية التطبيق",
+      heatIndex: "مؤشر الحرارة",
+      idealConditions: "ظروف مثالية للأنشطة الخارجية",
     },
 
     empty: {

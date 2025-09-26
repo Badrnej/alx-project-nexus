@@ -435,20 +435,9 @@ export default function WeatherBoard() {
                           daily: forecast,
                           hourly: hourlyData
                         }}
+                        isFavorite={isFavorite}
+                        onToggleFavorite={toggleFavorite}
                       />
-                    </div>
-                    
-                    {/* Favorite Button - Moved below the weather card */}
-                    <div className="mt-4 flex justify-end">
-                      <Button
-                        variant={isFavorite ? "default" : "outline"}
-                        size="sm"
-                        onClick={toggleFavorite}
-                        className="gap-2 glass hover:glass-strong transition-all duration-300"
-                      >
-                        {isFavorite ? <Star className="h-4 w-4 fill-current" /> : <StarOff className="h-4 w-4" />}
-                        <span className="hidden sm:inline">{isFavorite ? t.favorites.favorite : t.favorites.add}</span>
-                      </Button>
                     </div>
                   </div>
 
@@ -520,7 +509,7 @@ export default function WeatherBoard() {
                     <div className="glass-strong rounded-2xl p-4 sm:p-6 space-y-4 sm:space-y-6">
                       <h3 className="text-base sm:text-lg font-semibold text-foreground flex items-center gap-2 mb-4 sm:mb-6">
                         <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-                        Détails Supplémentaires
+                        {t.details.additionalDetails}
                       </h3>
 
                       <div className="space-y-4 sm:space-y-6">
@@ -531,7 +520,7 @@ export default function WeatherBoard() {
                               <WeatherDetailIcon type="uv-index" size={28} className="text-orange-500" />
                             </div>
                             <div>
-                              <span className="text-sm sm:text-base font-medium text-foreground">Indice UV</span>
+                              <span className="text-sm sm:text-base font-medium text-foreground">{t.details.uvIndex}</span>
                               <p className="text-xs sm:text-sm text-muted-foreground">Modéré</p>
                             </div>
                           </div>
@@ -545,7 +534,7 @@ export default function WeatherBoard() {
                               <WeatherDetailIcon type="visibility" size={28} className="text-green-500" />
                             </div>
                             <div>
-                              <span className="text-sm sm:text-base font-medium text-foreground">Qualité de l'Air</span>
+                              <span className="text-sm sm:text-base font-medium text-foreground">{t.details.airQuality}</span>
                               <p className="text-xs sm:text-sm text-muted-foreground">Bonne</p>
                             </div>
                           </div>
@@ -559,7 +548,7 @@ export default function WeatherBoard() {
                               <div className="p-1 bg-yellow-500/20 rounded">
                                 <WeatherDetailIcon type="sunrise" size={24} className="text-yellow-500" />
                               </div>
-                              <span className="text-xs sm:text-sm text-muted-foreground">Lever</span>
+                              <span className="text-xs sm:text-sm text-muted-foreground">{t.details.sunrise}</span>
                             </div>
                             <span className="text-lg sm:text-xl font-bold text-foreground">06:42</span>
                           </div>
@@ -568,7 +557,7 @@ export default function WeatherBoard() {
                               <div className="p-1 bg-orange-500/20 rounded">
                                 <WeatherDetailIcon type="sunset" size={24} className="text-orange-500" />
                               </div>
-                              <span className="text-xs sm:text-sm text-muted-foreground">Coucher</span>
+                              <span className="text-xs sm:text-sm text-muted-foreground">{t.details.sunset}</span>
                             </div>
                             <span className="text-lg sm:text-xl font-bold text-foreground">20:15</span>
                           </div>
@@ -581,7 +570,7 @@ export default function WeatherBoard() {
                               <WeatherDetailIcon type="moon" size={28} className="text-slate-400" />
                             </div>
                             <div>
-                              <span className="text-sm sm:text-base font-medium text-foreground">Phase Lunaire</span>
+                              <span className="text-sm sm:text-base font-medium text-foreground">{t.details.moonPhase}</span>
                               <p className="text-xs sm:text-sm text-muted-foreground">Premier Quartier</p>
                             </div>
                           </div>
