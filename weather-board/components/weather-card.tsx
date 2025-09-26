@@ -19,6 +19,7 @@ import {
   Calendar,
   Clock
 } from "lucide-react"
+import { WeatherIcon } from "./weather-icons"
 import type { Translations } from "@/lib/translations"
 import type { WeatherData, ForecastDay, HourlyData } from "@/lib/weather-api"
 
@@ -73,39 +74,9 @@ interface WeatherCardPropsNew {
 
 export function WeatherCard({ weather, settings, t, forecast }: WeatherCardPropsNew) {
   const getWeatherIcon = (condition: string, size: "large" | "small" = "large") => {
-    const iconSize = size === "large" ? "h-20 w-20" : "h-8 w-8"
-    const textSize = size === "large" ? "text-yellow-500" : "text-yellow-400"
+    const iconSize = size === "large" ? 80 : 32;
     
-    switch (condition.toLowerCase()) {
-      case "sunny":
-      case "clear":
-      case "ensoleillé":
-      case "dégagé":
-        return <Sun className={`${iconSize} ${textSize} drop-shadow-lg`} />
-      case "partly cloudy":
-      case "cloudy":
-      case "nuageux":
-      case "partiellement nuageux":
-      case "peu nuageux":
-        return <Cloud className={`${iconSize} text-blue-500 drop-shadow-lg`} />
-      case "rainy":
-      case "rain":
-      case "pluie":
-      case "pluvieux":
-      case "bruine":
-        return <CloudRain className={`${iconSize} text-blue-600 drop-shadow-lg`} />
-      case "snow":
-      case "neige":
-        return <CloudSnow className={`${iconSize} text-blue-200 drop-shadow-lg`} />
-      case "thunderstorm":
-      case "orage":
-        return <CloudLightning className={`${iconSize} text-purple-500 drop-shadow-lg`} />
-      case "drizzle":
-      case "bruine légère":
-        return <CloudDrizzle className={`${iconSize} text-blue-400 drop-shadow-lg`} />
-      default:
-        return <Cloud className={`${iconSize} text-blue-500 drop-shadow-lg`} />
-    }
+    return <WeatherIcon condition={condition} size={iconSize} className="drop-shadow-lg" />
   }
 
   const getWeatherBackground = (condition: string) => {

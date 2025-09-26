@@ -1,4 +1,5 @@
 import { Cloud, Sun, CloudRain, Wind, Droplets, Calendar } from "lucide-react"
+import { WeatherIcon } from "./weather-icons"
 import type { Translations } from "@/lib/translations"
 
 interface ForecastDay {
@@ -31,19 +32,7 @@ interface WeatherForecastProps {
 
 export function WeatherForecast({ forecast, settings, t }: WeatherForecastProps) {
   const getWeatherIcon = (condition: string) => {
-    switch (condition.toLowerCase()) {
-      case "sunny":
-      case "clear":
-        return <Sun className="h-8 w-8 text-yellow-400" />
-      case "partly cloudy":
-      case "cloudy":
-        return <Cloud className="h-8 w-8 text-blue-400" />
-      case "rainy":
-      case "rain":
-        return <CloudRain className="h-8 w-8 text-blue-500" />
-      default:
-        return <Cloud className="h-8 w-8 text-blue-400" />
-    }
+    return <WeatherIcon condition={condition} size={32} className="drop-shadow-lg" />
   }
 
   const tempUnit = settings?.temperatureUnit === "fahrenheit" ? "°F" : "°C"

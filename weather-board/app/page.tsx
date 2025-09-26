@@ -11,6 +11,7 @@ import { FavoritesPanel } from "@/components/favorites-panel"
 import { SettingsPanel } from "@/components/settings-panel"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Cloud, Wind, Droplets, Thermometer, Eye, Gauge, MapPin, Star, StarOff, Settings } from "lucide-react"
+import { WeatherDetailIcon } from "@/components/weather-icons"
 import { getTranslation, type Language } from "@/lib/translations"
 import { TemperatureDetailView } from "@/components/temperature-detail-view"
 import { HumidityDetailView } from "@/components/humidity-detail-view"
@@ -456,14 +457,14 @@ export default function WeatherBoard() {
                     {/* Detailed Weather Metrics */}
                     <div className="glass-strong rounded-2xl p-4 sm:p-6 space-y-4 sm:space-y-6">
                       <h3 className="text-base sm:text-lg font-semibold text-foreground flex items-center gap-2">
-                        <Gauge className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                        <WeatherDetailIcon type="gauge" size={32} className="text-primary" />
                         {t.details.feelsLike}
                       </h3>
 
                       <div className="grid grid-cols-2 gap-3 sm:gap-4">
                         <div className="space-y-1">
                           <div className="flex items-center gap-2 text-muted-foreground">
-                            <Thermometer className="h-3 w-3 sm:h-4 sm:w-4" />
+                            <WeatherDetailIcon type="temperature" size={28} />
                             <span className="text-xs sm:text-sm">{t.details.feelsLike}</span>
                           </div>
                           <span className="text-xl sm:text-2xl font-bold text-foreground">
@@ -473,7 +474,7 @@ export default function WeatherBoard() {
 
                         <div className="space-y-1">
                           <div className="flex items-center gap-2 text-muted-foreground">
-                            <Droplets className="h-3 w-3 sm:h-4 sm:w-4" />
+                            <WeatherDetailIcon type="humidity" size={28} />
                             <span className="text-xs sm:text-sm">{t.details.humidity}</span>
                           </div>
                           <span className="text-xl sm:text-2xl font-bold text-foreground">
@@ -483,7 +484,7 @@ export default function WeatherBoard() {
 
                         <div className="space-y-1">
                           <div className="flex items-center gap-2 text-muted-foreground">
-                            <Wind className="h-3 w-3 sm:h-4 sm:w-4" />
+                            <WeatherDetailIcon type="wind" size={28} />
                             <span className="text-xs sm:text-sm">{t.details.wind}</span>
                           </div>
                           <span className="text-xl sm:text-2xl font-bold text-foreground">
@@ -493,7 +494,7 @@ export default function WeatherBoard() {
 
                         <div className="space-y-1">
                           <div className="flex items-center gap-2 text-muted-foreground">
-                            <Eye className="h-3 w-3 sm:h-4 sm:w-4" />
+                            <WeatherDetailIcon type="visibility" size={28} />
                             <span className="text-xs sm:text-sm">{t.details.visibility}</span>
                           </div>
                           <span className="text-xl sm:text-2xl font-bold text-foreground">
@@ -505,7 +506,7 @@ export default function WeatherBoard() {
                       <div className="pt-3 sm:pt-4 border-t border-border/30">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2 text-muted-foreground">
-                            <Gauge className="h-3 w-3 sm:h-4 sm:w-4" />
+                            <WeatherDetailIcon type="pressure" size={28} />
                             <span className="text-xs sm:text-sm">{t.details.pressure}</span>
                           </div>
                           <span className="font-semibold text-foreground">
@@ -527,7 +528,7 @@ export default function WeatherBoard() {
                         <div className="flex items-center justify-between p-3 glass rounded-xl">
                           <div className="flex items-center gap-3">
                             <div className="p-2 bg-orange-500/20 rounded-lg">
-                              <div className="h-4 w-4 bg-orange-500 rounded-full"></div>
+                              <WeatherDetailIcon type="uv-index" size={28} className="text-orange-500" />
                             </div>
                             <div>
                               <span className="text-sm sm:text-base font-medium text-foreground">Indice UV</span>
@@ -541,7 +542,7 @@ export default function WeatherBoard() {
                         <div className="flex items-center justify-between p-3 glass rounded-xl">
                           <div className="flex items-center gap-3">
                             <div className="p-2 bg-green-500/20 rounded-lg">
-                              <div className="h-4 w-4 bg-green-500 rounded-full"></div>
+                              <WeatherDetailIcon type="visibility" size={28} className="text-green-500" />
                             </div>
                             <div>
                               <span className="text-sm sm:text-base font-medium text-foreground">Qualité de l'Air</span>
@@ -556,7 +557,7 @@ export default function WeatherBoard() {
                           <div className="p-3 glass rounded-xl">
                             <div className="flex items-center gap-2 mb-2">
                               <div className="p-1 bg-yellow-500/20 rounded">
-                                <div className="h-3 w-3 bg-yellow-500 rounded-full"></div>
+                                <WeatherDetailIcon type="sunrise" size={24} className="text-yellow-500" />
                               </div>
                               <span className="text-xs sm:text-sm text-muted-foreground">Lever</span>
                             </div>
@@ -565,7 +566,7 @@ export default function WeatherBoard() {
                           <div className="p-3 glass rounded-xl">
                             <div className="flex items-center gap-2 mb-2">
                               <div className="p-1 bg-orange-500/20 rounded">
-                                <div className="h-3 w-3 bg-orange-500 rounded-full"></div>
+                                <WeatherDetailIcon type="sunset" size={24} className="text-orange-500" />
                               </div>
                               <span className="text-xs sm:text-sm text-muted-foreground">Coucher</span>
                             </div>
@@ -577,7 +578,7 @@ export default function WeatherBoard() {
                         <div className="flex items-center justify-between p-3 glass rounded-xl">
                           <div className="flex items-center gap-3">
                             <div className="p-2 bg-slate-500/20 rounded-lg">
-                              <div className="h-4 w-4 bg-slate-400 rounded-full"></div>
+                              <WeatherDetailIcon type="moon" size={28} className="text-slate-400" />
                             </div>
                             <div>
                               <span className="text-sm sm:text-base font-medium text-foreground">Phase Lunaire</span>
