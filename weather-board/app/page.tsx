@@ -4,20 +4,18 @@ import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { WeatherCard } from "@/components/weather-card"
-import { WeatherSearch } from "@/components/weather-search"
 import { WeatherForecast } from "@/components/weather-forecast"
 import { WeatherCharts } from "@/components/weather-charts"
 import { FavoritesPanel } from "@/components/favorites-panel"
 import { SettingsPanel } from "@/components/settings-panel"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { Cloud, Wind, Droplets, Thermometer, Eye, Gauge, MapPin, Star, StarOff, Settings } from "lucide-react"
+import { Header } from "@/components/header"
+import { Wind, Droplets, Thermometer, Eye, Gauge, MapPin, Cloud } from "lucide-react"
 import { WeatherDetailIcon } from "@/components/weather-icons"
-import { getTranslation, type Language } from "@/lib/translations"
+import { getTranslation } from "@/lib/translations"
 import { TemperatureDetailView } from "@/components/temperature-detail-view"
 import { HumidityDetailView } from "@/components/humidity-detail-view"
 import { WindDetailView } from "@/components/wind-detail-view"
 import { PressureDetailView } from "@/components/pressure-detail-view"
-import { LiquidButton } from "@/components/ui/liquid-button"
 import { 
   getWeatherByCity, 
   getWeatherByGeolocation, 
@@ -25,43 +23,11 @@ import {
   type ForecastDay, 
   type HourlyData 
 } from "@/lib/weather-api"
-
-interface FavoriteCity {
-  id: string
-  name: string
-  country: string
-  coordinates: {
-    lat: number
-    lon: number
-  }
-  addedAt: string
-}
-
-interface UserSettings {
-  temperatureUnit: "celsius" | "fahrenheit"
-  windSpeedUnit: "kmh" | "mph"
-  pressureUnit: "hpa" | "inHg"
-  timeFormat: "24h" | "12h"
-  autoRefresh: boolean
-  refreshInterval: number
-  showCharts: boolean
-  showForecast: boolean
-  theme: "light" | "dark" | "auto"
-  language: Language
-}
-
-const defaultSettings: UserSettings = {
-  temperatureUnit: "celsius",
-  windSpeedUnit: "kmh",
-  pressureUnit: "hpa",
-  timeFormat: "24h",
-  autoRefresh: true,
-  refreshInterval: 300000, // 5 minutes
-  showCharts: true,
-  showForecast: true,
-  theme: "auto",
-  language: "fr",
-}
+import { 
+  type FavoriteCity, 
+  type UserSettings, 
+  defaultSettings 
+} from "@/types"
 
 export default function WeatherBoard() {
   const [currentWeather, setCurrentWeather] = useState<WeatherData | null>(null)
@@ -198,7 +164,10 @@ export default function WeatherBoard() {
     setIsDark(newTheme)
     document.documentElement.classList.toggle("dark", newTheme)
     // Update settings to manual theme control
-    const newSettings = { ...settings, theme: newTheme ? "dark" : ("light" as const) }
+    const newSettings: UserSettings = { 
+      ...settings, 
+      theme: newTheme ? ("dark" as const) : ("light" as const) 
+    }
     setSettings(newSettings)
     localStorage.setItem("weather-settings", JSON.stringify(newSettings))
   }
@@ -257,6 +226,20 @@ export default function WeatherBoard() {
     setCurrentView("dashboard")
   }
 
+  const handleGeolocationClick = async () => {
+    try {
+      setLoading(true)
+      const data = await getWeatherByGeolocation()
+      setCurrentWeather(data.current)
+      setForecast(data.forecast.daily)
+      setHourlyData(data.forecast.hourly)
+    } catch (error) {
+      console.error("Erreur de géolocalisation:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const t = getTranslation(settings.language)
 
   // Apply unit conversions to weather data
@@ -287,114 +270,23 @@ export default function WeatherBoard() {
   return (
     <div className="min-h-screen weather-gradient">
       {/* Header */}
-      <header className="glass-strong border-b border-border/30 fixed-header">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <div className="p-1.5 sm:p-2 glass rounded-xl">
-                  <Cloud className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-                </div>
-                <h1 className="text-lg sm:text-2xl font-bold text-foreground truncate">{t.appTitle}</h1>
-              </div>
-              <Badge variant="secondary" className="text-xs glass hidden sm:inline-flex">
-                {t.version}
-              </Badge>
-              {currentView !== "dashboard" && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleBackToDashboard}
-                  className="glass hover:glass-strong transition-all duration-300 ml-2 sm:ml-4 bg-transparent hidden sm:inline-flex"
-                >
-                  ← {t.common.backToDashboard}
-                </Button>
-              )}
-            </div>
-
-            <div className="flex items-center gap-2 sm:gap-4">
-              {/* Mobile back button */}
-              {currentView !== "dashboard" && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleBackToDashboard}
-                  className="glass hover:glass-strong transition-all duration-300 bg-transparent sm:hidden"
-                >
-                  ←
-                </Button>
-              )}
-
-              {/* Search - responsive width */}
-              <div className="hidden sm:block">
-                <WeatherSearch onSearch={handleSearch} loading={loading} searchHistory={searchHistory} t={t} />
-              </div>
-
-              {/* Mobile search button */}
-              <Button
-                variant="outline"
-                size="icon"
-                className="glass hover:glass-strong transition-all duration-300 sm:hidden bg-transparent"
-                onClick={() => {
-                  /* Add mobile search modal logic */
-                }}
-              >
-                <MapPin className="h-4 w-4" />
-              </Button>
-
-              {/* Geolocation button */}
-              <LiquidButton
-                variant="outline"
-                size="icon"
-                onClick={async () => {
-                  try {
-                    setLoading(true)
-                    const data = await getWeatherByGeolocation()
-                    setCurrentWeather(data.current)
-                    setForecast(data.forecast.daily)
-                    setHourlyData(data.forecast.hourly)
-                  } catch (error) {
-                    console.error("Erreur de géolocalisation:", error)
-                  } finally {
-                    setLoading(false)
-                  }
-                }}
-                disabled={loading}
-                title="Utiliser ma position actuelle"
-              >
-                <MapPin className="h-4 w-4" />
-              </LiquidButton>
-
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setShowFavorites(!showFavorites)}
-                className="relative glass hover:glass-strong transition-all duration-300"
-              >
-                <Star className="h-4 w-4" />
-                {favorites.length > 0 && (
-                  <Badge className="absolute -top-2 -right-2 h-4 w-4 sm:h-5 sm:w-5 p-0 text-xs glass-strong">
-                    {favorites.length}
-                  </Badge>
-                )}
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => setShowSettings(!showSettings)}
-                className="glass hover:glass-strong transition-all duration-300"
-              >
-                <Settings className="h-4 w-4" />
-              </Button>
-              <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
-            </div>
-          </div>
-
-          <div className="mt-4 sm:hidden">
-            <WeatherSearch onSearch={handleSearch} loading={loading} searchHistory={searchHistory} t={t} />
-          </div>
-        </div>
-      </header>
+      <Header
+        currentView={currentView}
+        showFavorites={showFavorites}
+        showSettings={showSettings}
+        favorites={favorites}
+        loading={loading}
+        searchHistory={searchHistory}
+        isDark={isDark}
+        settings={settings}
+        t={t}
+        onSearch={handleSearch}
+        onGeolocationClick={handleGeolocationClick}
+        onFavoritesToggle={() => setShowFavorites(!showFavorites)}
+        onSettingsToggle={() => setShowSettings(!showSettings)}
+        onThemeToggle={toggleTheme}
+        onBackToDashboard={handleBackToDashboard}
+      />
 
       {/* Favorites Panel */}
       {showFavorites && (
@@ -567,7 +459,7 @@ export default function WeatherBoard() {
                         <div className="flex items-center justify-between p-3 glass rounded-xl">
                           <div className="flex items-center gap-3">
                             <div className="p-2 bg-slate-500/20 rounded-lg">
-                              <WeatherDetailIcon type="moon" size={28} className="text-slate-400" />
+                              <WeatherDetailIcon type="moon" size={28} className="text-slate-400 dark:text-blue-200" />
                             </div>
                             <div>
                               <span className="text-sm sm:text-base font-medium text-foreground">{t.details.moonPhase}</span>

@@ -92,7 +92,7 @@ export function PressureDetailView({ hourlyData, currentWeather, settings, t }: 
     if (trend > 0.5) return { direction: t.analysis.rise, color: "text-blue-500", icon: "↑" }
     if (trend < -2) return { direction: t.analysis.rapidFall, color: "text-red-500", icon: "↘️" }
     if (trend < -0.5) return { direction: t.analysis.fall, color: "text-orange-500", icon: "↓" }
-    return { direction: t.analysis.stableValue, color: "text-gray-500", icon: "→" }
+    return { direction: t.analysis.stableValue, color: "text-gray-500 dark:text-blue-200", icon: "→" }
   }
 
   const trendInfo = getTrendDirection(pressureTrend)

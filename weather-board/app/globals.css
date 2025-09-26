@@ -41,6 +41,13 @@
   --sidebar-accent-foreground: oklch(0.3 0.05 220);
   --sidebar-border: oklch(0.9 0.02 220);
   --sidebar-ring: oklch(0.6 0.1 220);
+  
+  /* Weather-specific colors */
+  --weather-sun: oklch(0.8 0.15 80);
+  --weather-cloud: oklch(0.7 0.1 220);
+  --weather-rain: oklch(0.6 0.12 240);
+  --weather-snow: oklch(0.9 0.02 180);
+  --weather-wind: oklch(0.65 0.12 200);
 }
 
 .dark {
@@ -80,6 +87,13 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+  
+  /* Weather-specific colors - dark mode */
+  --weather-sun: oklch(0.85 0.15 80);
+  --weather-cloud: oklch(0.6 0.1 220);
+  --weather-rain: oklch(0.7 0.12 240);
+  --weather-snow: oklch(0.85 0.02 180);
+  --weather-wind: oklch(0.75 0.12 200);
 }
 
 /* Enhanced glassmorphism utility classes with better mobile support */
@@ -235,6 +249,11 @@
 
 :not(.dark) .glass .text-white\/50 {
   color: rgb(100 116 139) !important; /* slate-500 - for weather descriptions */
+}
+
+/* Dark mode adjustments for text colors */
+.dark .glass .text-black {
+  color: rgb(191 219 254) !important; /* blue-200 */
 }
 
 /* Enhanced weather cards with liquid glass effects */
@@ -543,9 +562,11 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 50;
+  z-index: 100;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--glass-shadow);
+  border-bottom: 1px solid var(--border);
 }
 
 /* Header height compensation for main content */
@@ -557,4 +578,786 @@
   .header-offset {
     padding-top: 7rem; /* 112px - height of the header on desktop */
   }
+}
+
+/* Mobile menu animations */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 20rem;
+  max-width: 85vw;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 
+    -10px 0 40px rgba(31, 38, 135, 0.2),
+    inset 1px 0 0 rgba(255, 255, 255, 0.1);
+  transform: translateX(100%);
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-panel.open {
+  transform: translateX(0);
+}
+
+.dark .mobile-menu-panel {
+  background: rgba(26, 26, 46, 0.9);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    -10px 0 40px rgba(0, 0, 0, 0.6),
+    inset 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Mobile menu backdrop improvements */
+.mobile-backdrop {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 300ms ease-in-out;
+}
+
+.dark .mobile-backdrop {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Mobile menu button animations */
+.mobile-menu-button {
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-button:hover {
+  transform: scale(1.05);
+}
+
+.mobile-menu-button.active {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+/* Liquid button enhancement for mobile */
+.liquid-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.liquid-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Mobile search animation */
+.mobile-search-container {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-search-container.open {
+  max-height: 5rem;
+  opacity: 1;
+  margin-top: 1rem;
+}
+
+/* Smooth backdrop blur effects */
+@supports (backdrop-filter: blur(1px)) {
+  .glass {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  .dark .glass {
+    background: rgba(26, 26, 46, 0.8);
+  }
+  
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  
+  .dark .glass-strong {
+    background: rgba(26, 26, 46, 0.9);
+  }
+}
+
+/* Enhanced mobile touch targets */
+@media (max-width: 640px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .mobile-menu-item {
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    transition: all 200ms ease-in-out;
+  }
+  
+  .mobile-menu-item:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(31, 38, 135, 0.15);
+  }
+  
+  .dark .mobile-menu-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Menu item animations */
+.menu-item-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 1rem;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.menu-item-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.menu-item-card:hover::before {
+  left: 100%;
+}
+
+.menu-item-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 
+    0 20px 40px rgba(31, 38, 135, 0.2),
+    0 0 0 1px rgba(59, 130, 246, 0.1);
+}
+
+.dark .menu-item-card {
+  background: rgba(26, 26, 46, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .menu-item-card:hover {
+  background: rgba(26, 26, 46, 0.9);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(139, 92, 246, 0.1);
+}
+
+/* Enhanced section headers */
+.menu-section-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.menu-section-header::before,
+.menu-section-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  margin: 0 1rem;
+}
+
+.dark .menu-section-header::before,
+.dark .menu-section-header::after {
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+}
+
+/* Badge enhancement */
+.menu-badge {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--primary);
+  box-shadow: 0 4px 15px var(--glass-shadow);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.dark .menu-badge {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+  box-shadow: 0 4px 15px var(--glass-shadow);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 4px 15px var(--glass-shadow);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 6px 20px var(--glass-shadow);
+    transform: scale(1.02);
+  }
+}
+
+/* Enhanced section headers */
+.menu-section-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.menu-section-header::before,
+.menu-section-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border),
+    transparent
+  );
+  margin: 0 1rem;
+}
+
+.dark .menu-section-header::before,
+.dark .menu-section-header::after {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border),
+    transparent
+  );
+}
+
+/* Gradient text effect with theme colors */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--chart-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--chart-1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Menu items fade-in animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalEnter {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.menu-item-enter {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.menu-item-enter:nth-child(1) { animation-delay: 0.1s; }
+.menu-item-enter:nth-child(2) { animation-delay: 0.2s; }
+.menu-item-enter:nth-child(3) { animation-delay: 0.3s; }
+.menu-item-enter:nth-child(4) { animation-delay: 0.4s; }
+
+.mobile-menu-modal {
+  animation: modalEnter 0.3s ease-out forwards;
+}
+
+/* Centered mobile menu enhancement - Liquid Glass */
+.centered-mobile-menu {
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+  box-shadow: 
+    0 25px 50px rgba(31, 38, 135, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.dark .centered-mobile-menu {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.6),
+    inset 0 2px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -2px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Enhanced mobile menu items */
+.mobile-menu-item-enhanced {
+  position: relative;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  min-height: 80px;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.mobile-menu-item-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(135, 206, 235, 0.1),
+    transparent
+  );
+  transition: left 0.6s;
+}
+
+.mobile-menu-item-enhanced:hover::before {
+  left: 100%;
+}
+
+.mobile-menu-item-enhanced:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(59, 130, 246, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.dark .mobile-menu-item-enhanced {
+  background: rgba(45, 45, 55, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.dark .mobile-menu-item-enhanced::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.15),
+    transparent
+  );
+}
+
+.dark .mobile-menu-item-enhanced:hover {
+  background: rgba(55, 55, 70, 0.9);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Logo spin animation with theme colors */
+@keyframes logoSpin {
+  0% { 
+    transform: rotate(0deg) scale(1);
+    background: var(--primary);
+  }
+  50% { 
+    transform: rotate(180deg) scale(1.1);
+    background: var(--chart-2);
+  }
+  100% { 
+    transform: rotate(360deg) scale(1);
+    background: var(--primary);
+  }
+}
+
+/* Dark mode menu enhancements */
+.dark .menu-section-header h3 {
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.dark .gradient-text {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95),
+    rgba(59, 130, 246, 0.8),
+    rgba(255, 255, 255, 0.9)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+.dark .text-foreground {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.dark .text-muted-foreground {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Light mode menu enhancements - Subtle and site-consistent */
+.menu-section-header h3 {
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 600;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.8),
+    rgba(59, 130, 246, 0.7),
+    rgba(0, 0, 0, 0.85)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Dark mode gradient text */
+.dark .gradient-text {
+  background: linear-gradient(135deg, 
+    rgb(191 219 254), /* blue-200 */
+    rgba(59, 130, 246, 0.9),
+    rgb(191 219 254) /* blue-200 */
+  );
+}
+
+/* Override for light mode to use site colors */
+:not(.dark) .text-foreground {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+:not(.dark) .text-muted-foreground {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Dark mode text overrides */
+.dark .text-foreground {
+  color: rgb(191 219 254) !important; /* blue-200 */
+}
+
+.dark .text-muted-foreground {
+  color: rgb(147 197 253) !important; /* blue-300 */
+}
+
+.logo-animate {
+  animation: logoSpin 4s ease-in-out infinite;
+  background: var(--primary);
+  transition: background-color 0.3s ease;
+}
+
+/* Mobile menu cards - Liquid Glass Style */
+.mobile-menu-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  transition: all 400ms cubic-bezier(0.23, 1, 0.32, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  box-shadow: 
+    0 8px 32px rgba(31, 38, 135, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.mobile-menu-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.8s ease-in-out;
+}
+
+.mobile-menu-card:hover::before {
+  left: 100%;
+}
+
+.mobile-menu-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  box-shadow: 
+    0 15px 40px rgba(31, 38, 135, 0.25),
+    0 5px 15px rgba(59, 130, 246, 0.15),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -2px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-card:active {
+  transform: translateY(-2px) scale(1.01);
+  transition-duration: 200ms;
+}
+
+/* Dark mode liquid glass */
+.dark .mobile-menu-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.dark .mobile-menu-card::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+}
+
+.dark .mobile-menu-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.6),
+    0 5px 15px rgba(59, 130, 246, 0.25),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* Liquid glass gradient overlays */
+.mobile-menu-card .bg-gradient-to-br {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  border-radius: 20px;
+  transition: opacity 600ms ease;
+}
+
+.dark .mobile-menu-card .bg-gradient-to-br {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.04),
+    transparent
+  );
+}
+
+/* Enhanced liquid glass badge */
+.mobile-menu-card .menu-badge {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.9), 
+    rgba(147, 51, 234, 0.8)
+  );
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  color: white;
+  font-size: 8px;
+  font-weight: 700;
+  min-width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Liquid glass info section */
+.liquid-glass-info {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 
+    0 8px 25px rgba(31, 38, 135, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.dark .liquid-glass-info {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile menu card text colors for dark mode */
+.dark .mobile-menu-card .text-foreground {
+  color: rgb(191 219 254) !important; /* blue-200 */
+}
+
+.dark .mobile-menu-card .text-muted-foreground {
+  color: rgb(147 197 253) !important; /* blue-300 for secondary text */
+}
+
+/* Dark mode text colors for mobile menu footer and info sections */
+.dark .liquid-glass-info .text-muted-foreground {
+  color: rgb(147 197 253) !important; /* blue-300 */
+}
+
+.dark .centered-mobile-menu .text-muted-foreground {
+  color: rgb(147 197 253) !important; /* blue-300 */
+}
+
+.dark .centered-mobile-menu .font-medium {
+  color: rgb(191 219 254) !important; /* blue-200 */
+}
+
+.dark .menu-badge {
+  background: linear-gradient(135deg, 
+    rgba(59, 130, 246, 0.9), 
+    rgba(147, 51, 234, 0.8)
+  ) !important;
+  color: rgb(191 219 254) !important; /* blue-200 */
+  border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Theme toggle scaling in card */
+.mobile-menu-card .scale-75 {
+  transform: scale(0.75);
+  transform-origin: center;
+}
+
+.dark .logo-animate {
+  background: var(--primary);
+}
+
+/* Global rule: Convert all text-black to blue-200 in dark mode */
+.dark .text-black,
+.dark .text-gray-900,
+.dark .text-gray-800,
+.dark .text-slate-900,
+.dark .text-slate-800 {
+  color: rgb(191 219 254) !important; /* blue-200 */
+}
+
+.dark .text-black\/70,
+.dark .text-black\/90 {
+  color: rgba(191, 219, 254, 0.8) !important; /* blue-200 with opacity */
+}
+
+@keyframes logoSpin {
+  0% { 
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(90deg) scale(1.05);
+  }
+  50% { 
+    transform: rotate(180deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(270deg) scale(1.05);
+  }
+  100% { 
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

@@ -1,6 +1,19 @@
 export type Language = "fr" | "en" | "ar"
 
 export interface Translations {
+  mobileMenu?: {
+    title: string
+    myLocation: string
+    favorites: string
+    settings: string
+    dark: string
+    quickAccess: string
+    version: string
+    appName: string
+    by: string
+    poweredBy: string
+    copyright: string
+  }
   // Header
   appTitle: string
   version: string
@@ -134,6 +147,7 @@ export interface Translations {
 
   // Analysis
   analysis: {
+  // veryLow supprimé ici (doublon)
     detailedTemperature: string
     detailedHumidity: string
     detailedWind: string
@@ -159,12 +173,13 @@ export interface Translations {
     healthAndComfort: string
     activities: string
     home: string
+    veryLow: string
     low: string
+    normal: string
     moderate: string
     high: string
     veryHigh: string
     fast: string
-    normal: string
     slow: string
     dryAir: string
     humidAir: string
@@ -261,6 +276,19 @@ export interface Translations {
 
 export const translations: Record<Language, Translations> = {
   fr: {
+    mobileMenu: {
+      title: "Menu",
+      myLocation: "Ma position",
+      favorites: "Favoris",
+      settings: "Paramètres",
+      dark: "Sombre",
+      quickAccess: "Accès rapide aux fonctions",
+      version: "✨ Version 1.0",
+      appName: "Weather Board",
+      by: "Par Badr Nejaa",
+      poweredBy: "Propulsé par NEJAA BADR",
+      copyright: "© 2025 - Fait avec ❤️"
+    },
     appTitle: "Weather Board",
     version: "v1.0",
     searchPlaceholder: "Rechercher une ville...",
@@ -404,13 +432,14 @@ export const translations: Record<Language, Translations> = {
       healthAndComfort: "Santé & Confort",
       activities: "Activités",
       home: "Maison",
-      low: "Faible",
-      moderate: "Modérée",
-      high: "Élevée",
-      veryHigh: "Très Élevée",
-      fast: "Rapide",
-      normal: "Normale",
-      slow: "Lente",
+    veryLow: "Très basse",
+    low: "Basse",
+    normal: "Normale",
+    moderate: "Modérée",
+    high: "Élevée",
+    veryHigh: "Très Élevée",
+    fast: "Rapide",
+    slow: "Lente",
       dryAir: "Air sec - hydratez-vous et utilisez un humidificateur",
       humidAir: "Air humide - aérez régulièrement",
       idealHumidity: "Conditions d'humidité idéales",
@@ -508,6 +537,19 @@ export const translations: Record<Language, Translations> = {
   },
 
   en: {
+    mobileMenu: {
+      title: "Menu",
+      myLocation: "My location",
+      favorites: "Favorites",
+      settings: "Settings",
+      dark: "Dark",
+      quickAccess: "Quick access to features",
+      version: "✨ Version 1.0",
+      appName: "Weather Board",
+      by: "By Badr Nejaa",
+      poweredBy: "Powered by NEJAA BADR",
+      copyright: "© 2025 - Made with ❤️"
+    },
     appTitle: "Weather Board",
     version: "v1.0",
     searchPlaceholder: "Search for a city...",
@@ -651,13 +693,14 @@ export const translations: Record<Language, Translations> = {
       healthAndComfort: "Health & Comfort",
       activities: "Activities",
       home: "Home",
-      low: "Low",
-      moderate: "Moderate",
-      high: "High",
-      veryHigh: "Very High",
-      fast: "Fast",
-      normal: "Normal",
-      slow: "Slow",
+  veryLow: "Very Low",
+  low: "Low",
+  normal: "Normal",
+  moderate: "Moderate",
+  high: "High",
+  veryHigh: "Very High",
+  fast: "Fast",
+  slow: "Slow",
       dryAir: "Dry air - stay hydrated and use a humidifier",
       humidAir: "Humid air - ventilate regularly",
       idealHumidity: "Ideal humidity conditions",
@@ -755,6 +798,19 @@ export const translations: Record<Language, Translations> = {
   },
 
   ar: {
+    mobileMenu: {
+      title: "القائمة",
+      myLocation: "موقعي",
+      favorites: "المفضلة",
+      settings: "الإعدادات",
+      dark: "داكن",
+      quickAccess: "وصول سريع للوظائف",
+      version: "✨ الإصدار 1.0",
+      appName: "لوحة الطقس",
+      by: "بدر نجاع",
+      poweredBy: "مدعوم من NEJAA BADR",
+      copyright: "© 2025 - صُنع بحب ❤️"
+    },
     appTitle: "لوحة الطقس",
     version: "الإصدار 1.0",
     searchPlaceholder: "البحث عن مدينة...",
@@ -898,13 +954,14 @@ export const translations: Record<Language, Translations> = {
       healthAndComfort: "الصحة والراحة",
       activities: "الأنشطة",
       home: "المنزل",
-      low: "منخفض",
-      moderate: "معتدل",
-      high: "مرتفع",
-      veryHigh: "مرتفع جداً",
-      fast: "سريع",
-      normal: "عادي",
-      slow: "بطيء",
+  veryLow: "منخفض جداً",
+  low: "منخفض",
+  normal: "عادي",
+  moderate: "معتدل",
+  high: "مرتفع",
+  veryHigh: "مرتفع جداً",
+  fast: "سريع",
+  slow: "بطيء",
       dryAir: "هواء جاف - حافظ على رطوبة جسمك واستخدم مرطب الهواء",
       humidAir: "هواء رطب - قم بالتهوية بانتظام",
       idealHumidity: "ظروف رطوبة مثالية",
