@@ -1,565 +1,484 @@
-# Weather Board - Meteoro
-### Styling & UI
-- 🎨 **TailwindCSS** : Utility CSS framework for rapid development
-- 🔧 **Radix UI** for accessible components
-- 💅 **Shadcn/ui** for design system
-- ✨ **Lucide React** for consistent icons
+# Weather Board - Meteoro 🌤️
 
-### Data Visualization
-- 📊 **Recharts** for interactive charts
-- 📈 **Responsive Container** for adaptability
-- 🎯 **Custom Charts** for weather data
+Un tableau de bord météorologique moderne et élégant développé avec Next.js 14 et TypeScript, offrant une interface utilisateur responsive et des données météorologiques en temps réel.
 
-### Form Management
-```
-weather-board/
-├── weather-search.tsx   # Location search bar
-│   ├── weather-forecast.tsx # Multi-day forecasts
-│   ├── weather-charts.tsx   # Trend charts
-│   ├── favorites-panel.tsx  # Favorites management
-│   ├── settings-panel.tsx   # User configuration
-│   └── theme-provider.tsx   # Theme provider
-├── hooks/                   # Custom React hooks
-│   ├── use-mobile.ts        # Mobile device detection
-│   └── use-toast.ts         # Notification system
-├── lib/                     # Utilities and helpers
-│   ├── translations.ts      # Type-safe multilingual system
-│   └── utils.ts             # Tailwind utility functions
-├── public/                  # Static assets
-└── styles/                  # Additional CSS styles
-```
+## ✨ Aperçu du Projet
 
-## 🤝 Contributing to the Project
+Weather Board est une application web météorologique moderne qui combine design élégant et fonctionnalités avancées pour offrir une expérience utilisateur exceptionnelle. Développé dans le cadre du programme **ProDev Frontend Engineering**, ce projet démontre l'implémentation de technologies de pointe en développement web moderne.
 
-Contributions are welcome! Here's how you can contribute to Weather Board development:
+### 🎯 Fonctionnalités Principales
 
-### How to Contribute
-1. 🍴 **Fork** the repository
-2. 🌿 **Create a branch** for your feature (`git checkout -b feature/NewWeatherFeature`)
-3. 💾 **Commit** your changes (`git commit -m 'Add: new weather feature'`)
-4. 📤 **Push** to the branch (`git push origin feature/NewWeatherFeature`)
-5. 🔃 **Open a Pull Request** with detailed description
+- 🌤️ **Données météo en temps réel** : Affichage des conditions météorologiques actuelles
+- 🔍 **Recherche par localisation** : Recherche par ville ou coordonnées géographiques
+- � **Graphiques interactifs** : Visualisation des tendances météo avec Recharts
+- 📅 **Prévisions détaillées** : Prévisions météorologiques sur plusieurs jours
+- ⭐ **Système de favoris** : Sauvegarde des emplacements préférés
+- 🌙 **Mode sombre/clair** : Thème adaptatif avec next-themes
+- 🌍 **Interface multilingue** : Support FR, EN, AR avec système de traduction type-safe
+- ⚙️ **Paramètres personnalisables** : Unités de mesure, format d'heure, actualisation auto
+- � **Design responsive** : Interface optimisée pour tous les appareils
+- 🎨 **Composants Liquid Glass** : Effets visuels modernes avec @developer-hub/liquid-glass
+- 🎭 **Icônes météo personnalisées** : Bibliothèque d'icônes météo complète avec @bybas/weather-icons
 
-### Types of Contributions Sought
-- 🐛 **Bug fixes** : Improve application stability
-- ✨ **New features** : Add weather functionalities
-- 📚 **Documentation** : Improve technical documentation
-- 🎨 **Design** : Propose UI/UX improvements
-- 🌍 **Translations** : Add new languages
-- ⚡ **Performance** : Optimize performance
+## 🛠️ Stack Technique
 
-### Development Guidelines
-- 📝 **TypeScript required** : All new components must be typed
-- 🎨 **TailwindCSS** : Use TailwindCSS for styling
-- ♿ **Accessibility** : Follow WCAG standards
-- 📱 **Responsive** : Test on mobile and desktop
-- 🧪 **Tests** : Add tests for new features
-
-## 📊 Metrics and Performance
-
-### Current Performance
-- ⚡ **Lighthouse Score** : 95+ (Performance, Accessibility, Best Practices, SEO)
-- 📦 **Bundle Size** : < 500KB (optimized with Next.js)
-- 🚀 **First Contentful Paint** : < 1.5s
-- 📱 **Mobile Optimized** : 100% responsive interface
-
-### Implemented Optimizations
-- 🖼️ **Optimized images** with Next.js Image
-- 📝 **Automatic code splitting** by routes
-- 💾 **Memoization** of expensive components
-- 🔄 **Intelligent cache** for weather data
-
-## 🔒 Security and API
-
-### Security Best Practices
-- 🔐 **Environment variables** for API keys
-- 🛡️ **Strict validation** of user inputs
-- 🌐 **HTTPS only** in production
-- 🚫 **No sensitive data** client-side
-
-### Weather API Integration
-- 🌤️ **WeatherAPI.com** for real-time data
-- 📊 **Rate limiting** respected (1000 calls/month free)
-- 🔄 **Fallback** in case of API error
-- 💾 **Local cache** to reduce API calls
-
----
-
-## 📞 Contact and Support
-
-- 💬 **Discord** : banejaa
-- 📧 **Email** : nejaa.badr@gmail.com  
-- 🐙 **GitHub** : [Badrnej](https://github.com/Badrnej)
-- 🌐 **LinkedIn** : [Badr Nejaa](https://www.linkedin.com/in/badr-nejaa/)
-
----
-
-**Developed with ❤️ for the ProDev Frontend Engineering program**
-
-*Weather Board - Your modern and elegant weather dashboard* 🌤️✨k Form** for performant forms
-- ✅ **Zod** for schema validation
-- 🔒 **@hookform/resolvers** for integration
-
-### State & Storage
-- 🏪 **React Context** for global state
-- 💾 **localStorage** for persistence
-- 🔄 **Custom Hooks** for business logic
-
-### Theme & Accessibility
-- 🌙 **next-themes** for dark/light theme
-- ♿ **ARIA** complete support
-- 📱 **Responsive Design** with TailwindCSS breakpoints
-
-### Development Tools
-- 🔧 **ESLint** for code quality
-- 🏗️ **PostCSS** for CSS processing
-- 📦 **pnpm** for dependency management
-
-## 🤝 Contribution and Development
-
-This Weather Board project is part of the ProDev program and serves as a concrete example of a modern Next.js application. We encourage:
-
-- 🤝 **Code and solution sharing** : Contribute with your improvements
-- � **Technical discussions** : Discord (#ProDevProjectNexus)
-- 📚 **Collaborative documentation** : Improve documentation
-- 🔄 **Code reviews** : Participate in peer-to-peer reviews
-- 🎯 **New features** : Propose new weather features
-
-### Roadmap and Future Features
-
-#### Version 2.0 - Upcoming Features
-- 🗺️ **Interactive weather maps**
-- 📬 **Push notifications** for weather alerts
-- 📱 **Complete Progressive Web App** (PWA)
-- 🔄 **Cloud synchronization** of favorites
-- 🌍 **Automatic geolocation** API
-- 📊 **Historical weather** statistics
-
-#### Technical Improvements
-- ⚡ **React Server Components** for better performance
-- 🧪 **Unit tests** with Jest and Testing Library
-- 🚀 **Automated deployment** with CI/CD
-- 📈 **Monitoring** and analytics
-- 🔍 **Advanced SEO** optimization
-
-## 📂 Detailed Project Structure
-
-```
-weather-board/
-├── app/                      # Next.js 14 App Router
-│   ├── globals.css          # Custom Tailwind styles
-│   ├── layout.tsx           # Root layout with providers
-│   └── page.tsx             # Main dashboard page
-└── components/
-    ├── ui/                  # Base UI components (Shadcn)
-    │   ├── button.tsx       # Custom button component
-    │   ├── card.tsx         # Cards for weather data
-    │   ├── dialog.tsx       # Modals and popups
-    │   └── ...              # Other UI components
-    └── weather-card.tsx     # Main weather data display
-```
-## 🏗️ Architecture and Project Structure
-
-### Component Organization
-- **Component-Based Architecture** : Modular and reusable architecture
-- **Custom Hooks** : Business logic extracted into custom hooks
-- **Type Safety** : Strict TypeScript interfaces for all weather data
-- **Responsive Design** : Adaptive design with mobile detection hooks
-
-### Folder Structure
-
-## Project Overview
-
-Weather Board is a modern meteorological dashboard web application developed with Next.js 14 and TypeScript. This application offers an elegant and responsive user interface for viewing real-time weather conditions, forecasts, and visualizing meteorological data through interactive charts.
-
-## ✨ Key Features
-
-- 🌤️ **Real-time weather** : View current weather conditions
-- 🔍 **Location search** : Search by city or geographic coordinates
-- 📊 **Interactive charts** : Visualize weather trends with Recharts
-- 📅 **Weather forecasts** : Detailed multi-day forecasts
-- ⭐ **Favorites** : Save your preferred locations
-- 🌙 **Dark/light mode** : Adaptive theme with next-themes
-- 🌍 **Multilingual** : Support for FR, EN, AR languages
-- ⚙️ **Customizable settings** : Units of measurement, time format, auto-refresh
-- 📱 **Responsive design** : Interface optimized for all devices
-
-## 🛠️ Technical Stack
-
-### Frontend Core
-- ⚛️ **React 18** : Bibliothèque pour interfaces utilisateur modernes
-- 🚀 **Next.js 14** : Framework React avec App Router pour les performances optimales
-- 📝 **TypeScript** : Typage statique pour un développement robuste et maintenable
+### Core Frontend
+- ⚛️ **React 18** : Bibliothèque moderne pour interfaces utilisateur avec hooks avancés
+- 🚀 **Next.js 14** : Framework React avec App Router pour performances optimales
+- 📝 **TypeScript 5** : Typage statique pour un développement robuste et maintenable
+- 🎨 **TailwindCSS 4** : Framework CSS utilitaire pour développement rapide
 
 ### Styling & UI
-- 🎨 **TailwindCSS** : Framework CSS utilitaire pour un développement rapide
-- 🔧 **Radix UI** : Composants accessibles et personnalisables
+- 🔧 **Radix UI** : Composants accessibles et personnalisables (30+ composants)
 - 💅 **Shadcn/ui** : Système de design components préfabriqués
-- 🌈 **Lucide Icons** : Icônes modernes et cohérentes
+- 🌈 **Lucide React** : Icônes modernes et cohérentes (1000+ icônes)
+- 🎭 **@bybas/weather-icons** : Bibliothèque complète d'icônes météorologiques
+- 💧 **@developer-hub/liquid-glass** : Effets liquid glass pour design moderne
+- ✨ **Liquid Button** : Composants boutons avec effets visuels avancés
 
-### Gestion des Données
-- � **Recharts** : Bibliothèque de graphiques React pour la visualisation de données
-- 🔄 **React Hook Form** : Gestion des formulaires performante
+### Visualisation de Données
+- 📊 **Recharts** : Bibliothèque de graphiques React interactifs
+- 📈 **Responsive Container** : Graphiques adaptatifs multi-appareils
+- 🎯 **Custom Charts** : Graphiques personnalisés pour données météo
+- 📊 **D3.js** : Intégration pour visualisations avancées
+
+### Gestion des Formulaires & État
+- 📝 **React Hook Form** : Gestion performante des formulaires
 - ✅ **Zod** : Validation de schémas TypeScript-first
+- 🔒 **@hookform/resolvers** : Intégration seamless des validations
+- 🏪 **React Context** : Gestion d'état global
+- 💾 **localStorage** : Persistance des préférences utilisateur
 
-### Fonctionnalités Avancées
-- 🌙 **next-themes** : Gestion du thème sombre/clair
-- 🌍 **Système de traduction** : Support multilingue personnalisé
-- 📱 **Design responsive** : Hooks personnalisés pour la détection mobile
-- ⚡ **Sonner** : Notifications toast élégantes
+### Animations & Interactions
+- 🎬 **Framer Motion** : Animations fluides et transitions avancées
+- 🎨 **React Spring** : Animations basées sur la physique
+- 🎉 **React Confetti** : Effets de célébration
+- 📱 **Vaul** : Drawer mobile natif
+- 🎠 **Embla Carousel** : Carrousels performants
+
+### Thème & Accessibilité
+- 🌙 **next-themes** : Système de thème sombre/clair
+- ♿ **Support ARIA complet** : Accessibilité WCAG 2.1
+- 📱 **Design responsive** : Breakpoints TailwindCSS optimisés
+- 🔧 **React Resizable Panels** : Panneaux redimensionnables
+
+### Notifications & UX
+- 🔔 **Sonner** : Système de notifications toast moderne
+- 📅 **React Day Picker** : Sélecteur de dates avancé
+- 🔢 **Input OTP** : Champs de saisie OTP
+- 📱 **Responsive Panels** : Interface adaptative
 
 ## 🏗️ Architecture et Structure du Projet
 
 ### Organisation des Composants
-- **Component-Based Architecture** : Architecture modulaire et réutilisable
-- **Custom Hooks** : Logique métier extraite dans des hooks personnalisés
-- **Type Safety** : Interfaces TypeScript strictes pour toutes les données météorologiques
-- **Responsive Design** : Design adaptatif avec hooks de détection mobile
+- **Architecture basée sur les composants** : Structure modulaire et réutilisable
+- **Custom Hooks** : Logique métier encapsulée dans des hooks personnalisés
+- **Type Safety** : Interfaces TypeScript strictes pour toutes les données
+- **Design System** : Composants UI cohérents avec Shadcn/ui
 
-### Structure des Dossiers
+### Structure des Dossiers Mise à Jour
+
 ```
 weather-board/
-├── app/                      # Next.js 14 App Router
-│   ├── globals.css          # Global styles
-│   ├── layout.tsx           # Main layout
-│   └── page.tsx             # Home page
-├── components/              # React components
-│   ├── ui/                  # Base UI components (Shadcn)
-│   ├── weather-card.tsx     # Main weather card
-│   ├── weather-search.tsx   # Search component
-│   ├── weather-forecast.tsx # Weather forecasts
-│   ├── weather-charts.tsx   # Data charts
-│   ├── favorites-panel.tsx  # Favorites panel
-│   ├── settings-panel.tsx   # Configuration panel
-│   └── theme-provider.tsx   # Theme provider
-├── hooks/                   # Custom hooks
-│   ├── use-mobile.ts        # Mobile detection hook
-│   └── use-toast.ts         # Notifications hook
-├── lib/                     # Utilities and configurations
-│   ├── translations.ts      # Translation system
-│   └── utils.ts             # Utility functions
-└── public/                  # Static assets
+├── app/                         # Next.js 14 App Router
+│   ├── globals.css             # Styles globaux et TailwindCSS
+│   ├── header-mobile.css       # Styles spécifiques mobile
+│   ├── layout.tsx              # Layout principal avec providers
+│   ├── page.tsx                # Page d'accueil du dashboard
+│   └── api/                    # API Routes
+│       └── chatbot/            # Intégration chatbot (en développement)
+├── components/                  # Composants React
+│   ├── ui/                     # Composants UI de base (Shadcn/ui)
+│   │   ├── badge.tsx           # Badges et étiquettes
+│   │   ├── button.tsx          # Boutons standards
+│   │   ├── card.tsx            # Cartes pour contenus
+│   │   ├── dialog.tsx          # Modales et dialogues
+│   │   ├── input.tsx           # Champs de saisie
+│   │   ├── label.tsx           # Labels de formulaire
+│   │   ├── liquid-button.tsx   # 🆕 Boutons avec effets liquid
+│   │   ├── select.tsx          # Sélecteurs dropdown
+│   │   ├── separator.tsx       # Séparateurs visuels
+│   │   ├── sheet.tsx           # Panneaux latéraux
+│   │   ├── skeleton.tsx        # Squelettes de chargement
+│   │   ├── switch.tsx          # Interrupteurs
+│   │   ├── toast.tsx           # Notifications toast
+│   │   ├── toggle.tsx          # Boutons de basculement
+│   │   └── tooltip.tsx         # Info-bulles
+│   ├── header.tsx              # En-tête de l'application
+│   ├── weather-card.tsx        # Carte météo principale
+│   ├── weather-search.tsx      # Barre de recherche
+│   ├── weather-forecast.tsx    # Prévisions multi-jours
+│   ├── weather-charts.tsx      # Graphiques météo
+│   ├── weather-icons.tsx       # 🆕 Composant d'icônes météo
+│   ├── weather-icon-test.tsx   # 🆕 Tests d'icônes météo
+│   ├── favorites-panel.tsx     # Panneau des favoris
+│   ├── settings-panel.tsx      # Panneau de configuration
+│   ├── theme-provider.tsx      # Provider de thème
+│   ├── theme-toggle.tsx        # Basculeur de thème
+│   ├── humidity-detail-view.tsx    # 🆕 Vue détaillée humidité
+│   ├── pressure-detail-view.tsx    # 🆕 Vue détaillée pression
+│   ├── temperature-detail-view.tsx # 🆕 Vue détaillée température
+│   └── wind-detail-view.tsx        # 🆕 Vue détaillée vent
+├── hooks/                      # Hooks React personnalisés
+│   ├── use-mobile.ts           # Détection mobile
+│   └── use-toast.ts            # Système de notifications
+├── lib/                        # Utilitaires et helpers
+│   ├── translations.ts         # Système multilingue type-safe
+│   ├── utils.ts                # Utilitaires TailwindCSS
+│   └── weather-api.ts          # 🆕 Intégration API météo
+├── types/                      # 🆕 Définitions TypeScript
+│   └── index.ts               # Types et interfaces globales
+├── public/                     # Assets statiques
+│   ├── favicon.ico            # Favicon de l'application
+│   └── weather-icons/         # 🆕 Bibliothèque d'icônes météo (80+ icônes)
+│       ├── clear-day.svg      # Icônes conditions claires
+│       ├── cloudy.svg         # Icônes conditions nuageuses
+│       ├── rain.svg           # Icônes conditions pluvieuses
+│       ├── snow.svg           # Icônes conditions neigeuses
+│       ├── wind.svg           # Icônes conditions venteuses
+│       ├── humidity.svg       # Icônes humidité
+│       ├── barometer.svg      # Icônes pression
+│       └── ...                # Plus de 80 icônes météo
+├── middleware.ts.disabled      # Middleware Next.js (désactivé)
+├── components.json            # Configuration Shadcn/ui
+├── next.config.mjs           # Configuration Next.js
+├── postcss.config.mjs        # Configuration PostCSS
+└── tsconfig.json             # Configuration TypeScript
 ```
 
-### Implemented Technical Concepts
+## 🆕 Nouvelles Fonctionnalités et Améliorations
 
-#### 🔧 **Custom Hooks**
-- **useMobile** : Responsive mobile device detection
-- **useToast** : Centralized notification management
-- **useLocalStorage** : User settings persistence
+### Composants UI Avancés
+- 🎨 **Liquid Button** : Boutons avec effets liquid glass et animations fluides
+- 📊 **Vues détaillées** : Composants dédiés pour température, humidité, pression, vent
+- 🎭 **Weather Icons** : Système d'icônes météo complet avec 80+ icônes SVG
+- 📱 **Mobile Header** : En-tête optimisé pour appareils mobiles
 
-#### 🌐 **Weather API Integration**
-- **Fetch API** : Weather API consumption
-- **Error Handling** : Robust network error management
-- **TypeScript Interfaces** : Strict types for weather data
-- **Real-time Updates** : Automatic data refresh
+### Intégrations Techniques
+- 🔗 **Weather API** : Intégration avancée avec gestion d'erreurs et cache
+- 📈 **Visualisations D3** : Graphiques avancés avec D3.js
+- 🎬 **Animations Framer** : Transitions et animations fluides
+- 🎉 **Effets visuels** : Confettis et célébrations pour interactions
 
-## 🚀 Installation and Setup
+### Performance et Optimisation
+- ⚡ **Vercel Analytics** : Monitoring des performances en temps réel
+- 🎯 **Lazy Loading** : Chargement différé des composants lourds
+- 💾 **Cache intelligent** : Mise en cache des données API
+- 📱 **PWA Ready** : Structure préparée pour Progressive Web App
 
-### Prerequisites
-- **Node.js** : Version 18+ recommended
-- **pnpm** : Package manager (or npm/yarn)
-- **Git** : For repository cloning
+## 🚀 Installation et Configuration
 
-### Installation
+### Prérequis
+- **Node.js** : Version 18+ recommandée
+- **pnpm** : Gestionnaire de paquets recommandé (ou npm/yarn)
+- **Git** : Pour le clonage du repository
+
+### Installation Rapide
 ```bash
-# Clone the repository
+# Cloner le repository
 git clone https://github.com/Badrnej/alx-project-nexus.git
 
-# Navigate to project folder
+# Naviguer vers le dossier projet
 cd alx-project-nexus/weather-board
 
-# Install dependencies
+# Installer les dépendances
 pnpm install
 
-# Start development server
+# Démarrer le serveur de développement
 pnpm dev
 ```
 
-### Available Scripts
+### Scripts Disponibles
 ```bash
-pnpm dev        # Start development server
-pnpm build      # Production build
-pnpm start      # Start production server
-pnpm lint       # Code verification with ESLint
+pnpm dev        # Serveur de développement (localhost:3000)
+pnpm build      # Build de production
+pnpm start      # Démarrer le serveur de production
+pnpm lint       # Vérification du code avec ESLint
 ```
 
-The application will be accessible at `http://localhost:3000`
+## 🔧 Configuration Environnement
 
-## 🔧 Technical Challenges and Solutions
+### Variables d'Environnement
+Créer un fichier `.env.local` à la racine du projet :
 
-### 🚧 **Challenge 1: User Settings State Management**
-**Problem** : Persistence of user preferences (units, theme, favorites) between sessions.
+```env
+# API Météo
+NEXT_PUBLIC_WEATHER_API_KEY=your_weather_api_key
+NEXT_PUBLIC_WEATHER_API_URL=https://api.weatherapi.com/v1
 
-**Solution** : Implementation of local state management system with localStorage and custom hooks.
+# Analytics (optionnel)
+NEXT_PUBLIC_VERCEL_ANALYTICS_ID=your_analytics_id
+```
+
+## 📊 Défis Techniques et Solutions Implémentées
+
+### 🚧 **Défi 1: Gestion d'État Complexe**
+**Problématique** : Synchronisation des préférences utilisateur entre composants multiples.
+
+**Solution** : Implémentation d'un système de state management hybride avec Context API et localStorage.
 
 ```typescript
-// Custom hook for settings persistence
-const useLocalStorage = <T>(key: string, initialValue: T) => {
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    try {
-      const item = window.localStorage.getItem(key)
-      return item ? JSON.parse(item) : initialValue
-    } catch (error) {
-      return initialValue
-    }
+// Hook personnalisé pour la persistance des paramètres
+const useSettings = () => {
+  const [settings, setSettings] = useLocalStorage('weather-settings', {
+    temperatureUnit: 'celsius',
+    windUnit: 'kmh',
+    theme: 'auto',
+    language: 'fr'
   })
 
-  const setValue = (value: T | ((val: T) => T)) => {
-    try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value
-      setStoredValue(valueToStore)
-      window.localStorage.setItem(key, JSON.stringify(valueToStore))
-    } catch (error) {
-      console.error('Error saving to localStorage:', error)
-    }
-  }
+  const updateSettings = useCallback((newSettings: Partial<Settings>) => {
+    setSettings(prev => ({ ...prev, ...newSettings }))
+  }, [setSettings])
 
-  return [storedValue, setValue] as const
+  return { settings, updateSettings }
 }
 ```
 
-### 🚧 **Challenge 2: Dynamic Multilingual Interface**
-**Problem** : Real-time language switching without page reload.
+### 🚧 **Défi 2: Performance des Visualisations**
+**Problématique** : Rendu lent des graphiques avec datasets météo volumineux.
 
-**Solution** : Custom translation system with TypeScript for type safety.
-
-```typescript
-// Type-safe translation system
-export interface Translations {
-  appTitle: string
-  searchPlaceholder: string
-  conditions: {
-    sunny: string
-    cloudy: string
-    rainy: string
-  }
-  // ... other translations
-}
-
-export const getTranslation = (lang: Language): Translations => {
-  return translations[lang] || translations.en
-}
-```
-
-### 🚧 **Challenge 3: Chart Performance Optimization**
-**Problem** : Slow rendering of charts with large weather datasets.
-
-**Solution** : Component memoization and data limitation.
+**Solution** : Optimisation avec React.memo, useMemo et limitation des données.
 
 ```typescript
-const WeatherCharts = memo(({ weatherData, settings }: WeatherChartsProps) => {
+const WeatherCharts = memo(({ data }: WeatherChartsProps) => {
   const chartData = useMemo(() => {
-    return weatherData.forecast.slice(0, 7) // Limit to 7 days
-      .map(day => ({
-        date: format(new Date(day.date), 'dd/MM'),
-        temperature: settings.temperatureUnit === 'fahrenheit' 
-          ? (day.temperature * 9/5) + 32 
-          : day.temperature
-      }))
-  }, [weatherData.forecast, settings.temperatureUnit])
+    return data.forecast.slice(0, 7).map(day => ({
+      date: format(new Date(day.date), 'dd/MM'),
+      temp: Math.round(day.avgTemp),
+      humidity: day.humidity
+    }))
+  }, [data.forecast])
 
-  return <ResponsiveContainer>{/* Chart */}</ResponsiveContainer>
+  return (
+    <ResponsiveContainer width="100%" height={300}>
+      <LineChart data={chartData}>
+        {/* Configuration graphique */}
+      </LineChart>
+    </ResponsiveContainer>
+  )
 })
 ```
 
-## 💡 Implemented Best Practices
+### 🚧 **Défi 3: Système d'Icônes Dynamique**
+**Problématique** : Gestion de 80+ icônes météo avec optimisation des performances.
 
-### Code Quality
-- **TypeScript First** : Strict types for all weather data interfaces
-- **Component Composition** : Reusable components with well-defined props
-- **Custom Hooks** : Business logic encapsulated in custom hooks
-- **Error Boundaries** : Graceful error handling for weather API
+**Solution** : Composant d'icônes intelligents avec mapping conditionnel et lazy loading.
+
+```typescript
+export const WeatherIcon: React.FC<WeatherIconProps> = ({ 
+  condition, 
+  size = 80, 
+  className = "" 
+}) => {
+  const iconName = useMemo(() => getIconName(condition), [condition])
+  
+  return (
+    <Image
+      src={`/weather-icons/${iconName}.svg`}
+      alt={condition}
+      width={size}
+      height={size}
+      className={cn("transition-all duration-300", className)}
+      priority={false}
+    />
+  )
+}
+```
+
+## 💡 Meilleures Pratiques Implémentées
+
+### Architecture et Code
+- **TypeScript First** : Types stricts pour toutes les données météo
+- **Composition de composants** : Composants réutilisables avec props bien définies
+- **Custom Hooks** : Logique métier encapsulée
+- **Error Boundaries** : Gestion d'erreurs gracieuse
 
 ### Performance
-- **Memoization** : React.memo for expensive components (charts)
-- **Lazy Loading** : Deferred loading of forecast data
-- **Optimistic Updates** : Immediate UI updates during user actions
-- **Image Optimization** : Next.js optimized images for weather icons
+- **Memoization** : React.memo pour composants coûteux
+- **Code Splitting** : Chargement différé des routes
+- **Image Optimization** : Images Next.js optimisées
+- **Bundle Analysis** : Analyse et optimisation du bundle
 
-### Accessibility
-- **ARIA Labels** : Appropriate labels for weather data
-- **Keyboard Navigation** : Complete keyboard navigation
-- **Semantic HTML** : Semantic HTML structure for weather data
-- **Color Contrast** : Optimal contrast in dark and light modes
+### Accessibilité & UX
+- **Support ARIA** : Labels appropriés pour données météo
+- **Navigation clavier** : Navigation complète au clavier
+- **HTML sémantique** : Structure HTML sémantique
+- **Contraste optimal** : Respect des ratios de contraste WCAG
 
-### Internationalization
-- **Type-Safe Translations** : Translation system with TypeScript
-- **RTL Support** : Arabic support with right-to-left direction
-- **Format Localization** : Date and unit formatting by language
+### Internationalisation
+- **Traductions type-safe** : Système de traduction avec TypeScript
+- **Support RTL** : Support de l'arabe avec direction droite-gauche
+- **Formats localisés** : Formats de date et unités par langue
 
-## 📱 Detailed Features
+## 🎯 Roadmap et Fonctionnalités Futures
 
-### Main Dashboard
-- 🌡️ **Current temperature** with feels-like
-- 💨 **Wind speed** with direction
-- 💧 **Humidity** and **atmospheric pressure**
-- 👁️ **Visibility** and GPS coordinates
-- 🕐 **Local time** of the location
+### Version 2.0 - Fonctionnalités Prévues
+- 🤖 **Chatbot météo IA** : Assistant intelligent pour conseils météo
+- 🗺️ **Cartes météo interactives** : Visualisation géographique des données
+- 📬 **Notifications push** : Alertes météo personnalisées
+- 📱 **Progressive Web App** : Application installable
+- 🔄 **Synchronisation cloud** : Sauvegarde des favoris
+- 🌍 **Géolocalisation auto** : Détection automatique de localisation
+- 📊 **Historique météo** : Données et statistiques historiques
 
-### Favorites Panel
-- ⭐ **Save** preferred locations
-- 🗂️ **Organization** by categories
-- 🔄 **Automatic synchronization** of data
-- 🗑️ **Easy deletion** of favorites
-
-### Customizable Settings
-- 🌡️ **Temperature units** : Celsius/Fahrenheit
-- 💨 **Wind units** : km/h, mph
-- 📊 **Pressure units** : hPa, inHg
-- 🕐 **Time format** : 12h/24h
-- 🔄 **Auto-refresh** : Customizable interval
-- 📊 **Display** : Optional charts and forecasts
-
-## 🛠️ Technologies and Tools Used
-
-### Frontend Core
-- ⚛️ **React 18** avec hooks modernes
-- 🚀 **Next.js 14** avec App Router
-- � **TypeScript 5** pour la sécurité des types
-
-### UI/UX Framework
-- 🎨 **TailwindCSS 4** pour le styling rapide
-- 🔧 **Radix UI** pour les composants accessibles
-- � **Shadcn/ui** pour le système de design
-- � **Lucide React** pour les icônes cohérentes
-
-### Data Visualization
-- 📊 **Recharts** pour les graphiques interactifs
-- � **Responsive Container** pour l'adaptabilité
-- 🎯 **Custom Charts** pour les données météo
-
-### Form Management
-- 📝 **React Hook Form** pour les formulaires performants
-- ✅ **Zod** pour la validation de schémas
-- � **@hookform/resolvers** pour l'intégration
-
-### State & Storage
-- 🏪 **React Context** pour l'état global
-- 💾 **localStorage** pour la persistance
-- � **Custom Hooks** pour la logique métier
-
-### Theme & Accessibility
-- 🌙 **next-themes** pour le thème sombre/clair
-- ♿ **ARIA** support complet
-- 📱 **Responsive Design** avec breakpoints TailwindCSS
-
-### Development Tools
-- � **ESLint** pour la qualité du code
-- 🏗️ **PostCSS** pour le traitement CSS
-- � **pnpm** pour la gestion des dépendances
+### Améliorations Techniques Planifiées
+- ⚡ **React Server Components** : Performance optimisée
+- 🧪 **Tests complets** : Jest, Testing Library, E2E
+- 🚀 **CI/CD automatisé** : Déploiement continu
+- 📈 **Analytics avancés** : Monitoring utilisateur
+- 🔍 **SEO optimization** : Référencement optimisé
+- 🎨 **Animations 3D** : Effets visuels avancés
 
 ## 🤝 Contribution et Développement
 
-Ce projet Weather Board fait partie du programme ProDev et sert d'exemple concret d'application Next.js moderne. Nous encourageons :
-
-- 🤝 **Partage de code et de solutions** : Contribuez avec vos améliorations
-- 💬 **Discussions techniques** : Discord (#ProDevProjectNexus)
-- 📚 **Documentation collaborative** : Améliorez la documentation
-- 🔄 **Revues de code** : Participez aux reviews peer-to-peer
-- 🎯 **Nouvelles fonctionnalités** : Proposez de nouvelles features météo
-
-### Roadmap et Fonctionnalités Futures
-
-#### Version 2.0 - Prochaines Fonctionnalités
-- 🗺️ **Cartes météorologiques** interactives
-- 📬 **Notifications push** pour les alertes météo
-- 📱 **Progressive Web App** (PWA) complète
-- 🔄 **Synchronisation cloud** des favoris
-- 🌍 **API géolocalisation** automatique
-- 📊 **Statistiques météo** historiques
-
-#### Améliorations Techniques
-- ⚡ **React Server Components** pour de meilleures performances
-- 🧪 **Tests unitaires** avec Jest et Testing Library
-- 🚀 **Déploiement automatisé** avec CI/CD
-- 📈 **Monitoring** et analytics
-- 🔍 **SEO optimization** avancée
-
-## 📂 Structure du Projet Détaillée
-
-```
-weather-board/
-├── app/                      # Next.js 14 App Router
-│   ├── globals.css          # Styles Tailwind personnalisés
-│   ├── layout.tsx           # Layout racine avec providers
-│   └── page.tsx             # Page principale du dashboard
-├── components/
-│   ├── ui/                  # Composants UI de base (Shadcn)
-│   │   ├── button.tsx       # Composant bouton personnalisé
-│   │   ├── card.tsx         # Cartes pour les données météo
-│   │   ├── dialog.tsx       # Modales et popups
-│   │   └── ...              # Autres composants UI
-│   ├── weather-card.tsx     # Affichage des données météo principales
-│   ├── weather-search.tsx   # Barre de recherche de localisation
-│   ├── weather-forecast.tsx # Prévisions sur plusieurs jours
-│   ├── weather-charts.tsx   # Graphiques de tendances
-│   ├── favorites-panel.tsx  # Gestion des favoris
-│   ├── settings-panel.tsx   # Configuration utilisateur
-│   └── theme-provider.tsx   # Provider pour le thème
-├── hooks/                   # Hooks React personnalisés
-│   ├── use-mobile.ts        # Détection des appareils mobiles
-│   └── use-toast.ts         # Système de notifications
-├── lib/                     # Utilitaires et helpers
-│   ├── translations.ts      # Système multilingue type-safe
-│   └── utils.ts             # Fonctions utilitaires Tailwind
-├── public/                  # Assets statiques
-└── styles/                  # Styles CSS additionnels
-```
-
-## 🤝 Contribuer au Projet
-
-Les contributions sont les bienvenues ! Voici comment vous pouvez contribuer au développement de Weather Board :
+Ce projet Weather Board fait partie du programme **ProDev Frontend Engineering** et sert d'exemple d'application Next.js moderne. Contributions bienvenues !
 
 ### Comment Contribuer
 1. 🍴 **Fork** le repository
-2. 🌿 **Créer une branche** pour votre feature (`git checkout -b feature/NewWeatherFeature`)
+2. 🌿 **Créer une branche** pour votre feature (`git checkout -b feature/NouvelleFonctionnalite`)
 3. 💾 **Commit** vos changements (`git commit -m 'Add: nouvelle fonctionnalité météo'`)
-4. 📤 **Push** vers la branche (`git push origin feature/NewWeatherFeature`)
-5. 🔃 **Ouvrir une Pull Request** avec une description détaillée
+4. 📤 **Push** vers la branche (`git push origin feature/NouvelleFonctionnalite`)
+5. 🔃 **Ouvrir une Pull Request** avec description détaillée
 
 ### Types de Contributions Recherchées
-- 🐛 **Corrections de bugs** : Améliorez la stabilité de l'application
-- ✨ **Nouvelles fonctionnalités** : Ajoutez des features météorologiques
-- � **Documentation** : Améliorez la documentation technique
-- 🎨 **Design** : Proposez des améliorations UI/UX
-- 🌍 **Traductions** : Ajoutez de nouvelles langues
-- ⚡ **Performance** : Optimisez les performances
+- 🐛 **Corrections de bugs** : Amélioration de la stabilité
+- ✨ **Nouvelles fonctionnalités** : Features météorologiques innovantes
+- 📚 **Documentation** : Amélioration documentation technique
+- 🎨 **Design & UX** : Propositions d'améliorations interface
+- 🌍 **Traductions** : Ajout de nouvelles langues
+- ⚡ **Performance** : Optimisations et améliorations
+- 🧪 **Tests** : Ajout de tests automatisés
 
 ### Guidelines de Développement
-- � **TypeScript obligatoire** : Tous les nouveaux composants doivent être typés
-- 🎨 **TailwindCSS** : Utilisez TailwindCSS pour le styling
-- ♿ **Accessibilité** : Respectez les standards WCAG
-- 📱 **Responsive** : Testez sur mobile et desktop
-- 🧪 **Tests** : Ajoutez des tests pour les nouvelles fonctionnalités
+- 📝 **TypeScript obligatoire** : Tous nouveaux composants typés
+- 🎨 **TailwindCSS** : Utilisation TailwindCSS pour styling
+- ♿ **Accessibilité** : Respect des standards WCAG 2.1
+- 📱 **Responsive Design** : Tests mobile et desktop
+- 🧪 **Tests requis** : Tests pour nouvelles fonctionnalités
+- 🎨 **Design System** : Utilisation composants Shadcn/ui
+- 🔧 **Performance** : Optimisation et memoization
 
 ## 📊 Métriques et Performance
 
 ### Performance Actuelle
-- ⚡ **Lighthouse Score** : 95+ (Performance, Accessibility, Best Practices, SEO)
-- 📦 **Bundle Size** : < 500KB (optimisé avec Next.js)
-- � **First Contentful Paint** : < 1.5s
+- ⚡ **Score Lighthouse** : 95+ (Performance, Accessibilité, SEO)
+- 📦 **Taille Bundle** : < 500KB (optimisé Next.js)
+- 🚀 **First Contentful Paint** : < 1.5s
 - 📱 **Mobile Optimized** : Interface 100% responsive
+- 🔄 **Time to Interactive** : < 2.5s
+- 📈 **Core Web Vitals** : Tous les scores au vert
 
 ### Optimisations Implémentées
-- 🖼️ **Images optimisées** avec Next.js Image
-- 📝 **Code splitting** automatique par routes
-- � **Memoization** des composants coûteux
-- 🔄 **Cache** intelligent des données météo
+- 🖼️ **Images optimisées** : Next.js Image avec lazy loading
+- 📝 **Code splitting automatique** : Division par routes
+- 💾 **Memoization** : Composants et calculs optimisés
+- 🔄 **Cache intelligent** : Données météo mises en cache
+- ⚡ **Vercel Analytics** : Monitoring performance temps réel
+- 🎨 **CSS-in-JS optimisé** : TailwindCSS tree-shaking
+- 📱 **Service Worker** : Cache ressources statiques
 
 ## 🔒 Sécurité et API
 
 ### Bonnes Pratiques de Sécurité
-- 🔐 **Variables d'environnement** pour les clés API
-- 🛡️ **Validation** stricte des entrées utilisateur
-- 🌐 **HTTPS only** en production
-- 🚫 **Pas de données sensibles** côté client
+- 🔐 **Variables d'environnement** : Sécurisation clés API
+- 🛡️ **Validation stricte** : Validation Zod des entrées
+- 🌐 **HTTPS uniquement** : SSL obligatoire en production
+- 🚫 **Pas de données sensibles** : Côté client sécurisé
+- 🔒 **Content Security Policy** : CSP headers configurés
+- 🔐 **Rate Limiting** : Protection contre abus API
 
 ### Intégration API Météo
-- 🌤️ **API WeatherAPI.com** pour les données en temps réel
-- 📊 **Rate limiting** respecté (1000 appels/mois en gratuit)
-- 🔄 **Fallback** en cas d'erreur API
-- 💾 **Cache local** pour réduire les appels
+- 🌤️ **WeatherAPI.com** : Données météo temps réel
+- 📊 **Rate limiting** : Respect limites (1000 appels/mois gratuit)
+- 🔄 **Fallback robuste** : Gestion erreurs API
+- 💾 **Cache local** : Réduction appels API
+- 🔧 **Retry Logic** : Nouvelles tentatives automatiques
+- 📈 **Monitoring API** : Surveillance performances API
+
+## 🛠️ Outils de Développement
+
+### Configuration Projet
+```json
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build", 
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  }
+}
+```
+
+### Extensions VS Code Recommandées
+- **ES7+ React/Redux/React-Native snippets**
+- **TypeScript Importer** 
+- **Tailwind CSS IntelliSense**
+- **Auto Rename Tag**
+- **Prettier - Code formatter**
+- **ESLint**
+
+## 🎨 Showcase des Composants
+
+### Liquid Button Component
+```tsx
+import { LiquidButton } from '@/components/ui/liquid-button'
+
+<LiquidButton variant="default" size="lg">
+  Rechercher Météo
+</LiquidButton>
+```
+
+### Weather Icon System
+```tsx
+import { WeatherIcon } from '@/components/weather-icons'
+
+<WeatherIcon 
+  condition="sunny" 
+  size={64} 
+  className="animate-pulse" 
+/>
+```
+
+### Detailed Views Components
+```tsx
+import { 
+  TemperatureDetailView,
+  HumidityDetailView,
+  PressureDetailView,
+  WindDetailView 
+} from '@/components'
+```
+
+## � Contexte Pédagogique
+
+Ce projet s'inscrit dans le cadre du programme **ProDev Frontend Engineering** et démontre :
+
+- 🏗️ **Architecture moderne** : Next.js 14 avec App Router
+- � **TypeScript avancé** : Types complexes et génériques
+- 🎨 **Design System** : Composants réutilisables Shadcn/ui
+- 📊 **Visualisation de données** : Graphiques interactifs
+- � **Internationalisation** : Support multilingue
+- ♿ **Accessibilité web** : Standards WCAG
+- ⚡ **Optimisation performance** : Core Web Vitals
+- 🧪 **Bonnes pratiques** : Tests, CI/CD, monitoring
+
+---
+
+## � Contact et Support
+
+- � **Discord** : banejaa
+- 📧 **Email** : nejaa.badr@gmail.com  
+- � **GitHub** : [Badrnej](https://github.com/Badrnej)
+- � **LinkedIn** : [Badr Nejaa](https://www.linkedin.com/in/badr-nejaa/)
+- � **Portfolio** : [badrnejaa.dev](https://badrnejaa.dev)
+
+---
+
+**Développé avec ❤️ pour le programme ProDev Frontend Engineering**
+
+*Weather Board - Votre tableau de bord météorologique moderne et élégant* 🌤️✨
 
 ---
 
